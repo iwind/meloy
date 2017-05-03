@@ -1,0 +1,36 @@
+.top-nav {
+	border-radius: 0!important;
+}
+
+.main {
+	position: absolute;
+	left: 18em;
+	top: 4em;
+	right: 0;
+}
+
+.main.without-menu {
+	left: 7em;
+}
+
+.main table td.title {
+	width: 10em;
+}
+
+.sub-menu {
+	position: absolute;
+	left: 7em;
+	top: 4em;
+}
+
+.sub-menu .menu {
+	width: 10em!important;
+}
+
+.sub-menu .menu a {
+	display: block;
+}
+
+.sub-menu .menu .item .menu {
+	margin-top: 0!important;
+}

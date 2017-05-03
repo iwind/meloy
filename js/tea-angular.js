@@ -381,10 +381,10 @@ window.Tea.url = function (action, params, hashParams) {
 			}
 		}
 		if (actionParam) {
-			url = base + "?__ACTION__=" + action.replace(/\./g, "/");
+			url = base + "?__ACTION__=/" + action.replace(/[.\/]+/g, "/");
 		}
 		else {
-			url = base + "/" + action.replace(/\./g, "/");
+			url = base + "/" + action.replace(/[.\/]+/g, "/");
 		}
 		if (typeof(params) == "object") {
 			params = Tea.serialize(params);

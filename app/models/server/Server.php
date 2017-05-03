@@ -14,6 +14,9 @@ class Server extends Model {
 	const STATE_DISABLED = 0; // 禁用
 	const STATE_ENABLED = 1; // 启用
 
+	const TYPE_ES = 1;
+	const TYPE_MONGO = 2;
+	const TYPE_REDIS = 3;
 
 	/**
 	 * ID
@@ -110,6 +113,44 @@ class Server extends Model {
 			->pk($serverId)
 			->state(self::STATE_ENABLED)
 			->find();
+	}
+
+	/**
+	 * 创建主机
+	 *
+	 * @param int $userId 用户ID
+	 * @param int $typeId 类型ID
+	 * @param string $name 名称
+	 * @param string $host 地址
+	 * @param int $port 端口
+	 * @return int
+	 */
+	public static function createServer($userId, $typeId, $name, $host, $port) {
+		$server = new self;
+		$server->userId = $userId;
+		$server->typeId = $typeId;
+		$server->name = $name;
+		$server->host = $host;
+		$server->port = $port;
+		$server->state = self::STATE_ENABLED;
+		$server->save();
+
+		return $server->id;
+	}
+
+	/**
+	 * 查找用户添加的某种类型的主机
+	 *
+	 * @param int $userId 用户ID
+	 * @param int $typeId 类型ID
+	 * @return self[]
+	 */
+	public static function findUserServersWithType($userId, $typeId) {
+		return self::query()
+			->attr("userId", $userId)
+			->attr("typeId", $typeId)
+			->asc()
+			->findAll();
 	}
 }
 

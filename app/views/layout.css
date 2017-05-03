@@ -4,7 +4,7 @@
 
 .main {
 	position: absolute;
-	left: 18em;
+	left: 20em;
 	top: 4em;
 	right: 0;
 }
@@ -24,7 +24,7 @@
 }
 
 .sub-menu .menu {
-	width: 10em!important;
+	width: 12em!important;
 }
 
 .sub-menu .menu a {

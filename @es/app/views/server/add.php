@@ -1,5 +1,7 @@
 {tea:layout}
 
+<h3>添加新主机</h3>
+
 <form class="ui form" data-tea-action=".save">
 	<table class="ui table">
 		<tr>
@@ -19,6 +21,10 @@
 			<td>
 				<input type="text" name="port" placeholder="比如9200" value="9200"/>
 			</td>
+		</tr>
+		<tr>
+			<td>检查连接是否正常</td>
+			<td><input type="checkbox" name="check" value="1" checked="checked"/></td>
 		</tr>
 	</table>
 

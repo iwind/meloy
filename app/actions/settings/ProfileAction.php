@@ -8,7 +8,11 @@ class ProfileAction extends BaseAction {
 	protected $_subMenu = "profile";
 
 	public function run() {
-		$this->data->user = User::find($this->userId());
+		$user = User::find($this->userId());
+		$this->data->user = [
+			"nickname" => $user->nickname,
+			"email" => $user->email
+		];
 	}
 }
 

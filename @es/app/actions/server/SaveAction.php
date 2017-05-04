@@ -9,7 +9,7 @@ use es\Exception;
 use tea\Must;
 
 class SaveAction extends BaseAction {
-	public function run(string $name, string $host, int $port, Must $must) {
+	public function run(string $name, string $host, int $port, bool $check, Must $must) {
 		//校验输入
 		$must->field("name", $name)
 			->require("请输入主机名")
@@ -22,11 +22,13 @@ class SaveAction extends BaseAction {
 		}
 
 		//测试端口
-		$api = new API($host, $port);
-		try {
-			$api->get("/", "");
-		} catch (Exception $e) {
-			$this->field("host", "地址和端口测试失败")->fail();
+		if ($check) {
+			$api = new API($host, $port);
+			try {
+				$api->get("/", "");
+			} catch (Exception $e) {
+				$this->field("host", "地址和端口测试失败，请重新检查")->fail();
+			}
 		}
 
 		//保存

@@ -51,9 +51,35 @@
 			<div class="item teal" ng-class="{active:subMenu.active}" ng-if="!subMenu.url || subMenu.url.length == 0">
 				{{subMenu.name}}
 			</div>
+
+			<!-- 第二层菜单 -->
 			<div class="item" ng-if="subMenu.items.length > 0">
 				<div class="menu">
-					<a href="{{item.url}}" class="teal item" ng-class="{active:item.active}" ng-repeat="item in subMenu.items">{{item.name}}</a>
+					<div ng-repeat="item in subMenu.items">
+						<a href="{{item.url}}" class="teal item" ng-class="{active:item.active}" >
+							{{item.name}}
+						</a>
+
+						<!-- 第三层菜单 -->
+						<div ng-if="item.items && item.items.length > 0" class="third-menu">
+							<!--<div class="item"><strong ng-bind-html="item.items[0].name|allow"></strong></div>-->
+							<div ng-repeat="(subIndex,subItem) in item.items" ng-if="subIndex > 0">
+								<a class="item teal" ng-class="{active:subItem.active}" href="{{subItem.url}}"><i class="icon database"></i>{{subItem.name}}</a>
+
+								<!-- 第四层菜单 -->
+								<div ng-if="subItem.items && subItem.items.length > 0" class="fourth-menu">
+									<!--<div class="item">
+										<strong ng-bind-html="subItem.items[0].name|allow"></strong>
+									</div>-->
+									<div ng-repeat="(subSubIndex, subSubItem) in subItem.items" ng-if="subSubIndex > 0">
+										<a class="item teal" ng-class="{active:subSubItem.active}" href="{{subSubItem.url}}">
+											<i class="table icon"></i>{{subSubItem.name}}
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -62,6 +88,11 @@
 
 <!-- 右侧主操作栏 -->
 <div class="main" ng-class="{'without-menu': !subMenus || subMenus.length == 0}">
+	<!-- 操作菜单 -->
+	<div class="ui top attached menu tabular" ng-if="tabbar">
+		<a class="item" ng-repeat="item in tabbar" ng-class="{active:item.active}" href="{{item.url}}">{{item.name}}</a>
+	</div>
+
 	{tea:placeholder}
 </div>
 

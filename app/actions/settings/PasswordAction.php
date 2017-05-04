@@ -8,7 +8,12 @@ class PasswordAction extends BaseAction {
 	protected $_subMenu = "password";
 
 	public function run() {
-		$this->data->user = User::find($this->userId());
+		$user = User::find($this->userId());
+
+		$this->data->user = [
+			"nickname" => $user->nickname,
+			"email" => $user->email
+		];
 	}
 }
 

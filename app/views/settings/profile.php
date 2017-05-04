@@ -1,5 +1,7 @@
 {tea:layout}
 
+<h3>个人资料</h3>
+
 <form class="ui form" data-tea-action=".saveProfile">
 	<table class="ui table">
 		<tr>

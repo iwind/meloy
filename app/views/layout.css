@@ -17,6 +17,10 @@
 	width: 10em;
 }
 
+.main h3 {
+	font-weight: normal;
+}
+
 .sub-menu {
 	position: absolute;
 	left: 7em;
@@ -33,4 +37,12 @@
 
 .sub-menu .menu .item .menu {
 	margin-top: 0!important;
+}
+
+.sub-menu .fourth-menu {
+	margin-left: 1.2em;
+}
+
+.sub-menu .fourth-menu .icon, .sub-menu .third-menu .icon {
+	float: left!important;
 }

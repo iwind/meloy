@@ -4,6 +4,7 @@ namespace es\app\actions;
 
 use app\classes\AuthAction;
 use app\models\server\Server;
+use es\Exception;
 use tea\Request;
 
 class BaseAction extends AuthAction {
@@ -12,20 +13,78 @@ class BaseAction extends AuthAction {
 	public function before() {
 		parent::before();
 
+		//加载ES操作库
+		import(TEA_ROOT . DS . "@es/app/libs");
+
 		$this->data->menu = "@es";
 
 		//用户创建的主机
+		$request = Request::shared();
+		$serverId = $request->param("serverId");
+		$index = $request->param("index");
+		$type = $request->param("type");
 		$subMenus = [];
 		foreach (Server::findUserServersWithType($this->userId(), Server::TYPE_ES) as $server) {
-			$subMenus[] = [
+			$menu = [
 				"name" => $server->name . "(" . $server->host . ":" . $server->port . ")",
 				"url" => u("@.server", [ "serverId" => $server->id ]),
-				"active" => $server->id == Request::shared()->param("serverId")
+				"active" => $server->id == $serverId,
+				"items" => []
 			];
+
+			//索引
+			if ($server->id == $serverId) {
+				$api = $server->api();
+
+				$hasError = false;
+				try {
+					$indexes = $api->get("/_all", "");
+				} catch (Exception $e) {
+					$hasError = true;
+					$indexes = [];
+				}
+
+				if ($hasError) {
+					$menu["items"][] = [
+						"name" => "[无法连接此主机]"
+					];
+				}
+				else {
+					$menu["items"][] = [
+						"name" => "索引 &raquo;"
+					];
+					foreach ($indexes as $indexName => $info) {
+						$subItems = [];
+
+						$subItems[] = [
+							"name" => "类型 &raquo;"
+						];
+
+						if ($index == $indexName) {
+							foreach ($info["mappings"] as $typeName => $mapping) {
+								$subItems[] = [
+									"name" => $typeName,
+									"url" => u("@.type", ["serverId" => $serverId, "index" => $indexName, "type" => $typeName]),
+									"active" => $serverId == $server->id && $index == $indexName && $type == $typeName
+								];
+							}
+						}
+
+						//@TODO 显示 aliases
+						$menu["items"][] = [
+							"name" => $indexName,
+							"url" => u("@.indice", ["serverId" => $serverId, "index" => $indexName]),
+							"items" => $subItems,
+							"active" => $serverId == $server->id && $index == $indexName
+						];
+					}
+				}
+			}
+
+			$subMenus[] = $menu;
 		}
 
 		//获取用户可以使用的主机
-
 
 		//定义菜单
 		$subMenus[] = [
@@ -39,9 +98,6 @@ class BaseAction extends AuthAction {
 				"items" => $subMenus
 			],
 		];
-
-		//加载ES操作库
-		import(TEA_ROOT . DS . "@es/app/libs");
 	}
 }
 

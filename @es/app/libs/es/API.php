@@ -209,7 +209,12 @@ class API {
 		//curl_close($curl);
 
 		if ($code != 200 && $code != 201) {
-			throw new Exception("api response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT), $code);
+			if (substr($response, 0, 1) == "{") {
+				throw new Exception("api response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT), $code);
+			}
+			else {
+				throw new Exception($response, $code);
+			}
 		}
 
 		return json_decode($response, true);

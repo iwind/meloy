@@ -1,5 +1,7 @@
 {tea:layout}
 
+<h3>登录密码</h3>
+
 <form class="ui form" data-tea-action=".savePassword">
 	<table class="ui table">
 		<tr>

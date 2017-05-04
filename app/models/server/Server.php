@@ -2,6 +2,7 @@
 
 namespace app\models\server;
 
+use es\API;
 use \tea\db\Model;
 
 /**
@@ -64,6 +65,15 @@ class Server extends Model {
 	 * @var int
 	 */
 	public $state;
+
+	/**
+	 * 获取API
+	 *
+	 * @return API
+	 */
+	public function api() {
+		return new API($this->host, $this->port);
+	}
 
 	/**
 	 * 根据ID查找名称

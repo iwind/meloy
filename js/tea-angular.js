@@ -19,6 +19,8 @@ window.Tea.View = new function () {
 			that.$compile = $compile;
 			that.$templateRequest = $templateRequest;
 
+			$scope.Tea = window.Tea;
+
 			for (var key in TEA.ACTION.data) {
 				if (TEA.ACTION.data.hasOwnProperty(key)) {
 					$scope[key] = TEA.ACTION.data[key];

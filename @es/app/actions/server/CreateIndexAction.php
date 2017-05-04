@@ -16,7 +16,10 @@ class CreateIndexAction extends BaseAction {
 		//发送接口
 		try {
 			$this->_api->put("/" . $name, "");
-			$this->refresh()->success("创建成功");
+			$this->next("@.indice", [
+				"serverId" => $this->_server->id(),
+				"index" => $name
+			])->success("创建成功");
 		} catch (Exception $e) {
 			$this->fail($e->getMessage());
 		}

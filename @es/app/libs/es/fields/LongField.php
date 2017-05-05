@@ -5,7 +5,7 @@ namespace es\fields;
 class LongField extends NumericField {
 
 	public function type() {
-		return self::TYPE_LONG;
+		return "long";
 	}
 }
 

@@ -6,7 +6,7 @@ class ObjectField extends  Field {
 
 
 	public function type() {
-		return self::TYPE_OBJECT;
+		return "object";
 	}
 
 	public function asArray() {

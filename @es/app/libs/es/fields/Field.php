@@ -10,31 +10,10 @@ namespace es\fields;
  * @package es\fields
  */
 abstract class Field {
-	const TYPE_STRING = "string";
-	const TYPE_LONG = "long";
-	const TYPE_INTEGER = "integer";
-	const TYPE_SHORT = "short";
-	const TYPE_BYTE = "byte";
-	const TYPE_DOUBLE = "double";
-	const TYPE_FLOAT = "float";
-	const TYPE_DATE = "date";
-	const TYPE_BOOLEAN = "boolean";
-	const TYPE_BINARY = "binary";
-
-	const TYPE_OBJECT = "object";
-	const TYPE_NESTED = "nested";
-
-	const TYPE_GEO_POINT = "geo_point";
-	const TYPE_GEO_SHAPE = "geo_shape";
-
-	const TYPE_IP = "ip";
-	const TYPE_COMPLETION = "completion";
-	const TYPE_TOKEN_COUNT = "token_count";
-	const TYPE_MURMUR3 = "murmur3";
-	const TYPE_ATTACHMENT = "attachment";
-
 	private $_name;
 	private $_params = [];
+	private $_docUrl;
+	private $_description;
 
 	/**
 	 * @var self[]
@@ -48,6 +27,11 @@ abstract class Field {
 
 	public function name() {
 		return $this->_name;
+	}
+
+	public function setName($name) {
+		$this->_name = $name;
+		return $this;
 	}
 
 	public function setParam($name, $value) {
@@ -71,6 +55,24 @@ abstract class Field {
 		return $this->_children;
 	}
 
+	public function setDescription($description) {
+		$this->_description = $description;
+		return $this;
+	}
+
+	public function description() {
+		return $this->_description;
+	}
+
+	public function setDocUrl($docUrl) {
+		$this->_docUrl = $docUrl;
+		return $this;
+	}
+
+	public function docUrl() {
+		return $this->_docUrl;
+	}
+
 	public function asArray() {
 		$params = $this->_params;
 		$params["type"] = $this->type();
@@ -92,6 +94,30 @@ abstract class Field {
 
 	public function asPrettyJson() {
 		return json_encode($this->asArray(), JSON_PRETTY_PRINT);
+	}
+
+	public function supportsVersion($version) {
+		return true;
+	}
+
+	/**
+	 * 根据字段类型构造字段对象
+	 *
+	 * @param string $fieldType 字段类型代号
+	 * @return Field
+	 */
+	public static function fieldWithType($fieldType) {
+		$classPrefix = ucfirst(preg_replace_callback("/_(\\w)/", function ($match) {
+			return strtoupper($match[1]);
+		}, $fieldType));
+		$className = __NAMESPACE__ . "\\" .  $classPrefix . "Field";
+
+		/**
+		 * 字段对象
+		 *
+		 * @var Field $field
+		 */
+		return new $className("");
 	}
 
 	public abstract function type();

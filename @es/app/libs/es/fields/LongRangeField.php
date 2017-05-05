@@ -2,10 +2,10 @@
 
 namespace es\fields;
 
-class FloatField extends NumericField {
+class LongRangeField extends Field {
 
 	public function type() {
-		return "float";
+		return "long_range";
 	}
 }
 

@@ -2,10 +2,10 @@
 
 namespace es\fields;
 
-class FloatField extends NumericField {
+class TextField extends Field {
 
 	public function type() {
-		return "float";
+		return "text";
 	}
 }
 

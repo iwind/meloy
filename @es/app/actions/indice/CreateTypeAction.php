@@ -1,0 +1,50 @@
+<?php
+
+namespace es\app\actions\indice;
+
+use es\fields\Field;
+use es\Mapping;
+use tea\Must;
+
+class CreateTypeAction extends BaseAction {
+	public function run(string $name, array $fieldTypes, array $fieldNames, Must $must) {
+		//校验输入的参数
+		$must->field("name", $name)
+			->require("请输入类型名称");
+
+		//@TODO 需要校验名称的有效性
+
+		//@TODO 对$fieldType需要有更严格的校验
+		$mapping = new Mapping($name);
+		foreach ($fieldTypes as $index => $fieldType) {
+			if (!isset($fieldNames[$index])) {
+				$this->fail("字段名不能为空");
+			}
+
+			$fieldName = trim($fieldNames[$index]);
+			if (is_empty($fieldName)) {
+				$this->fail("字段名不能为空");
+			}
+
+			//@TODO 需要对$fieldNames[$index]进行更严格的校验
+
+			$field = Field::fieldWithType($fieldType);
+			$field->setName($fieldName);
+			$mapping->add($field);
+		}
+
+		if ($mapping->countFields() == 0) {
+			$this->fail("请先添加字段");
+		}
+
+		$this->_api->putMapping($this->_index, $name, $mapping->asArray());
+
+		$this->next("@.type", [
+			"serverId" => $this->_server->id,
+			"index" => $this->_index,
+			"type" => $name
+		])->success("添加成功");
+	}
+}
+
+?>

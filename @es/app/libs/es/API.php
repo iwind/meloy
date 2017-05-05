@@ -220,7 +220,7 @@ class API {
 		return json_decode($response, true);
 	}
 
-	public function get($endpoint, $json) {
+	public function get($endpoint, $json = null) {
 		$curl = curl_init($this->_api . $endpoint);
 
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
@@ -239,8 +239,16 @@ class API {
 		$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		curl_close($curl);
 
+		if (is_empty($response)) {
+			throw new Exception("can not connect to server");
+		}
 		if ($code != 200) {
-			throw new Exception("api response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT), $code);
+			if (substr($response, 0, 1) == "{") {
+				throw new Exception("api response error:\n" . $response, $code);
+			}
+			else {
+				throw new Exception("api response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT), $code);
+			}
 		}
 
 		return json_decode($response, true);

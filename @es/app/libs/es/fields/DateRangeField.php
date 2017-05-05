@@ -2,10 +2,10 @@
 
 namespace es\fields;
 
-class FloatField extends NumericField {
+class DateRangeField extends Field {
 
 	public function type() {
-		return "float";
+		return "date_range";
 	}
 }
 

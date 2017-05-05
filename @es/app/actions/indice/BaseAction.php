@@ -4,6 +4,7 @@ namespace es\app\actions\indice;
 
 use app\models\server\Server;
 use es\API;
+use tea\Arrays;
 use tea\Request;
 
 class BaseAction extends \es\app\actions\BaseAction {
@@ -64,11 +65,25 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "index"
 			],
 			[
+				"name" => "创建类型",
+				"url" => u(".createTypeForm", [ "serverId" => $serverId, "index" => $index ]),
+				"active" => $this->name() == "createTypeForm"
+			],
+			[
 				"name" => "删除",
 				"url" => u(".deleteIndexForm", [ "serverId" => $serverId, "index" => $index ]),
 				"active" => $this->name() == "deleteIndexForm"
 			]
 		];
+	}
+
+	/**
+	 * 取得ES服务版本
+	 *
+	 * @return string
+	 */
+	public function serverVersion() {
+		return Arrays::flatten($this->_api->get(""))["version.number"];
 	}
 }
 

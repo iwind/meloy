@@ -25,6 +25,10 @@ class Mapping {
 		return $this;
 	}
 
+	public function countFields() {
+		return count($this->_fields);
+	}
+
 	public function asArray() {
 		$properties = [];
 		foreach ($this->_fields as $field) {

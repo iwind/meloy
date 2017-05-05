@@ -72,7 +72,7 @@ window.Tea.View = new function () {
 					if (typeof(prop) == "function") {
 						(function (prop) {
 							that.$scope[key] = function () {
-								return prop.call(that);
+								return prop.apply(that.$scope, arguments);
 							};
 						})(prop);
 					}

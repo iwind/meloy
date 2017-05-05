@@ -17,6 +17,10 @@
 	width: 10em;
 }
 
+.main table td.middle-title {
+	width: 14em;
+}
+
 .main h3 {
 	font-weight: normal;
 }

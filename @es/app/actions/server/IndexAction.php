@@ -2,9 +2,11 @@
 
 namespace es\app\actions\server;
 
-class IndexAction extends BaseAction {
-	public function run(int $serverId) {
+use tea\Arrays;
 
+class IndexAction extends BaseAction {
+	public function run() {
+		$this->data->info = Arrays::flatten($this->_api->get(""));
 	}
 }
 

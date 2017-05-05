@@ -5,7 +5,7 @@ namespace es\fields;
 class DateField extends Field {
 
 	public function type() {
-		return self::TYPE_DATE;
+		return "date";
 	}
 
 	public function setFormat($format) {

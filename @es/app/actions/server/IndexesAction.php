@@ -9,14 +9,13 @@ class IndexesAction extends BaseAction {
 		$indexes = $this->_api->get("/_cat/indices?format=json", "");
 
 		if (!empty($indexes)) {
-			$titles = array_keys($indexes[0]);
-
+			$titles = array_keys(get_object_vars($indexes[0]));
 			$indexAt = array_keys($titles, "index")[0];
 			array_unshift($titles, "index");
 			unset($titles[$indexAt + 1]);
 
 			$indexes = array_map(function ($v) use ($indexAt) {
-				$values =  array_values($v);
+				$values =  array_values(get_object_vars($v));
 				array_unshift($values, $values[$indexAt]);
 				unset($values[$indexAt + 1]);
 				return $values;

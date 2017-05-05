@@ -22,7 +22,7 @@
 </div>
 
 <!-- 左侧主菜单 -->
-<div class="menu">
+<div class="main-menu">
 	<div class="ui labeled icon menu vertical teal">
 		<a href="{tea:url dashboard}" class="item" ng-class="{active:menu == 'dashboard'}">
 			<i class="dashboard icon"></i>

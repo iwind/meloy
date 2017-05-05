@@ -20,8 +20,9 @@ class Query {
 	const ORDER_DESC = "desc";
 
 	private $_docModel;
+	private $_indexId;
 	private $_index;
-	private $_mapping;
+	private $_type;
 
 	private $_offset = 0;
 	private $_size = 10;
@@ -58,10 +59,15 @@ class Query {
 	public function model($model) {
 		$this->_docModel = $model;
 		if (class_exists($model)) {
-			$this->_index = call_user_func([ $model, "index" ]);
-			$this->_mapping = call_user_func( [ $model, "mapping" ]);
+			$this->_indexId = call_user_func([ $model, "index" ]);
+			$this->_type = call_user_func( [ $model, "type" ]);
 		}
 
+		return $this;
+	}
+
+	public function indexId($indexId) {
+		$this->_indexId = $indexId;
 		return $this;
 	}
 
@@ -70,8 +76,8 @@ class Query {
 		return $this;
 	}
 
-	public function mapping($mapping) {
-		$this->_mapping = $mapping;
+	public function type($type) {
+		$this->_type = $type;
 		return $this;
 	}
 
@@ -377,11 +383,11 @@ class Query {
 	}
 
 	public function count() {
-		if (pp_is_empty($this->_index)) {
+		if (is_empty($this->_indexId)) {
 			throw new Exception("please specify a index id for query");
 		}
-		$index = Index::indexWithId($this->_index);
-		return $index->api()->countQuery($index->name(), $this->_mapping, $this->asArray(false));
+		$index = Index::indexWithId($this->_indexId);
+		return $index->api()->countQuery($index->name(), $this->_type, $this->asArray(false));
 	}
 
 	public function queryId($version = nil) {
@@ -407,15 +413,13 @@ class Query {
 	 * @throws Exception
 	 */
 	public function findAll() {
-		if (pp_is_empty($this->_index)) {
+		if (is_empty($this->_indexId)) {
 			throw new Exception("please specify a index id for query");
 		}
-		$index = Index::indexWithId($this->_index);
+		$index = Index::indexWithId($this->_indexId);
 		$ones = [];
 
-		$result = $index->api()->searchQuery($index->name(), $this->_mapping, $this->asArray());
-
-		//p(json_encode($result, JSON_PRETTY_PRINT));
+		$result = $index->api()->searchQuery($index->name(), $this->_type, $this->asArray());
 
 		if (!empty($result["_shards"]["failures"])) {
 			throw new Exception(json_encode($result["_shards"]["failures"][0]["reason"], JSON_PRETTY_PRINT));
@@ -432,7 +436,7 @@ class Query {
 				if (is_null($source)) {
 					continue;
 				}
-				if (!pp_is_empty($this->_docModel)) {
+				if (!is_empty($this->_docModel)) {
 					$docObject = new $this->_docModel($source);
 				}
 				else {
@@ -464,7 +468,7 @@ class Query {
 				foreach ($buckets as &$bucket) {
 					$source = unserialize($bucket);
 
-					if (!pp_is_empty($this->_docModel)) {
+					if (!is_empty($this->_docModel)) {
 						$bucket = new $this->_docModel($source);
 					}
 					else {
@@ -514,7 +518,7 @@ class Query {
 										$sources[] = serialize($source);
 									}
 
-									if (!pp_is_empty($this->_docModel)) {
+									if (!is_empty($this->_docModel)) {
 										$docObject = new $this->_docModel($source);
 									}
 									else {
@@ -553,11 +557,11 @@ class Query {
 	}
 
 	public function insert(array $attrs) {
-		if (pp_is_empty($this->_index)) {
+		if (is_empty($this->_indexId)) {
 			throw new Exception("please specify a index id for query");
 		}
-		$index = Index::indexWithId($this->_index);
-		return $index->api()->putDoc($index->name(), $this->_mapping, isset($attrs["id"]) ? $attrs["id"] : null, $attrs);
+		$index = Index::indexWithId($this->_indexId);
+		return $index->api()->putDoc($index->name(), $this->_type, isset($attrs["id"]) ? $attrs["id"] : null, $attrs);
 	}
 
 	/**t
@@ -567,11 +571,11 @@ class Query {
 	 * @throws
 	 */
 	public function delete() {
-		if (pp_is_empty($this->_index)) {
+		if (is_empty($this->_indexId)) {
 			throw new Exception("please specify a index id for query");
 		}
-		$index = Index::indexWithId($this->_index);
-		return $index->api()->deleteWithQuery($index->name(), $this->_mapping, $this->asArray(false));
+		$index = Index::indexWithId($this->_indexId);
+		return $index->api()->deleteWithQuery($index->name(), $this->_type, $this->asArray(false));
 	}
 
 	/**

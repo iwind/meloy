@@ -13,11 +13,11 @@ class Doc extends \stdClass {
 	public static $INDEX;
 
 	/**
-	 * 数据映射
+	 * 类型
 	 *
 	 * @var string
 	 */
-	public static $MAPPING;
+	public static $TYPE;
 
 	/**
 	 * @var DocMeta
@@ -59,8 +59,8 @@ class Doc extends \stdClass {
 		return get_class_vars(static::class)["INDEX"];
 	}
 
-	public static function mapping() {
-		return get_class_vars(static::class)["MAPPING"];
+	public static function type() {
+		return get_class_vars(static::class)["TYPE"];
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Doc extends \stdClass {
 	 * @return TypeBulk
 	 */
 	public static function bulk() {
-		return new TypeBulk(static::index(), static::mapping());
+		return new TypeBulk(static::index(), static::type());
 	}
 
 	public function asArray() {

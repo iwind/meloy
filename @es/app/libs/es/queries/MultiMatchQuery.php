@@ -21,13 +21,13 @@ class MultiMatchQuery extends Query {
 	}
 
 	public function asArray() {
-		if (pp_is_empty($this->_fields)) {
+		if (is_empty($this->_fields)) {
 			throw new QueryException("you should set fields for MatchQuery");
 		}
 
 		$array = [];
 		$array["fields"] = $this->_fields;
-		if (!pp_is_empty($this->_query)) {
+		if (!is_empty($this->_query)) {
 			$array["query"] = $this->_query;
 		}
 

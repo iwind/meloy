@@ -16,7 +16,8 @@ class DeleteIndexAction extends BaseAction {
 		}
 
 		//跳转到主机
-		$this->next("@.server", [ "serverId" => $this->_server->id ]);
+		$this->next("@.server", [ "serverId" => $this->_server->id ])
+			->success("删除成功");
 	}
 }
 

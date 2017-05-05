@@ -32,7 +32,7 @@ class ShapePolygonValue extends ShapeValue {
 			"coordinates" => $this->points()
 		];
 
-		if (!pp_is_empty($this->_orientation)) {
+		if (!is_empty($this->_orientation)) {
 			$value["orientation"] = $this->_orientation;
 		}
 

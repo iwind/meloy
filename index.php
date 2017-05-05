@@ -8,6 +8,8 @@ define("TEA_ENABLE_ACTION_PARAM", true);
 define("TEA_PUBLIC", __DIR__);
 
 require "TeaPHP/tea.php";
+require "functions.php";
+
 Tea::shared()
 	->actionView(AngularActionView::class)
 	->start();

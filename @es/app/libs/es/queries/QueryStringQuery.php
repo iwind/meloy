@@ -38,16 +38,16 @@ class QueryStringQuery extends Query {
 
 	public function asArray() {
 		$array = [];
-		if (!pp_is_empty($this->_query)) {
+		if (!is_empty($this->_query)) {
 			$array["query"] = $this->_query;
 		}
-		if (!pp_is_empty($this->_defaultField)) {
+		if (!is_empty($this->_defaultField)) {
 			$array["default_field"] = $this->_defaultField;
 		}
-		if (!pp_is_empty($this->_defaultOperator)) {
+		if (!is_empty($this->_defaultOperator)) {
 			$array["default_operator"] = $this->_defaultOperator;
 		}
-		if (!pp_is_empty($this->_fields)) {
+		if (!is_empty($this->_fields)) {
 			$array["fields"] = $this->_fields;
 		}
 		return $array;

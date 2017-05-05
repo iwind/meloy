@@ -21,12 +21,12 @@ class MatchQuery extends Query {
 	}
 
 	public function asArray() {
-		if (pp_is_empty($this->_field)) {
+		if (is_empty($this->_field)) {
 			throw new QueryException("you should set field for MatchQuery");
 		}
 
 		$array = [];
-		if (!pp_is_empty($this->_query)) {
+		if (!is_empty($this->_query)) {
 			$array["query"] = $this->_query;
 		}
 

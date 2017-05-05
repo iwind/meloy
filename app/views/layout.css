@@ -1,5 +1,8 @@
 .top-nav {
 	border-radius: 0!important;
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
 }
 
 .main {
@@ -25,8 +28,13 @@
 	font-weight: normal;
 }
 
+.main-menu {
+	position: fixed;
+	top: 4em;
+}
+
 .sub-menu {
-	position: absolute;
+	position: fixed;
 	left: 7em;
 	top: 4em;
 }

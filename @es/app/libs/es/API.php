@@ -143,7 +143,7 @@ class API {
 			$result = $this->put("/_bulk", $chunkData);
 
 			$results["took"] += $result["took"];
-			if (!pp_is_empty($result["errors"])) {
+			if (!is_empty($result["errors"])) {
 				$results["errors"] = $result["errors"];
 
 				if ($results["errors"]) {
@@ -186,7 +186,7 @@ class API {
 		if (is_array($query) && empty($query)) {
 			$query = (object)[];
 		}
-		return $this->get("/" . $index . "/" . $mapping . "/_count", json_encode($query))["count"];
+		return $this->get("/" . $index . "/" . $mapping . "/_count", json_encode($query))->count;
 	}
 
 	public function put($endpoint, $json) {
@@ -251,7 +251,7 @@ class API {
 			}
 		}
 
-		return json_decode($response, true);
+		return json_decode($response);
 	}
 
 	public function post($endpoint, $json) {
@@ -268,7 +268,7 @@ class API {
 			throw new Exception("api response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT), $code);
 		}
 
-		return json_decode($response, true);
+		return json_decode($response);
 	}
 
 	public function head($endpoint, $args) {
@@ -297,7 +297,7 @@ class API {
 		curl_close($curl);
 
 		if ($response) {
-			return  json_decode($responseText, true);
+			return  json_decode($responseText);
 		}
 		return $code;
 	}

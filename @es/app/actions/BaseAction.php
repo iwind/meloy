@@ -61,7 +61,7 @@ class BaseAction extends AuthAction {
 						];
 
 						if ($index == $indexName) {
-							foreach ($info["mappings"] as $typeName => $mapping) {
+							foreach ($info->mappings as $typeName => $mapping) {
 								$subItems[] = [
 									"name" => $typeName,
 									"url" => u("@.type", ["serverId" => $serverId, "index" => $indexName, "type" => $typeName]),

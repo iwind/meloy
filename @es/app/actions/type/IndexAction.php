@@ -14,7 +14,7 @@ class IndexAction extends BaseAction {
 
 		//分页
 		$page = new SemanticPage();
-		$page->total($this->data->total)
+		$page->total(min($this->data->total, 10000)) //只显示前10000个
 			->autoQuery(true);
 		$this->data->page = $page->asHtml();
 

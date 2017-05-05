@@ -28,6 +28,10 @@
 	font-weight: normal;
 }
 
+.main h3 span {
+	font-size: 0.8em;
+}
+
 .main-menu {
 	position: fixed;
 	top: 4em;

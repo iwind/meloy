@@ -4,6 +4,7 @@ namespace es\app\actions;
 
 use app\classes\AuthAction;
 use app\models\server\Server;
+use es\api\GetIndexApi;
 use es\Exception;
 use tea\Request;
 
@@ -34,11 +35,14 @@ class BaseAction extends AuthAction {
 
 			//索引
 			if ($server->id == $serverId) {
-				$api = $server->api();
+				/**
+				 * @var GetIndexApi $api
+				 */
+				$api = $server->api(GetIndexApi::class);
 
 				$hasError = false;
 				try {
-					$indexes = $api->get("/_all", "");
+					$indexes = $api->getAll();
 				} catch (Exception $e) {
 					$hasError = true;
 					$indexes = [];

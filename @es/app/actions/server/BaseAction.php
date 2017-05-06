@@ -3,7 +3,6 @@
 namespace es\app\actions\server;
 
 use app\models\server\Server;
-use es\API;
 use tea\Request;
 
 class BaseAction extends \es\app\actions\BaseAction {
@@ -13,13 +12,6 @@ class BaseAction extends \es\app\actions\BaseAction {
 	 * @var Server
 	 */
 	protected $_server;
-
-	/**
-	 * ES操作API
-	 *
-	 * @var API
-	 */
-	protected $_api;
 
 	public function before() {
 		parent::before();
@@ -36,7 +28,6 @@ class BaseAction extends \es\app\actions\BaseAction {
 
 		//主机信息
 		$this->_server = $server;
-		$this->_api = new API($server->host, $server->port);
 		$this->data->server = (object)[
 			"id" => $server->id,
 			"name" => $server->name,

@@ -2,6 +2,7 @@
 
 namespace es\app\actions\server;
 
+use es\api\CreateIndexApi;
 use es\Exception;
 use tea\Must;
 
@@ -15,7 +16,11 @@ class CreateIndexAction extends BaseAction {
 
 		//发送接口
 		try {
-			$this->_api->put("/" . $name, "");
+			/**
+			 * @var CreateIndexApi $api
+			 */
+			$api = $this->_server->api(CreateIndexApi::class);
+			$api->index($name)->create();
 			$this->next("@.indice", [
 				"serverId" => $this->_server->id(),
 				"index" => $name

@@ -1,0 +1,9 @@
+#docs-box pre.doc {
+	max-height: 12em;
+	overflow-y: hidden;
+}
+
+#docs-box pre.doc.full {
+	overflow-y: auto;
+	width: 80%;
+}

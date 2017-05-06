@@ -2,7 +2,7 @@
 
 namespace app\models\server;
 
-use es\API;
+use es\api\Api;
 use \tea\db\Model;
 
 /**
@@ -69,10 +69,19 @@ class Server extends Model {
 	/**
 	 * 获取API
 	 *
-	 * @return API
+	 * @param API类名
+	 * @return Api
 	 */
-	public function api() {
-		return new API($this->host, $this->port);
+	public function api($class) {
+		$prefix = "http://" . $this->host . ":" . $this->port;
+
+		/**
+		 * @var Api $obj
+		 */
+		$obj = new $class;
+		$obj->prefix($prefix);
+
+		return $obj;
 	}
 
 	/**

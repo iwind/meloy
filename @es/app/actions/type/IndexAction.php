@@ -2,6 +2,8 @@
 
 namespace es\app\actions\type;
 
+use es\api\CountApi;
+use es\api\SearchApi;
 use es\Query;
 use tea\page\SemanticPage;
 
@@ -10,7 +12,14 @@ class IndexAction extends BaseAction {
 		$query = new Query();
 
 		//查询总数
-		$this->data->total = $this->_api->countQuery($this->_index, $this->_type, $query);
+		/**
+		 * @var CountApi $api
+		 */
+		$api = $this->_server->api(CountApi::class);
+		$api->index($this->_index)
+			->type($this->_type)
+			->query($query);
+		$this->data->total = $api->count();
 
 		//分页
 		$page = new SemanticPage();
@@ -21,7 +30,16 @@ class IndexAction extends BaseAction {
 		//查询当前页内容
 		$query->offset($page->offset());
 		$query->size($page->size());
-		$result = $this->_api->searchQuery($this->_index, $this->_type, $query->asArray());
+
+		/**
+		 * @var SearchApi $api
+		 */
+		$api = $this->_server->api(SearchApi::class);
+		$api->index($this->_index);
+		$api->type($this->_type);
+		$api->query($query);
+
+		$result = $api->search();
 		$docs = $result->hits->hits;
 		$this->data->docs = array_map(function ($doc) {
 			return json_unicode_to_utf8(json_encode($doc, JSON_PRETTY_PRINT));

@@ -4,6 +4,7 @@ namespace es\app\actions\indice;
 
 use app\models\server\Server;
 use es\API;
+use es\api\GetIndexApi;
 use tea\Arrays;
 use tea\Request;
 
@@ -14,13 +15,6 @@ class BaseAction extends \es\app\actions\BaseAction {
 	 * @var Server
 	 */
 	protected $_server;
-
-	/**
-	 * ES操作API
-	 *
-	 * @var API
-	 */
-	protected $_api;
 
 	/**
 	 * 索引名
@@ -44,7 +38,6 @@ class BaseAction extends \es\app\actions\BaseAction {
 
 		//主机信息
 		$this->_server = $server;
-		$this->_api = new API($server->host, $server->port);
 		$this->data->server = (object)[
 			"id" => $server->id,
 			"name" => $server->name,
@@ -83,7 +76,12 @@ class BaseAction extends \es\app\actions\BaseAction {
 	 * @return string
 	 */
 	public function serverVersion() {
-		return Arrays::flatten($this->_api->get(""))["version.number"];
+		/**
+		 * @var GetIndexApi $api
+		 */
+		$api = $this->_server->api(GetIndexApi::class);
+		$data = $api->get();
+		return $data->version->number;
 	}
 }
 

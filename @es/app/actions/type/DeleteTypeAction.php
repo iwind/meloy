@@ -9,7 +9,7 @@ class DeleteTypeAction extends BaseAction {
 		//执行删除
 		if (!is_empty($this->_type)) {
 			try {
-				$this->_api->delete("/" . $this->_index . "/_mapping" . $this->_type, "");
+
 			} catch (Exception $e) {
 				$this->fail($e->getMessage());
 			}

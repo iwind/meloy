@@ -2,11 +2,17 @@
 
 namespace es\app\actions\server;
 
+use es\api\cat\IndicesApi;
+
 class IndexesAction extends BaseAction {
 	public function run() {
 		//@TODO 捕获异常
 
-		$indexes = $this->_api->get("/_cat/indices?format=json", "");
+		/**
+		 * @var IndicesApi $api
+		 */
+		$api = $this->_server->api(IndicesApi::class);
+		$indexes = $api->get();
 
 		if (!empty($indexes)) {
 			$titles = array_keys(get_object_vars($indexes[0]));

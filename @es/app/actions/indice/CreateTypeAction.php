@@ -2,6 +2,7 @@
 
 namespace es\app\actions\indice;
 
+use es\api\PutMappingApi;
 use es\fields\Field;
 use es\Mapping;
 use tea\Must;
@@ -37,7 +38,13 @@ class CreateTypeAction extends BaseAction {
 			$this->fail("请先添加字段");
 		}
 
-		$this->_api->putMapping($this->_index, $name, $mapping->asArray());
+		/**
+		 * @var PutMappingApi $api
+		 */
+		$api = $this->_server->api(PutMappingApi::class);
+		$api->index($this->_index);
+		$api->type($name);
+		$api->put($mapping);
 
 		$this->next("@.type", [
 			"serverId" => $this->_server->id,

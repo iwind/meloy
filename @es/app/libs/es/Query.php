@@ -3,11 +3,14 @@
 namespace es;
 
 use classes\Redis;
+use Couchbase\SearchQuery;
 use es\aggs\Aggregation;
 use es\aggs\MaxAggregation;
 use es\aggs\MinAggregation;
 use es\aggs\TermsAggregation;
 use es\aggs\TopHitsAggregation;
+use es\api\CountApi;
+use es\api\SearchApi;
 use es\queries\GeoDistanceQuery;
 use es\queries\GeoShapeQuery;
 use es\queries\QueryStringQuery;
@@ -24,7 +27,7 @@ class Query {
 	private $_index;
 	private $_type;
 
-	private $_offset = 0;
+	private $_offset = -1;
 	private $_size = 10;
 	private $_must = [];
 	private $_wildcards = [];
@@ -295,7 +298,7 @@ class Query {
 
 	public function asArray($limitSize = true) {
 		$query = [];
-		if ($limitSize) {
+		if ($limitSize && $this->_offset >= 0) {
 			$query["from"] = $this->_offset;
 			$query["size"] = $this->_size;
 		}
@@ -387,7 +390,10 @@ class Query {
 			throw new Exception("please specify a index id for query");
 		}
 		$index = Index::indexWithId($this->_indexId);
-		return $index->api()->countQuery($index->name(), $this->_type, $this->asArray(false));
+		$api = CountApi::newWithIndex($index);
+		$api->type($this->_type);
+		$api->query($this);
+		return $api->count();
 	}
 
 	public function queryId($version = nil) {
@@ -419,7 +425,14 @@ class Query {
 		$index = Index::indexWithId($this->_indexId);
 		$ones = [];
 
-		$result = $index->api()->searchQuery($index->name(), $this->_type, $this->asArray());
+		/**
+		 * @var SearchApi $api
+		 */
+		$api = $index->api(SearchApi::class);
+		$api->index($index->name());
+		$api->type($this->_type);
+		$api->query($this);
+		$result = $api->search();
 
 		if (!empty($result["_shards"]["failures"])) {
 			throw new Exception(json_encode($result["_shards"]["failures"][0]["reason"], JSON_PRETTY_PRINT));

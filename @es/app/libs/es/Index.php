@@ -2,6 +2,8 @@
 
 namespace es;
 
+use es\api\Api;
+
 class Index {
 	private static $_indices = [];
 
@@ -9,8 +11,6 @@ class Index {
 	private $_host = "127.0.0.1";
 	private $_port = 9200;
 	private $_name = "default";
-
-	private $_api;
 
 	public function __construct($id) {
 		$this->_id = $id;
@@ -36,34 +36,26 @@ class Index {
 		return $this->_name;
 	}
 
+	/**
+	 * 获取API
+	 *
+	 * @param API类名
+	 * @return Api
+	 */
+	public function api($class) {
+		$prefix = "http://" . $this->_host . ":" . $this->_port;
+
+		/**
+		 * @var Api $obj
+		 */
+		$obj = new $class;
+		$obj->prefix($prefix);
+
+		return $obj;
+	}
+
 	public function setName($name) {
 		$this->_name = $name;
-	}
-
-	/**
-	 * @return API
-	 */
-	public function api() {
-		if (!$this->_api) {
-			$this->_api = new API($this->_host, $this->_port);
-		}
-		return $this->_api;
-	}
-
-	public function exists() {
-		return $this->api()->existIndex($this->_name);
-	}
-
-	public function create() {
-		return $this->api()->createIndex($this->_name);
-	}
-
-	public function drop() {
-		return $this->api()->dropIndex($this->_name);
-	}
-
-	public function putMapping(Mapping $mapping) {
-		return $this->api()->putMapping($this->_name, $mapping->name(), $mapping->asArray());
 	}
 
 	/**

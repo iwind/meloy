@@ -50,6 +50,7 @@ class Index {
 		 */
 		$obj = new $class;
 		$obj->prefix($prefix);
+		$obj->index($this->_name);
 
 		return $obj;
 	}

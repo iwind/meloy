@@ -75,6 +75,15 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "index"
 			],
 			[
+				"name" => "字段",
+				"url" => u(".fields", [
+					"serverId" => $serverId,
+					"index" => $index,
+					"type" => $type
+				]),
+				"active" => $this->name() == "fields"
+			],
+			[
 				"name" => "删除",
 				"url" => u(".deleteTypeForm", [
 					"serverId" => $serverId,

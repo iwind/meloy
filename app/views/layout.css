@@ -50,6 +50,7 @@
 
 .sub-menu .menu a {
 	display: block;
+	word-break: break-all;
 }
 
 .sub-menu .menu .item .menu {

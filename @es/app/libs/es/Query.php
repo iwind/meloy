@@ -390,7 +390,8 @@ class Query {
 			throw new Exception("please specify a index id for query");
 		}
 		$index = Index::indexWithId($this->_indexId);
-		$api = CountApi::newWithIndex($index);
+		/** @var CountApi $api */
+		$api = $index->api(CountApi::class);
 		$api->type($this->_type);
 		$api->query($this);
 		return $api->count();

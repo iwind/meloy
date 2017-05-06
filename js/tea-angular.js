@@ -149,7 +149,10 @@ window.Tea.Action = function (action, params) {
 			url: Tea.url(_action),
 			timeout: _timeout * 1000,
 			data: params,
-			headers: {"Content-Type": contentType}
+			headers: {
+				"Content-Type": contentType,
+				"X-Requested-With": "XMLHttpRequest"
+			}
 		})
 		.success(function (data) {
 			//回调
@@ -185,6 +188,7 @@ window.Tea.action = function (action) {
  * - data-tea-action
  * - data-tea-confirm
  * - data-tea-timeout
+ * - data-tea-before
  * - data-tea-success
  * - data-tea-fail
  * - data-tea-error
@@ -223,11 +227,23 @@ window.Tea.runActionOn = function (element) {
 	var action = form.attr("data-tea-action");
 	var timeout = form.attr("data-tea-timeout");
 	var confirm = form.attr("data-tea-confirm");
+	var beforeFn = form.attr("data-tea-before");
 	var successFn = form.attr("data-tea-success");
 	var failFn = form.attr("data-tea-fail");
 	var errorFn = form.attr("data-tea-error");
 	if (confirm != null && confirm.length > 0 && !window.confirm(confirm)) {
 		return;
+	}
+
+	//执行前调用beforeFn
+	if (beforeFn != null && beforeFn.length > 0) {
+		beforeFn = beforeFn.split("(")[0].trim();
+		if (typeof(Tea.View.$scope[beforeFn]) == "function") {
+			var result = Tea.View.$scope[beforeFn].call(Tea.View.$scope, form);
+			if (typeof(result) == "boolean" && !result) {
+				return;
+			}
+		}
 	}
 
 	//请求对象

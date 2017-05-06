@@ -3,6 +3,7 @@
 namespace es\app\actions\indice;
 
 use es\api\PutMappingApi;
+use es\Exception;
 use es\fields\Field;
 use es\Mapping;
 use tea\Must;
@@ -35,7 +36,7 @@ class CreateTypeAction extends BaseAction {
 		}
 
 		if ($mapping->countFields() == 0) {
-			$this->fail("请先添加字段");
+			$this->fail("请添加字段");
 		}
 
 		/**
@@ -44,7 +45,12 @@ class CreateTypeAction extends BaseAction {
 		$api = $this->_server->api(PutMappingApi::class);
 		$api->index($this->_index);
 		$api->type($name);
-		$api->put($mapping);
+
+		try {
+			$api->put($mapping);
+		} catch (Exception $e) {
+			$this->fail($e->getMessage());
+		}
 
 		$this->next("@.type", [
 			"serverId" => $this->_server->id,

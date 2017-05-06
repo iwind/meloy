@@ -6,6 +6,7 @@ use app\classes\AuthAction;
 use app\models\server\Server;
 use es\api\GetIndexApi;
 use es\Exception;
+use tea\Arrays;
 use tea\Request;
 
 class BaseAction extends AuthAction {
@@ -57,6 +58,8 @@ class BaseAction extends AuthAction {
 					$menu["items"][] = [
 						"name" => "索引 &raquo;"
 					];
+
+					$indexItems = [];
 					foreach ($indexes as $indexName => $info) {
 						$subItems = [];
 
@@ -65,22 +68,37 @@ class BaseAction extends AuthAction {
 						];
 
 						if ($index == $indexName) {
+							$typeItems = [];
 							foreach ($info->mappings as $typeName => $mapping) {
-								$subItems[] = [
+								$typeItems[] = [
 									"name" => $typeName,
-									"url" => u("@.type", ["serverId" => $serverId, "index" => $indexName, "type" => $typeName]),
+									"url" => u("@.type", [
+										"serverId" => $serverId,
+										"index" => $indexName,
+										"type" => $typeName
+									]),
 									"active" => $serverId == $server->id && $index == $indexName && $type == $typeName
 								];
+							}
+
+							$typeItems = Arrays::sort($typeItems, "name");
+							foreach ($typeItems as $item) {
+								$subItems[] = $item;
 							}
 						}
 
 						//@TODO 显示 aliases
-						$menu["items"][] = [
+						$indexItems[] = [
 							"name" => $indexName,
 							"url" => u("@.indice", ["serverId" => $serverId, "index" => $indexName]),
 							"items" => $subItems,
 							"active" => $serverId == $server->id && $index == $indexName
 						];
+					}
+
+					$indexItems = Arrays::sort($indexItems, "name");
+					foreach ($indexItems as $item) {
+						$menu["items"][] = $item;
 					}
 				}
 			}

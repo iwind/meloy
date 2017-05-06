@@ -2,9 +2,10 @@
 
 namespace es\api;
 
-use es\Index;
+use es\Exception;
 use es\Query;
-use tea\Exception;
+use tea\Arrays;
+use tea\Request;
 
 class Api {
 	private $_prefix;
@@ -57,6 +58,10 @@ class Api {
 
 	public function data() {
 		return $this->_data;
+	}
+
+	public function dataValue($keys) {
+		return Arrays::get($this->_data, $keys);
 	}
 
 	public function dataAsJson($pretty = true) {
@@ -118,6 +123,9 @@ class Api {
 
 	public function payload($payload = nil) {
 		if (!is_nil($payload)) {
+			if (is_array($payload) || is_object($payload)) {
+				$payload = json_encode($payload);
+			}
 			$this->_payload = $payload;
 			return $this;
 		}
@@ -239,19 +247,6 @@ class Api {
 		$this->_parse($code, $response);
 	}
 
-	/**
-	 * 根据索引对象构造查询
-	 *
-	 * @param Index $index 索引对象
-	 * @return static
-	 */
-	public static function newWithIndex(Index $index) {
-		$api = new static();
-		$api->index($index->name());
-		$api->prefix($index->apiPrefix());
-		return $api;
-	}
-
 	private function _buildUrl() {
 		$url = rtrim($this->_prefix, "/") . "/" . ltrim($this->_endPoint, "/");
 
@@ -279,7 +274,7 @@ class Api {
 				throw new Exception("api response error:\n" . $response, $code);
 			}
 			else {
-				if (is_cmd()) {
+				if (is_cmd() || Request::shared()->isAjax()) {
 					throw new Exception("api response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT), $code);
 				}
 				else {

@@ -1,10 +1,10 @@
 <?php
 
 /**
- * convert unicode in json to utf-8
+ * 把JSON中的unicode转换为UTF-8
  *
- * @param string $json string to convert
- * @return string utf-8 string
+ * @param string $json 要转换的JSON字符串
+ * @return string
  */
 function json_unicode_to_utf8($json){
 	$json = preg_replace_callback("/\\\u([0-9a-f]{4})/", create_function('$match', '
@@ -23,6 +23,16 @@ function json_unicode_to_utf8($json){
 		return $c;
 	'), $json);
 	return $json;
+}
+
+/**
+ * 取得对象的属性名数组
+ *
+ * @param object $object 对象
+ * @return array
+ */
+function object_keys($object) {
+	return array_keys((array)$object);
 }
 
 ?>

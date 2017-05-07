@@ -9,6 +9,10 @@
 			<td><strong>{{user.nickname}}</strong></td>
 		</tr>
 		<tr>
+			<td>登录邮箱</td>
+			<td>{{user.email}}</td>
+		</tr>
+		<tr>
 			<td>当前密码</td>
 			<td>
 				<input type="password" name="pass"/>

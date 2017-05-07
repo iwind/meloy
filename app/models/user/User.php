@@ -112,7 +112,7 @@ class User extends Model {
 	 * @return string
 	 */
 	public static function genPassword($origin) {
-		return md5(o("app.secret") . "@" . $origin);
+		return md5(o("db.secret") . "@" . $origin);
 	}
 
 	/**
@@ -155,6 +155,49 @@ class User extends Model {
 			->save([
 				"nickname" => $nickname
 			]);
+	}
+
+	/**
+	 * 更改用户邮箱
+	 *
+	 * @param int $userId 用户ID
+	 * @param string $email 邮箱
+	 */
+	public static function updateUserEmail($userId, $email) {
+		self::query()
+			->pk($userId)
+			->save([
+				"email" => $email
+			]);
+	}
+
+	/**
+	 * 根据邮箱查询用户ID
+	 *
+	 * @param string $email 邮箱
+	 * @return int
+	 */
+	public static function findUserIdWithEmail($email) {
+		return self::query()
+			->attr("email", $email)
+			->resultPk()
+			->findCol(0);
+	}
+
+	/**
+	 * 创建用户
+	 *
+	 * @param string $email 邮箱
+	 * @param string $password
+	 * @param string $nickname 昵称
+	 */
+	public static function createUser($email, $password, $nickname) {
+		$user = new self;
+		$user->email = $email;
+		$user->password = self::genPassword($password);
+		$user->nickname = $nickname;
+		$user->state = self::STATE_ENABLED;
+		$user->save();
 	}
 }
 

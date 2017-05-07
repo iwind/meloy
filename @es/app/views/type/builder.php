@@ -43,7 +43,7 @@
 
 						<!-- query string -->
 						<div ng-if="item.type == 'spec:query_string'">
-							<input type="text" ng-model="item.value" value=""/>
+							<input type="text" ng-model="item.value" value="" placeholder="比如 name:张三"/>
 						</div>
 
 						<!-- script -->

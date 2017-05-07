@@ -1,0 +1,27 @@
+.top-nav {
+	border-radius: 0!important;
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+}
+
+.main {
+	position: absolute;
+	left: 1em;
+	top: 4em;
+	padding-bottom: 1em;
+	right: 0;
+}
+
+.main h3 {
+	font-weight: normal;
+}
+
+.main h3 span {
+	font-size: 0.8em;
+}
+
+.main table td {
+	word-wrap: break-word;
+	word-break: break-all;
+}

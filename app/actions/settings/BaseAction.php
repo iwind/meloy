@@ -24,6 +24,11 @@ class BaseAction extends AuthAction {
 						"url" => u(".profile")
 					],
 					[
+						"name" => "登录邮箱",
+						"active" => $this->_subMenu == "email",
+						"url" => u(".email")
+					],
+					[
 						"name" => "登录密码",
 						"active" => $this->_subMenu == "password",
 						"url" => u(".password")

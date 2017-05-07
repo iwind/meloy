@@ -28,9 +28,27 @@
 						</select>
 					</td>
 					<td>
-						&nbsp;
-						<div ng-if="[ 'gt', 'lte', 'gte', 'lt', 'term', 'match' ].$contains(item.type)">
+						<!-- 通用 -->
+						<div ng-if="item.dataType != 'boolean' && [ 'gt', 'lte', 'gte', 'lt', 'term', 'match','wildcard', 'prefix', 'fuzzy' ].$contains(item.type)">
 							<input type="text" ng-model="item.value" value=""/>
+						</div>
+
+						<!-- boolean -->
+						<div ng-if="item.type == 'term' && item.dataType == 'boolean'">
+							<select ng-model="item.value">
+								<option value="1">true</option>
+								<option value="0">false</option>
+							</select>
+						</div>
+
+						<!-- query string -->
+						<div ng-if="item.type == 'spec:query_string'">
+							<input type="text" ng-model="item.value" value=""/>
+						</div>
+
+						<!-- script -->
+						<div ng-if="item.type == 'spec:script'">
+							<textarea ng-model="item.value" placeholder="比如 doc['id'].value&gt;0"></textarea>
 						</div>
 					</td>
 					<td class="one wide">
@@ -41,8 +59,18 @@
 				<tr>
 					<td colspan="4">
 						<h4>选一个要查询的字段：</h4>
+						<div class="fields-box two column">
+							<a href="" ng-repeat="(fieldName, fieldConfig) in fields" ng-if="query.supportsType(fieldConfig.type)" ng-click="query.addField(fieldName, fieldConfig.type)">{{fieldName}}<span>({{fieldConfig.type}})</span></a>
+						</div>
+					</td>
+				</tr>
+
+				<tr>
+					<td colspan="4">
+						<h4>其他查询</h4>
 						<div class="fields-box">
-							<a href="" ng-repeat="(fieldName, fieldConfig) in fields" ng-if="query.supportsType(fieldConfig.type)" ng-click="query.addField(fieldName, fieldConfig.type)">{{fieldName}}</a>
+							<a href="" ng-click="query.addQueryString()">查询字符串<span>(query_string)</span></a>
+							<a href="" ng-click="query.addScript()">脚本<span>(script)</span></a>
 						</div>
 					</td>
 				</tr>

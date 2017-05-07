@@ -1,3 +1,7 @@
+.grid table td {
+	vertical-align: top;
+}
+
 .source-code-box {
 	position: relative;
 }
@@ -16,7 +20,16 @@
 
 .fields-box a {
 	display: block;
-	width: 30%;
-	float: left;
 	line-height: 1.8;
+}
+
+.fields-box.two.column a {
+	width: 45%;
+	float: left;
+}
+
+.fields-box a span {
+	font-size: 0.85em;
+	margin-left: 0.2em;
+	color: rgba(0,0,0,.5);
 }

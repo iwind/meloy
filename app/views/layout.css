@@ -33,6 +33,16 @@
 	font-size: 0.8em;
 }
 
+.main td span.small {
+	font-size: 0.8em;
+}
+
+.main .button.mini {
+	font-size: 0.8em;
+	padding: 0.2em;
+	margin-left: 1em;
+}
+
 .main-menu {
 	position: fixed;
 	top: 4em;

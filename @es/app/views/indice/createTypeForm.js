@@ -19,5 +19,16 @@ Tea.View.scope(function () {
 			"type": subType["code"]
 		});
 		this.showFieldsBox = false;
-	}
+
+		setTimeout(function () {
+			var inputFields = document.querySelectorAll("#createForm input[name='fieldNames[]'][type='text']");
+			if (inputFields.length > 0) {
+				inputFields[inputFields.length - 1].focus();
+			}
+		}, 100);
+	};
+
+	this.removeField = function (index) {
+		this.fields.$remove(index);
+	};
 });

@@ -433,3 +433,15 @@ window.Tea.go = function (action, params, hash) {
 	window.location.href = url;
 };
 
+window.Tea.formatBytes = function (bytes) {
+	if (bytes < 1024) {
+		return "< 1kb";
+	}
+	else if (bytes < 1024 * 1024) {
+		return Math.round(bytes / 1024 * 100) / 100 + " kb";
+	}
+	else if (bytes < 1024 * 1024 * 1024) {
+		return Math.round(bytes / 1024 / 1024 * 100) / 100 + " mb";
+	}
+	return Math.round(bytes / 1024 / 1024 / 1024 * 100) / 100+ " gb";
+};

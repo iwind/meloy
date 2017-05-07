@@ -4,6 +4,18 @@
 }
 
 #docs-box pre.doc.full {
+	max-height: none;
 	overflow-y: auto;
 	width: 80%;
+}
+
+#docs-box .doc-box {
+	position: relative;
+	padding-top: 0;
+}
+
+#docs-box .doc-box .collapse-button {
+	position: absolute;
+	right: 1em;
+	top: 1em;
 }

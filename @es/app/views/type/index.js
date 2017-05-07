@@ -11,17 +11,39 @@ Tea.View.scope(function () {
 
 	this.load();
 
-	this.switchViewport = function (index) {
+	this.openViewPort = function (doc, index) {
+		if (doc.isOpen) {
+			return;
+		}
+
 		var box = document.getElementById("docs-box");
 		var docElements = box.getElementsByClassName("doc");
-		var orginElement = docElements[index];
-		var element = angular.element(orginElement);
-		if (element.hasClass("full")) {
-			element.removeClass("full");
-		}
-		else {
-			element.addClass("full");
-			element.prop("scrollTop", 5);
-		}
+		var element = docElements[index];
+		var beforeHeight = element.offsetHeight;
+
+		doc.isOpen = true;
+
+		setTimeout(function () {
+			var afterHeight = element.offsetHeight;
+			if (beforeHeight == afterHeight) {
+				doc.isOpen = false;
+				Tea.View.update();
+			}
+		}, 10);
+	};
+
+	this.closeViewPort = function (doc) {
+		doc.isOpen = false;
+	};
+
+	this.searchKeyword = function () {
+		Tea.go(".index", {
+			"serverId": this.server.id,
+			"index": this.index.name,
+			"type": this.type.name,
+			"search": "q",
+			"q": this.q
+		});
+		return false;
 	};
 });

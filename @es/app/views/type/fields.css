@@ -1,0 +1,10 @@
+.field-types {
+	margin-top: 1em;
+}
+.field-types .column {
+	box-shadow: none!important;
+}
+
+.field-types .column a {
+	color: #4183C4!important;
+}

@@ -12,10 +12,20 @@
 #docs-box .doc-box {
 	position: relative;
 	padding-top: 0;
+	margin-top: 0;
 }
 
 #docs-box .doc-box .collapse-button {
 	position: absolute;
 	right: 1em;
-	top: 1em;
+	top: 4.4em;
+}
+
+#docs-box .doc-box .menu {
+	font-size: 0.9em;
+	border-bottom: 1px rgba(34,36,38,.1) solid;
+	margin-top: 1em;
+	margin-right: 0.8em;
+	padding-bottom: 1em;
+	text-align: right;
 }

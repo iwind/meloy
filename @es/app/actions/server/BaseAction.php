@@ -51,6 +51,11 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"name" => "创建索引",
 				"url" => u(".createIndexForm", [ "serverId" => $serverId ]),
 				"active" => $this->name() == "createIndexForm"
+			],
+			[
+				"name" => "删除",
+				"url" => u(".deleteServerForm", [ "serverId" => $serverId ]),
+				"active" => $this->name() == "deleteServerForm"
 			]
 		];
 	}

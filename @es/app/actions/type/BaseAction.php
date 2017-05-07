@@ -3,9 +3,7 @@
 namespace es\app\actions\type;
 
 use app\models\server\Server;
-use es\API;
 use es\api\GetIndexApi;
-use tea\Arrays;
 use tea\Request;
 
 class BaseAction extends \es\app\actions\BaseAction {

@@ -99,6 +99,7 @@ window.Tea.Action = function (action, params) {
 	var _errorFn;
 	var _method = "POST";
 	var _timeout = 30;
+	var _delay = 0;
 
 	this.params = function (params) {
 		_params = params;
@@ -127,6 +128,12 @@ window.Tea.Action = function (action, params) {
 
 	this.timeout = function (timeout) {
 		_timeout = timeout;
+		return this;
+	};
+
+	this.delay = function (delay) {
+		_delay = delay;
+		return this;
 	};
 
 	this.post = function () {
@@ -154,22 +161,37 @@ window.Tea.Action = function (action, params) {
 				"X-Requested-With": "XMLHttpRequest"
 			}
 		})
-		.success(function (data) {
-			//回调
-			if (data.code != 200) {
-				if (typeof(_failFn) == "function") {
-					_failFn.call(Tea.View.$scope, data);
+		.success(function (response) {
+			setTimeout(function () {
+				//回调
+				if (response.code != 200) {
+					if (typeof(_failFn) == "function") {
+						_failFn.call(Tea.View.$scope, response);
+					}
 				}
-			}
-			else {
-				if (typeof(_successFn) == "function") {
-					_successFn.call(Tea.View.$scope, data);
+				else {
+					if (typeof(_successFn) == "function") {
+						_successFn.call(Tea.View.$scope, response);
+					}
+					else {
+						if (response.message != null && response.message.length > 0) {
+							alert(response.message);
+						}
+						if (response.next != null && typeof(response.next) == "object") {
+							if (response.next.action == "*refresh") {
+								window.location.reload();
+							}
+							else {
+								Tea.go(response.next.action, response.next.params, response.next.hash);
+							}
+						}
+					}
 				}
-			}
+			}, _delay * 1000);
 		})
-		.error(function (data) {
+		.error(function (response) {
 			if (typeof(_errorFn) == "function") {
-				_errorFn.call(Tea.View.$scope, data);
+				_errorFn.call(Tea.View.$scope, response);
 			}
 		});
 

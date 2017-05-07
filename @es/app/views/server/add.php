@@ -24,7 +24,9 @@
 		</tr>
 		<tr>
 			<td>检查连接是否正常</td>
-			<td><input type="checkbox" name="check" value="1" checked="checked"/></td>
+			<td>
+				<input type="checkbox" name="check" value="1" checked="checked"/>
+			</td>
 		</tr>
 	</table>
 

@@ -49,6 +49,7 @@ class IndexAction extends BaseAction {
 		$this->data->docs = array_map(function ($doc) {
 			$obj = new \stdClass();
 			$obj->json = json_unicode_to_utf8(json_encode($doc, JSON_PRETTY_PRINT));
+			$obj->_id = $doc->_id;
 			return $obj;
 		}, $docs);
 	}

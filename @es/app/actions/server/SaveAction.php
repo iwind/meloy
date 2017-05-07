@@ -3,7 +3,7 @@
 namespace es\app\actions\server;
 
 use app\models\server\Server;
-use es\API;
+use es\api\Api;
 use es\app\actions\BaseAction;
 use es\Exception;
 use tea\Must;
@@ -23,9 +23,12 @@ class SaveAction extends BaseAction {
 
 		//测试端口
 		if ($check) {
-			$api = new API($host, $port);
+			$api = new Api();
+			$api->prefix("http://" . $host . ":" . $port);
+			$api->endPoint("/");
+
 			try {
-				$api->get("/", "");
+				$api->sendGet();
 			} catch (Exception $e) {
 				$this->field("host", "地址和端口测试失败，请重新检查")->fail();
 			}

@@ -46,4 +46,27 @@ Tea.View.scope(function () {
 		});
 		return false;
 	};
+
+	this.clearQ = function () {
+		this.q = "";
+	};
+
+	this.deleteDoc = function (doc) {
+		if (!window.confirm("确定要删除此文档吗？")) {
+			return;
+		}
+
+		doc.loading = true;
+		doc.loadingText = "删除中";
+
+		Tea.action(".deleteDoc")
+			.params({
+				"serverId": this.server.id,
+				"index": this.index.name,
+				"type": this.type.name,
+				"id": doc._id
+			})
+			.post()
+			.delay(1);
+	};
 });

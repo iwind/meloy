@@ -168,6 +168,7 @@ class Server extends Model {
 		return self::query()
 			->attr("userId", $userId)
 			->attr("typeId", $typeId)
+			->state(self::STATE_ENABLED)
 			->asc()
 			->findAll();
 	}

@@ -8,7 +8,10 @@
 	<form class="ui form" data-tea-action="" data-tea-before="searchKeyword()">
 		<div class="ui two fields">
 			<div class="ui field">
-				<input type="text" name="q" ng-model="q" ng-init="q = '{tea:$x.q}'" placeholder="输入搜索语句，类似于 name:中国"/>
+				<div class="ui icon input">
+					<input type="text" name="q" ng-model="q" ng-init="q = '{tea:$x.q}'" placeholder="输入搜索语句，类似于 name:中国"/>
+					<i class="icon remove link" ng-if="q.length > 0" ng-click="clearQ()"></i>
+				</div>
 			</div>
 			<div class="ui field">
 				<button class="ui button">搜索</button>
@@ -27,10 +30,22 @@
 	<table class="ui table">
 		<tr ng-repeat="doc in docs">
 			<td class="doc-box">
+				<!-- 操作按钮 -->
+				<div class="menu">
+					<a href="" ng-click="deleteDoc(doc)">删除</a>
+				</div>
+
+				<!-- 文档JSON -->
 				<pre class="doc json" ng-bind="doc.json" ng-class="{'full':doc.isOpen}" ng-click="openViewPort(doc, $index)"></pre>
 
-				<div class="ui button icon basic tiny circular collapse-button" ng-if="doc.isOpen" ng-click="closeViewPort(doc)">
+				<!-- 合上按钮 -->
+				<div class="ui button icon basic tiny circular collapse-button" ng-if="doc.isOpen" ng-click="closeViewPort(doc)" title="合上文档">
 					<i class="compress icon"></i>
+				</div>
+
+				<!-- 操作中提示 -->
+				<div class="ui active inverted dimmer" ng-if="doc.loading">
+					<div class="ui large text loader">{{doc.loadingText}}</div>
 				</div>
 			</td>
 		</tr>

@@ -62,26 +62,17 @@ window.Tea.View = new function () {
 		}
 
 		if (typeof(fn) == "function") {
-			var obj = new fn;
-			for (var key in obj) {
-				if (!obj.hasOwnProperty(key)) {
+			fn.call(this.$scope);
+			for (var key in this.$scope) {
+				if (!this.$scope.hasOwnProperty(key) || !angular.isFunction(this.$scope[key]) || key.substr(0, 1) == "$") {
 					continue;
 				}
-				try {
-					var prop = obj[key];
-					if (typeof(prop) == "function") {
-						(function (prop) {
-							that.$scope[key] = function () {
-								return prop.apply(that.$scope, arguments);
-							};
-						})(prop);
-					}
-					else {
-						this.$scope[key] = obj[key];
-					}
-				} catch (e) {
-					console.log(e);
-				}
+
+				(function (prop) {
+					that.$scope[key] = function () {
+						return prop.apply(that.$scope, arguments);
+					};
+				})(this.$scope[key]);
 			}
 
 			this.$scope.$apply();

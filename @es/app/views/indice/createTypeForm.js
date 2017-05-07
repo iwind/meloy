@@ -3,12 +3,15 @@ Tea.View.scope(function () {
 	this.showFieldsBox = false;
 	this.fields = [];
 
-	Tea.action("@.field.types")
-		.params({ "version": TEA.ACTION.data.serverVersion })
-		.success(function (response) {
-			this.dataTypes = response.data.groups;
-		})
-		.post();
+	this.load = function () {
+		Tea.action("@.field.types")
+			.params({ "version": this.serverVersion })
+			.success(function (response) {
+				this.dataTypes = response.data.groups;
+			})
+			.post();
+	};
+	this.load();
 
 	this.showFields = function () {
 		this.showFieldsBox = !this.showFieldsBox;

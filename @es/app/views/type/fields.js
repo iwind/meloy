@@ -5,13 +5,13 @@ Tea.View.scope(function () {
 
 	this.load = function () {
 		Tea.action("@.field.types")
-			.params({ "version": TEA.ACTION.data.serverVersion })
+			.params({ "version": this.serverVersion })
 			.success(function (response) {
 				this.dataTypes = response.data.groups;
 			})
 			.post();
 
-		var properties = TEA.ACTION.data.mapping.properties;
+		var properties = this.mapping.properties;
 		for (var fieldName in properties) {
 			if (!properties.hasOwnProperty(fieldName)) {
 				continue;

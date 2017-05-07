@@ -33,6 +33,10 @@
 	font-size: 0.8em;
 }
 
+.main h4 {
+	font-weight: normal;
+}
+
 .main td span.small {
 	font-size: 0.8em;
 }

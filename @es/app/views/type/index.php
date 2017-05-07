@@ -2,23 +2,22 @@
 {tea:js js/highlight.pack.js}
 {tea:css css/highlights/idea-copy.css}
 
-<h3>数据查询 <span>({{total}}个文档)</span></h3>
+<h3>数据查询 <span>({{total}}个文档)</span> <span ng-if="dsl.length > 0">(在使用查询构造器查询)</span></h3>
 
-<div class="ui segment">
-	<form class="ui form" data-tea-action="" data-tea-before="searchKeyword()">
-		<div class="ui two fields">
-			<div class="ui field">
-				<div class="ui icon input">
-					<input type="text" name="q" ng-model="q" ng-init="q = '{tea:$x.q}'" placeholder="输入搜索语句，类似于 name:中国"/>
-					<i class="icon remove link" ng-if="q.length > 0" ng-click="clearQ()"></i>
-				</div>
-			</div>
-			<div class="ui field">
-				<button class="ui button">搜索</button>
+<!-- 查询表单 -->
+<form class="ui form" data-tea-action="" data-tea-before="searchKeyword()">
+	<div class="ui two fields">
+		<div class="ui field">
+			<div class="ui icon input">
+				<input type="text" name="q" ng-model="q" ng-init="q = '{tea:$x.q}'" placeholder="输入搜索语句，类似于 name:中国"/>
+				<i class="icon remove link" ng-if="q.length > 0" ng-click="clearQ()"></i>
 			</div>
 		</div>
-	</form>
-</div>
+		<div class="ui field">
+			<button class="ui button">搜索</button>
+		</div>
+	</div>
+</form>
 
 <p class="ui message warning" ng-if="total == 0">
 	此类型下暂时还没有相关的文档。

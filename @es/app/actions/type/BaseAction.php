@@ -73,6 +73,15 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "index"
 			],
 			[
+				"name" => "查询构造器",
+				"url" => u(".builder",  [
+					"serverId" => $serverId,
+					"index" => $index,
+					"type" => $type
+				]),
+				"active" => $this->name() == "builder"
+			],
+			[
 				"name" => "字段",
 				"url" => u(".fields", [
 					"serverId" => $serverId,

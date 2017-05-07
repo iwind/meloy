@@ -8,7 +8,9 @@ use es\Query;
 use tea\page\SemanticPage;
 
 class IndexAction extends BaseAction {
-	public function run(string $q) {
+	public function run(string $q, string $dsl) {
+		$this->data->dsl = $dsl;
+
 		$query = new Query();
 
 		//查询总数
@@ -23,7 +25,12 @@ class IndexAction extends BaseAction {
 			$query->cond($q);
 		}
 
-		$api->query($query);
+		if (is_empty($dsl)) {
+			$api->query($query);
+		}
+		else {
+			$api->payload($dsl);
+		}
 		$this->data->total = $api->count();
 
 		//分页
@@ -42,7 +49,16 @@ class IndexAction extends BaseAction {
 		$api = $this->_server->api(SearchApi::class);
 		$api->index($this->_index);
 		$api->type($this->_type);
-		$api->query($query);
+
+		if (is_empty($dsl)) {
+			$api->query($query);
+		}
+		else {
+			$dsl = json_decode($dsl);
+			$dsl->from = $page->offset();
+			$dsl->size = $page->size();
+			$api->payload(json_encode($dsl));
+		}
 
 		$result = $api->search();
 		$docs = $result->hits->hits;

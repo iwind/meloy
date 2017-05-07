@@ -3,10 +3,10 @@
 return [
 	"default" => [
 		"db" => "default",
-		"prefix" => "chaos_"
+		"prefix" => "pp_"
 	],
 
-	"secret" => "L6ygvUqTfK92R14gCmNdLIF9fPAyB2Zp",
+	"secret" => "idDM90TP6uwy1N69dERTGbJAm6ZceNbQ",
 
 	"dbs" => [
 		"default" => [

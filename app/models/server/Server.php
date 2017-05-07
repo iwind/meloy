@@ -158,6 +158,23 @@ class Server extends Model {
 	}
 
 	/**
+	 * 更改主机信息
+	 *
+	 * @param int $serverId 主机ID
+	 * @param string $name 名称
+	 * @param string $host 地址
+	 * @param int $port 端口
+	 */
+	public static function updateServer($serverId, $name, $host, $port) {
+		$server = new self;
+		$server->id = $serverId;
+		$server->name = $name;
+		$server->host = $host;
+		$server->port = $port;
+		$server->save();
+	}
+
+	/**
 	 * 查找用户添加的某种类型的主机
 	 *
 	 * @param int $userId 用户ID

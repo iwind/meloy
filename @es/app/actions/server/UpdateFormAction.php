@@ -2,7 +2,7 @@
 
 namespace es\app\actions\server;
 
-class DeleteServerFormAction extends BaseAction {
+class UpdateFormAction extends BaseAction {
 	public function run() {
 
 	}

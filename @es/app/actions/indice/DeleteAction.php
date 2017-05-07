@@ -5,7 +5,7 @@ namespace es\app\actions\indice;
 use es\api\DeleteIndexApi;
 use es\Exception;
 
-class DeleteIndexAction extends BaseAction {
+class DeleteAction extends BaseAction {
 	public function run() {
 		//执行删除
 		if (!is_empty($this->_index)) {

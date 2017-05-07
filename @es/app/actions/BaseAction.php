@@ -111,7 +111,7 @@ class BaseAction extends AuthAction {
 		//定义菜单
 		$subMenus[] = [
 			"name" => "[添加新主机]",
-			"url" => u("@.server.add"),
+			"url" => u("@.server.addForm"),
 			"active" => $this->_subMenu == "addServer"
 		];
 		$this->data->subMenus = [

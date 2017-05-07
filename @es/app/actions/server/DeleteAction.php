@@ -4,7 +4,7 @@ namespace es\app\actions\server;
 
 use app\models\server\Server;
 
-class DeleteServerAction extends BaseAction {
+class DeleteAction extends BaseAction {
 	public function run() {
 		Server::disableServer($this->_server->id);
 

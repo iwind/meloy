@@ -9,7 +9,7 @@ use es\api\PutMappingApi;
 use es\api\ReindexApi;
 use es\Exception;
 
-class DeleteTypeAction extends BaseAction {
+class DeleteAction extends BaseAction {
 	public function run() {
 		//执行删除
 		if (!is_empty($this->_type)) {

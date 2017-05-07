@@ -4,7 +4,7 @@ namespace es\app\actions\type;
 
 use es\api\CountApi;
 
-class DeleteTypeFormAction extends BaseAction {
+class DeleteFormAction extends BaseAction {
 	public function run() {
 		//是否支持删除
 		$this->data->supportsDelete = true;

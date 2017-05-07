@@ -2,7 +2,7 @@
 
 namespace es\app\actions\indice;
 
-class DeleteIndexFormAction extends BaseAction {
+class DeleteFormAction extends BaseAction {
 	public function run() {
 
 	}

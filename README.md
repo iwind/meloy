@@ -16,7 +16,7 @@ cd TeaData/
 php -S localhost:3000
 ~~~
 
-如有需要把其中的`php`和localhost、端口3000换成你自己的，然后即可在浏览器中访问
+如有需要把其中的`php`和`localhost`、端口`3000`换成你自己的，然后即可在浏览器中访问
 ~~~
 http://localhost:3000
 ~~~

@@ -412,7 +412,11 @@ window.Tea.url = function (action, params, hashParams) {
 			}
 		}
 		if (actionParam) {
-			url = base + "?__ACTION__=/" + action.replace(/[.\/]+/g, "/");
+			var path = action.replace(/[.\/]+/g, "/");
+			if (path.substr(0, 1) != "/") {
+				path = "/" + path;
+			}
+			url = base + "?__ACTION__=" + path;
 		}
 		else {
 			url = base + "/" + action.replace(/[.\/]+/g, "/");

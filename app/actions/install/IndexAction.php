@@ -27,10 +27,10 @@ class IndexAction extends Action {
 		}
 
 		if (!in_array("mysql", pdo_drivers())) {
-			$this->_addOption("pdo_mysql", "PHP必须安装PDO_MYSQL才能连接数据库", false, "请安装PDO_MYSQL扩展");
+			$this->_addOption("pdo_mysql", "PHP必须安装pdo_mysql才能连接数据库", false, "请安装pdo_mysql扩展");
 		}
 		else {
-			$this->_addOption("pdo_mysql", "PHP必须安装PDO_MYSQL才能连接数据库");
+			$this->_addOption("pdo_mysql", "PHP必须安装pdo_mysql才能连接数据库");
 		}
 
 		if (!function_exists("json_encode")) {
@@ -40,12 +40,28 @@ class IndexAction extends Action {
 			$this->_addOption("json", "PHP必须安装json扩展");
 		}
 
-		$dbFile = TEA_APP . "/configs/db.php";
+		$dbFile = TEA_APP . DS . "configs" . DS . "db.php";
 		if (!is_writable($dbFile)) {
 			$this->_addOption("数据库配置文件", "'{$dbFile}'必须可写", false, "请检查并修正'{$dbFile}'的文件写权限");
 		}
 		else {
 			$this->_addOption("数据库配置文件", "'{$dbFile}'必须可写");
+		}
+
+		$tmp = TEA_ROOT . DS . "tmp";
+		if (!is_writable($tmp)) {
+			$this->_addOption("临时目录", "'{$tmp}'必须可写", false, "请检查并修正'{$tmp}'的文件写权限");
+		}
+		else {
+			$this->_addOption("临时目录", "'{$tmp}'必须可写");
+		}
+
+		$tplTmpDir = TEA_ROOT . DS . "tmp" . DS . "tpl";
+		if (!is_writable($tplTmpDir)) {
+			$this->_addOption("模板临时目录", "'{$tplTmpDir}'必须可写", false, "请检查并修正'{$tplTmpDir}'的文件写权限");
+		}
+		else {
+			$this->_addOption("模板临时目录", "'{$tplTmpDir}'必须可写");
 		}
 	}
 

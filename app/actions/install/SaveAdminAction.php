@@ -24,11 +24,13 @@ class SaveAdminAction extends BaseAction {
 			->maxLength(30, "昵称不能超过30个字符");
 
 		$userId = 1;
+
+		//修改用户
 		User::updateUser($userId, $nickname);
 		User::updateUserEmail($userId, $email);
 		User::updateUserPassword($userId, $pass);
 
-		$this->next("@")->success("配置完成，请去登录");
+		$this->next("");
 	}
 }
 

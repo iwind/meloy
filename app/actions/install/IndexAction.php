@@ -39,11 +39,22 @@ class IndexAction extends BaseAction {
 		}
 
 		$dbFile = TEA_APP . DS . "configs" . DS . "db.php";
-		if (!is_writable($dbFile)) {
-			$this->_addOption("数据库配置文件", "'{$dbFile}'必须可写", false, "请检查并修正'{$dbFile}'的文件写权限");
+		if (is_file($dbFile)) {
+			if (!is_writable($dbFile)) {
+				$this->_addOption("数据库配置文件", "'{$dbFile}'必须可写", false, "请检查并修正'{$dbFile}'的文件写权限");
+			}
+			else {
+				$this->_addOption("数据库配置文件", "'{$dbFile}'必须可写");
+			}
 		}
 		else {
-			$this->_addOption("数据库配置文件", "'{$dbFile}'必须可写");
+			$dbDir = dirname($dbFile);
+			if (!is_writable($dbDir) || !@copy($dbDir . DS . "db.template.php", $dbFile)) {
+				$this->_addOption("数据库配置所在目录", "'{$dbDir}'必须可写", false, "请检查并修正'{$dbDir}'的文件写权限");
+			}
+			else {
+				$this->_addOption("数据库配置所在目录", "'{$dbDir}'必须可写");
+			}
 		}
 
 		$tmp = TEA_ROOT . DS . "tmp";

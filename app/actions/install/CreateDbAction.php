@@ -62,6 +62,10 @@ class CreateDbAction extends BaseAction {
 			$this->fail("数据库配置文件写入失败，请检查'{$dbFile}'的写权限");
 		}
 
+		if (function_exists("opcache_invalidate")) {
+			opcache_invalidate($dbFile);
+		}
+
 		//创建表
 		$sql = file_get_contents(TEA_ROOT . DS . "install/install.sql");
 		$sql = preg_replace("/`pp_/", "`" . $prefix, $sql);
@@ -74,8 +78,11 @@ class CreateDbAction extends BaseAction {
 
 		//创建用户
 		if (!User::exist(1)) {
-			User::createUser("root@root.com", "123456", "管理员");
+			User::createUser("root@meloy.cn", "123456", "管理员");
 		}
+
+		//登录
+		$this->auth()->store("install", 1);
 
 		$this->next(".finish");
 	}

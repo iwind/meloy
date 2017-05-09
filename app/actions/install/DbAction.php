@@ -8,8 +8,14 @@ class DbAction extends BaseAction {
 
 		$dsn = $this->data->db["dbs"]["default"]["dsn"];
 
+		//如果仍然是模板
+		if (preg_match("/%{dbname}/", $dsn)) {
+			$this->data->db = require(TEA_APP . DS . "configs" . DS . "db.default.php");
+			$dsn = $this->data->db["dbs"]["default"]["dsn"];
+		}
+
 		list($driver, $options) = explode(":", $dsn, 2);
-		$dsn = [ $driver, [] ];
+		$dsn = [$driver, []];
 		foreach (explode(";", $options) as $option) {
 			list($name, $value) = explode("=", $option, 2);
 			$dsn[1][$name] = $value;

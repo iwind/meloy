@@ -11,7 +11,7 @@ class IndexAction extends Action {
 		//判断是否已经安装
 		$db = o("db");
 		if (is_null($db)) {
-			throw new Exception("can not find database config file at 'app/configs/db.php'");
+			g("install");
 		}
 
 		if (preg_match("/%\\{dbname\\}/", $db["dbs"]["default"]["dsn"])) {

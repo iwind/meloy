@@ -109,10 +109,14 @@ class User extends Model {
 	 * 生成混淆后的密码
 	 *
 	 * @param string $origin 原始密码
+	 * @param string $secret 秘钥
 	 * @return string
 	 */
-	public static function genPassword($origin) {
-		return md5(o("db.secret") . "@" . $origin);
+	public static function genPassword($origin, $secret = null) {
+		if (is_null($secret)) {
+			$secret = o("db.secret");
+		}
+		return md5($secret . "@" . $origin);
 	}
 
 	/**

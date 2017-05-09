@@ -98,5 +98,11 @@
 	{tea:placeholder}
 </div>
 
+<!-- 底部 -->
+<div id="footer" class="ui menu inverted">
+	<a href="https://github.com/iwind/meloy" target="_blank" class="item">[GitHub]</a>
+	<div class="item">免费加入QQ群讨论：199435611</div>
+</div>
+
 </body>
 </html>

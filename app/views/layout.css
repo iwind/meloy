@@ -9,7 +9,7 @@
 	position: absolute;
 	left: 20em;
 	top: 4em;
-	padding-bottom: 1em;
+	padding-bottom: 4em;
 	right: 0;
 }
 
@@ -77,4 +77,17 @@
 
 .sub-menu .fourth-menu .icon, .sub-menu .third-menu .icon {
 	float: left!important;
+}
+
+#footer {
+	position: fixed;
+	bottom: 0;
+	text-align: left;
+	color: gray;
+	width: 100%;
+	border-radius: 0!important;
+}
+
+#footer a {
+	font-size: 0.9em;
 }

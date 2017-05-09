@@ -98,7 +98,7 @@ class User extends Model {
 		}
 
 		$user = new User();
-		$user->email = "root@putdata.cn";
+		$user->email = "root@meloy.cn";
 		$user->password = self::genPassword("123456");
 		$user->nickname = "管理员";
 		$user->state = self::STATE_ENABLED;

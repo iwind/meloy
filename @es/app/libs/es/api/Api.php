@@ -9,7 +9,7 @@ use tea\Request;
 
 class Api {
 	private $_prefix;
-	private $_userAgent = "PutData UI API";
+	private $_userAgent = "Meloy UI API";
 	private $_cost;
 	private $_index;
 	private $_type;

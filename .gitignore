@@ -1,3 +1,4 @@
 meloy/tmp/tpl/*
 meloy/app/tests
 meloy/app/configs/db.bk.php
+.DS_Store

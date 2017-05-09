@@ -30,5 +30,5 @@ http://localhost:3000
 ## nginx和apache
 直接将 *meloy/* 放到网站目录下即可访问。
 
-##预览图
-[预览图](docs/images/screenshot.jpg "预览图")
+## 预览图
+![预览图](docs/images/screenshot.jpg "预览图")

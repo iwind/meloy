@@ -16,7 +16,7 @@ class RenameAction extends BaseAction {
 			->require("请输入新名称")
 			->match("/^[a-z0-9_]+$/", "名称只能为小写的字母、数字、下划线的组合")
 			->match("/^[^_]/", "名称不能以下划线开头")
-			->when(function ($value) {
+			->if(function ($value) {
 				$api = $this->_server->api(IndicesExistApi::class); /** @var IndicesExistApi $api */
 				$api->index($value);
 				return !$api->exist();

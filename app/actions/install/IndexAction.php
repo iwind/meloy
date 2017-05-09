@@ -2,9 +2,7 @@
 
 namespace app\actions\install;
 
-use tea\Action;
-
-class IndexAction extends Action {
+class IndexAction extends BaseAction {
 	public function run() {
 		//检查程序
 		$this->data->options = []; // [ name, description, isOk, message ]

@@ -3,16 +3,16 @@
 return [
 	"default" => [
 		"db" => "default",
-		"prefix" => "pp_"
+		"prefix" => "%{prefix}"
 	],
 
-	"secret" => "idDM90TP6uwy1N69dERTGbJAm6ZceNbQ",
+	"secret" => "%{secret}",
 
 	"dbs" => [
 		"default" => [
-			"dsn" => "mysql:dbname=rock_1_0_0;host=127.0.0.1;port=3306;charset=utf8",
-			"username" => "root",
-			"password" => "",
+			"dsn" => "mysql:dbname=%{dbname};host=%{host};port=%{port};charset=utf8",
+			"username" => "%{username}",
+			"password" => "%{password}",
 			"options" => []
 		],
 	]

@@ -3,10 +3,9 @@
 namespace app\actions\install;
 
 use app\models\user\User;
-use tea\Action;
 use tea\Must;
 
-class SaveAdminAction extends Action {
+class SaveAdminAction extends BaseAction {
 	public function run(string $email, string $pass, string $pass2, string $nickname, Must $must) {
 		//校验参数
 		$must->field("email", $email)

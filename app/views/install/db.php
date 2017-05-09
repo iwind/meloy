@@ -22,30 +22,30 @@
 		<table class="ui table definition celled structured">
 			<tr>
 				<td class="two wide">数据库主机地址</td>
-				<td><input type="text" name="host" value="127.0.0.1"/></td>
+				<td><input type="text" name="host" value="{{host}}"/></td>
 			</tr>
 			<tr>
 				<td>数据库端口</td>
-				<td><input type="text" name="port" value="3306"/></td>
+				<td><input type="text" name="port" value="{{port}}"/></td>
 			</tr>
 			<tr>
 				<td>数据库连接用户名</td>
-				<td><input type="text" name="username" value="root"/></td>
+				<td><input type="text" name="username" value="{{db['dbs']['default']['username']}}"/></td>
 			</tr>
 			<tr>
 				<td>数据库连接密码</td>
-				<td><input type="text" name="password" value=""/></td>
+				<td><input type="text" name="password" value="{{db['dbs']['default']['password']}}"/></td>
 			</tr>
 			<tr>
 				<td>数据库名称</td>
 				<td>
-					<input type="text" name="dbname" value="chaos"/>
+					<input type="text" name="dbname" value="{{dbname}}"/>
 				</td>
 			</tr>
 			<tr>
 				<td>数据表前缀</td>
 				<td>
-					<input type="text" name="prefix" value="chaos_"/>
+					<input type="text" name="prefix" value="{{db['default']['prefix']}}"/>
 				</td>
 			</tr>
 		</table>

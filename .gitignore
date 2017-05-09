@@ -1,3 +1,4 @@
 tmp/tpl/*
 TeaPHP
 app/tests
+app/configs/db.bk.php

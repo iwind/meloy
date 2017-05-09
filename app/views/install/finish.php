@@ -16,7 +16,7 @@
 </div>
 
 <div class="main">
-	<h3>配置数据库</h3>
+	<h3>配置管理员登录信息</h3>
 
 	<form class="ui form" data-tea-action=".saveAdmin">
 		<table class="ui table definition celled structured">

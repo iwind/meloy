@@ -3,11 +3,10 @@
 namespace app\actions\install;
 
 use app\models\user\User;
-use tea\Action;
 use tea\Must;
 use tea\string\Helper;
 
-class CreateDbAction extends Action {
+class CreateDbAction extends BaseAction {
 	public function run(string $host, string $port, string $username, string $password, string $dbname, string $prefix, Must $must) {
 		$host = preg_replace("/\\s+/", "", $host);
 		$port = preg_replace("/\\s+/", "", $port);
@@ -36,7 +35,7 @@ class CreateDbAction extends Action {
 				$this->fail("无法连接数据库 '{$host}:{$port}'");
 			}
 			if (preg_match("/Access denied/i", $e->getMessage())) {
-				$this->fail("用户'{$username}'没有权限访问数据库");
+				$this->fail("用户'{$username}'（密码'{$password}'）没有权限访问数据库");
 			}
 			if (preg_match("/Unknown database/i", $e->getMessage())) {
 				$this->fail("数据库'{$dbname}'不存在");

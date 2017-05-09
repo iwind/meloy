@@ -35,6 +35,11 @@ class AuthAction extends Action {
 		} catch (Exception $e) {
 			g("index", [ "g" => $_SERVER["REQUEST_URI"] ]);
 		}
+
+		//meloy
+		$meloy = new \stdClass();
+		$meloy->version = o("meloy.version");
+		$this->data->meloy = $meloy;
 	}
 
 	/**

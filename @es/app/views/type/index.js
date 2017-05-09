@@ -66,7 +66,6 @@ Tea.View.scope(function () {
 				"type": this.type.name,
 				"id": doc._id
 			})
-			.post()
-			.delay(1);
+			.post();
 	};
 });

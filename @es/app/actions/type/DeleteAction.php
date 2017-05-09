@@ -18,6 +18,7 @@ class DeleteAction extends BaseAction {
 				$tmpIndex = $this->_index . "__tmp__" . time();
 
 				//@TODO 读取 _settings 以便在最后设置
+				//@TODO 处理 _alias
 
 				/** @var GetMappingApi $getMappingApi */
 				$getMappingApi = $this->_server->api(GetMappingApi::class);
@@ -39,9 +40,8 @@ class DeleteAction extends BaseAction {
 					$reindexApi->types($mappingNames);
 					$reindexApi->destIndex($tmpIndex);
 					$reindexApi->waitForCompletion(true);
+					$reindexApi->refresh();
 					$reindexApi->exec();
-
-					sleep(1);
 				}
 
 				//删除 INDEX
@@ -49,8 +49,6 @@ class DeleteAction extends BaseAction {
 				$deleteIndexApi = $this->_server->api(DeleteIndexApi::class);
 				$deleteIndexApi->index($this->_index);
 				$deleteIndexApi->delete();
-
-				sleep(1);
 
 				//将 INDEX__TMP__ 改成 INDEX
 
@@ -65,9 +63,8 @@ class DeleteAction extends BaseAction {
 					$reindexApi->sourceIndex($tmpIndex);
 					$reindexApi->destIndex($this->_index);
 					$reindexApi->waitForCompletion(true);
+					$reindexApi->refresh();
 					$reindexApi->exec();
-
-					sleep(1);
 
 					//删除 INDEX__TMP__
 					/** @var DeleteIndexApi $deleteIndexApi */

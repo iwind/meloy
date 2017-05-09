@@ -14,6 +14,7 @@ class DeleteDocAction extends BaseAction {
 		/** @var DeleteDocApi $api */
 		$api->index($this->_index);
 		$api->type($this->_type);
+		$api->refresh();
 		$api->delete($id);
 
 		$this->refresh()->success();

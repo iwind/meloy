@@ -18,6 +18,7 @@ class Api {
 	private $_payload;
 	private $_code = 0;
 	private $_data;
+	private $_method;
 
 	protected $_endPoint;
 	protected $_docs = [];
@@ -44,6 +45,10 @@ class Api {
 		return $this->_endPoint;
 	}
 
+	public function method() {
+		return $this->_method;
+	}
+
 	public function docs(array $docs = NilArray) {
 		if (!is_nil($docs)) {
 			$this->_docs = $docs;
@@ -54,6 +59,10 @@ class Api {
 
 	public function cost() {
 		return $this->_cost;
+	}
+
+	public function code() {
+		return $this->_code;
 	}
 
 	public function data() {
@@ -121,6 +130,22 @@ class Api {
 		return $this;
 	}
 
+	/**
+	 * 设置是否在调用之后刷新索引
+	 *
+	 * @param bool $refresh 是否刷新
+	 * @return static
+	 */
+	public function refresh($refresh = true) {
+		if ($refresh) {
+			$this->_params["refresh"] = "true";
+		}
+		else {
+			$this->_params["refresh"] = "false";
+		}
+		return $this;
+	}
+
 	public function payload($payload = nil) {
 		if (!is_nil($payload)) {
 			if (is_array($payload) || is_object($payload)) {
@@ -153,6 +178,8 @@ class Api {
 	 * 发送GET请求
 	 */
 	public function sendGet() {
+		$this->_method = "GET";
+
 		$curl = curl_init($this->_buildUrl());
 
 		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
@@ -180,7 +207,12 @@ class Api {
 		$this->_parse($code, $response);
 	}
 
+	/**
+	 * 发送POST请求
+	 */
 	public function sendPost() {
+		$this->_method = "POST";
+
 		$curl = curl_init($this->_buildUrl());
 		curl_setopt($curl, CURLOPT_POST, 1);
 		if (!is_empty($this->_payload)) {
@@ -195,7 +227,12 @@ class Api {
 		$this->_parse($code, $response);
 	}
 
+	/**
+	 * 发送HEAD请求
+	 */
 	public function sendHead() {
+		$this->_method = "HEAD";
+
 		$curl = curl_init($this->_buildUrl());
 		curl_setopt($curl, CURLOPT_USERAGENT, $this->_userAgent);
 		curl_setopt($curl, CURLOPT_NOBODY, 1);
@@ -206,7 +243,12 @@ class Api {
 		$this->_parse($code, $response);
 	}
 
+	/**
+	 * 发送PUT请求
+	 */
 	public function sendPut() {
+		$this->_method = "PUT";
+
 		$api = $this->_buildUrl();
 		if (isset($this->_putCurls[$api])) {
 			$curl = $this->_putCurls[$api];
@@ -230,7 +272,12 @@ class Api {
 		$this->_parse($code, $response);
 	}
 
+	/**
+	 * 发送DELETE请求
+	 */
 	public function sendDelete() {
+		$this->_method = "DELETE";
+
 		$curl = curl_init($this->_buildUrl());
 		curl_setopt($curl, CURLOPT_USERAGENT, $this->_userAgent);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -267,18 +314,18 @@ class Api {
 		$this->_code = $code;
 
 		if (is_empty($response)) {
-			throw new Exception("can not connect to server");
+			throw new Exception("Can not connect to server");
 		}
 		if ($code != 200) {
 			if (substr($response, 0, 1) != "{") {
-				throw new Exception("api response error:\n" . $response, $code);
+				throw new Exception("API response error:\n" . $response . "\nEndPoint:{$this->_method} " . $this->_endPoint, $code);
 			}
 			else {
 				if (is_cmd() || Request::shared()->isAjax()) {
-					throw new Exception("api response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT), $code);
+					throw new Exception("API response error:\n" . json_encode(json_decode($response), JSON_PRETTY_PRINT) . "\nEndPoint:{$this->_method} " . $this->_endPoint, $code);
 				}
 				else {
-					throw new Exception("api response error:\n<pre>" . json_encode(json_decode($response), JSON_PRETTY_PRINT) . "</pre>", $code);
+					throw new Exception("api response error:\n<pre>" . json_encode(json_decode($response), JSON_PRETTY_PRINT) . "\nEndPoint:{$this->_method} " . $this->_endPoint . "</pre>", $code);
 				}
 			}
 		}

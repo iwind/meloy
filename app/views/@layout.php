@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>数据管理平台</title>
+	<title>Meloy - 数据管理平台</title>
 
 	{tea:inject}
 	{tea:css css/semantic.min.css}
@@ -12,7 +12,7 @@
 <!-- 顶部导航 -->
 <div class="ui menu inverted top-nav">
 	<div class="item">
-		{数据管理平台}
+		{Meloy - 数据管理平台}
 	</div>
 	<div class="right menu">
 		<div class="item">
@@ -91,7 +91,7 @@
 <!-- 右侧主操作栏 -->
 <div class="main" ng-class="{'without-menu': !subMenus || subMenus.length == 0}">
 	<!-- 操作菜单 -->
-	<div class="ui top attached menu tabular" ng-if="tabbar">
+	<div class="ui top attached menu tabular tab-menu" ng-if="tabbar">
 		<a class="item" ng-repeat="item in tabbar" ng-class="{active:item.active}" href="{{item.url}}">{{item.name}}</a>
 	</div>
 

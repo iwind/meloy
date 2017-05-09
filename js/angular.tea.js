@@ -253,6 +253,7 @@ window.Tea.runActionOn = function (element) {
 		beforeFn = beforeFn.split("(")[0].trim();
 		if (typeof(Tea.View.$scope[beforeFn]) == "function") {
 			var result = Tea.View.$scope[beforeFn].call(Tea.View.$scope, form);
+			Tea.View.update();
 			if (typeof(result) == "boolean" && !result) {
 				return;
 			}
@@ -268,6 +269,7 @@ window.Tea.runActionOn = function (element) {
 					throw new Error("unable to find callback '" + successFn + "'");
 				}
 				var result = Tea.View.$scope[successFn].call(Tea.View.$scope, response);
+				Tea.View.update();
 				if (typeof(result) == "boolean" && !result) {
 					return;
 				}
@@ -292,6 +294,7 @@ window.Tea.runActionOn = function (element) {
 					throw new Error("unable to find callback '" + failFn + "'");
 				}
 				var result = Tea.View.$scope[failFn].call(Tea.View.$scope, response);
+				Tea.View.update();
 				if (typeof(result) == "boolean" && !result) {
 					return;
 				}
@@ -321,6 +324,7 @@ window.Tea.runActionOn = function (element) {
 					throw new Error("unable to find callback '" + errorFn + "'");
 				}
 				var result = Tea.View.$scope[errorFn].call(Tea.View.$scope);
+				Tea.View.update();
 				if (typeof(result) == "boolean" && !result) {
 					return;
 				}

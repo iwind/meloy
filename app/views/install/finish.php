@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>安装程序</title>
+	<title>Meloy - 安装程序</title>
 
 	{tea:inject}
 	{tea:css css/semantic.min.css}
@@ -11,7 +11,7 @@
 <!-- 顶部导航 -->
 <div class="ui menu inverted top-nav">
 	<div class="item">
-		{数据管理平台} &raquo; 安装程序 &raquo; 结束安装
+		{Meloy - 数据管理平台} &raquo; 安装程序 &raquo; 结束安装
 	</div>
 </div>
 
@@ -39,7 +39,7 @@
 		</table>
 
 		<button type="button" class="ui button" ng-click="prev()">&laquo; 上一步</button> &nbsp;
-		<button type="submit" class="ui button primary" ng-click="next()">完成配置</button>
+		<button type="submit" class="ui button primary" ng-click="next()">完成配置，去登录</button>
 	</form>
 
 </div>

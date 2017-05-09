@@ -63,6 +63,11 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "createTypeForm"
 			],
 			[
+				"name" => "改名",
+				"url" => u(".renameForm", [ "serverId" => $serverId, "index" => $index ]),
+				"active" => $this->name() == "renameForm"
+			],
+			[
 				"name" => "删除",
 				"url" => u(".deleteForm", [ "serverId" => $serverId, "index" => $index ]),
 				"active" => $this->name() == "deleteForm"

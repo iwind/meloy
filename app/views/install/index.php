@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>安装程序</title>
+	<title>Meloy - 安装程序</title>
 
 	{tea:inject}
 	{tea:css css/semantic.min.css}
@@ -11,7 +11,7 @@
 <!-- 顶部导航 -->
 <div class="ui menu inverted top-nav">
 	<div class="item">
-		{数据管理平台} &raquo; 安装程序
+		{Meloy - 数据管理平台} &raquo; 安装程序
 	</div>
 </div>
 

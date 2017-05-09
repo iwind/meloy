@@ -1,5 +1,5 @@
 # Meloy数据管理平台
-提供数据管理工具框架，可以方便地植入数据相关管理工具。
+提供ES(Elastic Search)等数据管理工具框架，可以方便地植入数据相关管理工具。
 
 # Meloy命名由来
 * *M* 管理（Manage）
@@ -29,3 +29,6 @@ http://localhost:3000
 
 ## nginx和apache
 直接将 *meloy/* 放到网站目录下即可访问。
+
+##预览图
+[预览图](docs/images/screenshot.jpg "预览图")

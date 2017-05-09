@@ -1,4 +1,3 @@
-tmp/tpl/*
-TeaPHP
-app/tests
-app/configs/db.bk.php
+meloy/tmp/tpl/*
+meloy/app/tests
+meloy/app/configs/db.bk.php

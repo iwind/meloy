@@ -1,5 +1,5 @@
 # Meloy数据管理平台
-提供ES(Elastic Search)等数据管理工具框架，可以方便地植入数据相关管理工具。
+Meloy[ˈmelə]提供ES(Elastic Search)等数据管理工具框架，可以方便地植入数据相关管理工具。
 
 # Meloy命名由来
 * *M* 管理（Manage）
@@ -11,6 +11,7 @@
 * PHP7及以上版本
 * pdo扩展
 * pdo_mysql扩展
+* curl扩展
 * json扩展(一般内置)
 
 # 安装方法
@@ -29,6 +30,9 @@ http://localhost:3000
 
 ## nginx和apache
 直接将 *meloy/* 放到网站目录下即可访问。
+
+## 默认登录账号
+默认登录邮箱为`root@meloy.cn`，你可以在安装过程中修改。
 
 ## 预览图
 ![预览图](docs/images/screenshot.jpg "预览图")

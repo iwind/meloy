@@ -24,6 +24,7 @@ class IndexAction extends BaseAction {
 			$this->_addOption("PDO扩展", "PHP必须安装PDO才能连接数据库");
 		}
 
+		//检查pdo_mysql
 		if (!in_array("mysql", pdo_drivers())) {
 			$this->_addOption("pdo_mysql", "PHP必须安装pdo_mysql才能连接数据库", false, "请安装pdo_mysql扩展");
 		}
@@ -31,6 +32,15 @@ class IndexAction extends BaseAction {
 			$this->_addOption("pdo_mysql", "PHP必须安装pdo_mysql才能连接数据库");
 		}
 
+		//检查curl
+		if (!function_exists("curl_init")) {
+			$this->_addOption("curl", "PHP必须安装curl扩展", false, "请安装curl扩展");
+		}
+		else {
+			$this->_addOption("curl", "PHP必须安装curl扩展");
+		}
+
+		//检查json
 		if (!function_exists("json_encode")) {
 			$this->_addOption("json", "PHP必须安装json扩展", false, "请安装json扩展");
 		}
@@ -38,6 +48,7 @@ class IndexAction extends BaseAction {
 			$this->_addOption("json", "PHP必须安装json扩展");
 		}
 
+		//检查数据库配置文件
 		$dbFile = TEA_APP . DS . "configs" . DS . "db.php";
 		if (is_file($dbFile)) {
 			if (!is_writable($dbFile)) {
@@ -57,6 +68,7 @@ class IndexAction extends BaseAction {
 			}
 		}
 
+		//检查临时目录
 		$tmp = TEA_ROOT . DS . "tmp";
 		if (!is_writable($tmp)) {
 			$this->_addOption("临时目录", "'{$tmp}'必须可写", false, "请检查并修正'{$tmp}'的文件写权限");
@@ -65,8 +77,9 @@ class IndexAction extends BaseAction {
 			$this->_addOption("临时目录", "'{$tmp}'必须可写");
 		}
 
+		//检查模板临时目录
 		$tplTmpDir = TEA_ROOT . DS . "tmp" . DS . "tpl";
-		if (!is_writable($tplTmpDir)) {
+		if (!is_writable($tplTmpDir) && !@make_dir($tplTmpDir)) {
 			$this->_addOption("模板临时目录", "'{$tplTmpDir}'必须可写", false, "请检查并修正'{$tplTmpDir}'的文件写权限");
 		}
 		else {

@@ -95,7 +95,11 @@ class Tea {
 
 		$prefix = rtrim(TEA_URL_BASE, "/") . "/" . ltrim(TEA_URL_DISPATCHER, "/");
 		if (!is_empty($prefix)) {
-			$originPath = preg_replace("/^" . preg_quote($prefix, "/") . "/", "", $originPath);
+			$originPath = preg_replace("/^" . preg_quote($prefix, "/") . "/", "", $originPath, 1, $count);
+
+			if ($count == 0) {
+				$originPath = preg_replace("/^" . preg_quote(TEA_URL_BASE, "/") . "/", "", $originPath, 1, $count);
+			}
 		}
 		$originPath = "/" . $originPath;
 

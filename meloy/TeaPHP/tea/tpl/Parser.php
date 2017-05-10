@@ -436,7 +436,7 @@ PHP;
 			$version = "";
 			if (is_file($file)) {
 				if (TEA_ENV == "dev") {
-					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . $file . '")); ?>';
+					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . addslashes($file) . '")); ?>';
 				}
 				else {
 					$version = Helper::idToString(filemtime($file));
@@ -481,7 +481,7 @@ PHP;
 			$version = "";
 			if (is_file($file)) {
 				if (TEA_ENV == "dev") {
-					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . $file . '")); ?>';
+					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . addslashes($file) . '")); ?>';
 				}
 				else {
 					$version = Helper::idToString(filemtime($file));
@@ -526,7 +526,7 @@ PHP;
 			$version = "";
 			if (is_file($file)) {
 				if (TEA_ENV == "dev") {
-					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . $file . '")); ?>';
+					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . addslashes($file) . '")); ?>';
 				}
 				else {
 					$version = Helper::idToString(filemtime($file));
@@ -552,9 +552,9 @@ define("TEA_IN_LAYOUT", true);
 $definedVars' . $randId . ' = get_defined_vars();
 unset($definedVars' . $randId . '["__tplFile"]);
 unset($definedVars' . $randId . '["__data"]);
-$definedVars' . $randId . '["TEA_TEMPLATE_FILE"] = "' . $tplFile . '";
+$definedVars' . $randId . '["TEA_TEMPLATE_FILE"] = "' . addslashes($tplFile) . '";
 $parser = new tea\tpl\Parser();
-$parser->parse("' . $layout . '", $definedVars' . $randId . ', true); 
+$parser->parse("' . addslashes($layout) . '", $definedVars' . $randId . ', true); 
 ?>';
 			}
 			return "";

@@ -58,6 +58,11 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "updateForm"
 			],
 			[
+				"name" => "集群",
+				"url" => u(".cluster", [ "serverId" => $serverId ]),
+				"active" => $this->name() == "cluster"
+			],
+			[
 				"name" => "删除",
 				"url" => u(".deleteForm", [ "serverId" => $serverId ]),
 				"active" => $this->name() == "deleteForm"

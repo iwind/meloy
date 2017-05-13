@@ -27,7 +27,7 @@
 
 <!-- 左侧主菜单 -->
 <div class="main-menu">
-	<div class="ui labeled icon menu vertical teal">
+	<div class="ui labeled icon menu vertical blue">
 		<a href="{tea:url dashboard}" class="item" ng-class="{active:menu == 'dashboard'}">
 			<i class="dashboard icon"></i>
 			控制台
@@ -37,10 +37,9 @@
 			ES管理
 		</a>
 
-		<!--
-		<a href="{tea:url users}" class="item" ng-class="{active:menu == 'users'}">
+		<!--<a href="{tea:url team}" class="item" ng-class="{active:menu == 'team'}">
 			<i class="group icon"></i>
-			用户管理
+			团队管理
 		</a>-->
 	</div>
 </div>
@@ -49,10 +48,10 @@
 <div class="sub-menu" ng-if="subMenus.length > 0">
 	<div class="ui menu vertical">
 		<div ng-repeat="subMenu in subMenus">
-			<div class="item teal" ng-class="{active:subMenu.active}" ng-if="subMenu.url.length > 0">
+			<div class="item blue" ng-class="{active:subMenu.active}" ng-if="subMenu.url.length > 0">
 				<a href="{{subMenu.url}}">{{subMenu.name}}</a>
 			</div>
-			<div class="item teal" ng-class="{active:subMenu.active}" ng-if="!subMenu.url || subMenu.url.length == 0">
+			<div class="item blue" ng-class="{active:subMenu.active}" ng-if="!subMenu.url || subMenu.url.length == 0">
 				{{subMenu.name}}
 			</div>
 
@@ -60,7 +59,7 @@
 			<div class="item" ng-if="subMenu.items.length > 0">
 				<div class="menu">
 					<div ng-repeat="item in subMenu.items">
-						<a href="{{item.url}}" class="teal item" ng-class="{active:item.active}" >
+						<a href="{{item.url}}" class="blue item" ng-class="{active:item.active}" >
 							{{item.name}}
 						</a>
 
@@ -68,7 +67,7 @@
 						<div ng-if="item.items && item.items.length > 0" class="third-menu">
 							<!--<div class="item"><strong ng-bind-html="item.items[0].name|allow"></strong></div>-->
 							<div ng-repeat="(subIndex,subItem) in item.items" ng-if="subIndex > 0">
-								<a class="item teal" ng-class="{active:subItem.active}" href="{{subItem.url}}"><i class="icon database"></i>{{subItem.name}}</a>
+								<a class="item blue" ng-class="{active:subItem.active}" href="{{subItem.url}}"><i class="icon database"></i>{{subItem.name}}</a>
 
 								<!-- 第四层菜单 -->
 								<div ng-if="subItem.items && subItem.items.length > 0" class="fourth-menu">
@@ -76,7 +75,7 @@
 										<strong ng-bind-html="subItem.items[0].name|allow"></strong>
 									</div>-->
 									<div ng-repeat="(subSubIndex, subSubItem) in subItem.items" ng-if="subSubIndex > 0">
-										<a class="item teal" ng-class="{active:subSubItem.active}" href="{{subSubItem.url}}">
+										<a class="item blue" ng-class="{active:subSubItem.active}" href="{{subSubItem.url}}">
 											<i class="table icon"></i>{{subSubItem.name}}
 										</a>
 									</div>

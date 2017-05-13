@@ -13,12 +13,12 @@ class UpdateFieldsAction extends BaseAction {
 		$mapping = new Mapping($this->_type);
 		foreach ($fieldTypes as $index => $fieldType) {
 			if (!isset($fieldNames[$index])) {
-				$this->fail("字段名不能为空");
+				$this->field("fieldNames[{$index}]", "字段名不能为空")->fail();
 			}
 
 			$fieldName = trim($fieldNames[$index]);
 			if (is_empty($fieldName)) {
-				$this->fail("字段名不能为空");
+				$this->field("fieldNames[{$index}]", "字段名不能为空")->fail();
 			}
 
 			//@TODO 需要对$fieldNames[$index]进行更严格的校验

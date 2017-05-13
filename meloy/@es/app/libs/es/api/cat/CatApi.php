@@ -10,6 +10,11 @@ class CatApi extends Api {
 
 		$this->param("format", "json");
 	}
+
+	public function headers(... $headers) {
+		$this->param("h", implode(",", $headers));
+		return $this;
+	}
 }
 
 ?>

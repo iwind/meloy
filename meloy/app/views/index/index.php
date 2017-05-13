@@ -12,7 +12,7 @@
 
 
 <form class="ui large form" data-tea-action="login">
-	<h2 class="ui teal header">
+	<h2 class="ui blue header">
 		<div class="content">
 			登录Meloy - 数据管理平台
 		</div>

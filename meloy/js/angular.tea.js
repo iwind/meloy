@@ -311,9 +311,20 @@ window.Tea.runActionOn = function (element) {
 				if (!hasMessage) {
 					alert(error[2]);
 				}
-				var element = document.querySelector("*[name='" + error[0] + "']");
+				var fieldName = error[0];
+				var element = document.querySelector("*[name='" + fieldName + "']");
 				if (element) {
 					element.focus();
+				}
+				else {
+					var match = fieldName.match(/^(.+)\[(\d+)\]$/);
+					if (match != null) {
+						var index = parseInt(match[2], 10);
+						var fields = document.querySelectorAll("*[name='" + match[1].trim() + "[]']");
+						if (fields.length >0 && index < fields.length) {
+							fields[index].focus();
+						}
+					}
 				}
 			}
 		})

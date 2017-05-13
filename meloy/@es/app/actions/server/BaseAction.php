@@ -63,6 +63,11 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "cluster"
 			],
 			[
+				"name" => "插件",
+				"url" => u(".plugins", [ "serverId" => $serverId ]),
+				"active" => $this->name() == "plugins"
+			],
+			[
 				"name" => "删除",
 				"url" => u(".deleteForm", [ "serverId" => $serverId ]),
 				"active" => $this->name() == "deleteForm"

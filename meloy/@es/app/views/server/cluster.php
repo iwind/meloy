@@ -1,6 +1,9 @@
 {tea:layout}
 
 <h3>节点</h3>
+
+<a href="" id="refresh-btn" title="刷新" ng-click="reload()"><i class="icon refresh"></i></a>
+
 <table class="ui table">
 	<thead>
 		<tr>

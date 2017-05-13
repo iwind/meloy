@@ -1,3 +1,10 @@
+
+/** 通用 **/
+.clear {
+	clear: both;
+}
+
+/** 布局相关 */
 .top-nav {
 	border-radius: 0!important;
 	position: fixed;
@@ -50,6 +57,14 @@
 .main-menu {
 	position: fixed;
 	top: 4em;
+}
+
+.main .tab-menu {
+
+}
+
+.main .tab-menu .item {
+	padding: 1em!important;
 }
 
 .sub-menu {

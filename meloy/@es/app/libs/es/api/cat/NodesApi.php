@@ -3,7 +3,7 @@
 namespace es\api\cat;
 
 class NodesApi extends CatApi {
-	public function get() {
+	public function getAll() {
 		$this->_endPoint = "/_cat/nodes";
 
 		$this->sendGet();

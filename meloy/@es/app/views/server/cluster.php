@@ -31,6 +31,6 @@
 		<td>
 			{{node.settings.transport.tcp.port}}
 		</td>
-		<td>{{node.load_1m}}</td>
+		<td><a href="{{Tea.url('.monitor', {'serverId':server.id, 'nodeId':key})}}">{{node.load_1m}}</a></td>
 	</tr>
 </table>

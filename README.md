@@ -35,4 +35,8 @@ http://localhost:3000
 默认登录邮箱为`root@meloy.cn`，你可以在安装过程中修改。
 
 ## 预览图
-![预览图](docs/images/screenshot.jpg "预览图")
+### 查询数据
+![查询数据](docs/images/screenshot.jpg "查询数据")
+
+### 监控
+![监控](docs/images/screenshot-monitor.jpg "监控")

@@ -14,7 +14,7 @@ class ClusterAction extends BaseAction {
 		//负载
 		$catApi = $this->_server->api(\es\api\cat\NodesApi::class); /** @var \es\api\cat\NodesApi $catApi */
 		$catApi->headers("id", "load_1m", "load_5m", "load_15m");
-		$result = $catApi->get();
+		$result = $catApi->getAll();
 
 		foreach ($this->data->nodes as $id => $node) {
 			foreach ($result as $data) {

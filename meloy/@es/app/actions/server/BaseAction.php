@@ -63,6 +63,11 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "cluster"
 			],
 			[
+				"name" => "监控",
+				"url" => u(".monitor", [ "serverId" => $serverId ]),
+				"active" => $this->name() == "monitor"
+			],
+			[
 				"name" => "插件",
 				"url" => u(".plugins", [ "serverId" => $serverId ]),
 				"active" => $this->name() == "plugins"

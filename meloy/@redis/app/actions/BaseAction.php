@@ -5,25 +5,37 @@ namespace redis\app\actions;
 use app\classes\AuthAction;
 use app\models\server\Server;
 use app\models\server\ServerType;
-use tea\Arrays;
+use redis\Exception;
 use tea\Request;
 
 class BaseAction extends AuthAction {
 	protected $_subMenu;
 
+	/**
+	 * 主机信息
+	 *
+	 * @var Server
+	 */
+	private $_server;
+
+	private $_redis;
+
 	public function before() {
 		parent::before();
 
-		//加载ES操作库
+		//加载Redis操作库
 		import(TEA_ROOT . DS . "@redis/app/libs");
+
+		//检查Redis是否已安装扩展
+		if (!class_exists("\\Redis", false)) {
+			throw new Exception("要想正常连接到Redis，请先安装php_redis扩展：<a href=\"https://github.com/phpredis/phpredis/\" target='_blank'>https://github.com/phpredis/phpredis/</a>");
+		}
 
 		$this->data->menu = "@redis";
 
 		//用户创建的主机
 		$request = Request::shared();
 		$serverId = $request->param("serverId");
-		$index = $request->param("index");
-		$type = $request->param("type");
 		$subMenus = [];
 		$serverTypeId = ServerType::findTypeIdWithCode("redis");
 		foreach (Server::findUserServersWithType($this->userId(), $serverTypeId) as $server) {
@@ -34,73 +46,9 @@ class BaseAction extends AuthAction {
 				"items" => []
 			];
 
-			//索引
+			//主机
 			if ($server->id == $serverId) {
-				/**
-				 * @var GetIndexApi $api
-				 */
-				$api = $server->api(GetIndexApi::class);
-
-				$hasError = false;
-				try {
-					$indexes = $api->getAll();
-				} catch (Exception $e) {
-					$hasError = true;
-					$indexes = [];
-				}
-
-				if ($hasError) {
-					$menu["items"][] = [
-						"name" => "[无法连接此主机]"
-					];
-				}
-				else {
-					$menu["items"][] = [
-						"name" => "索引 &raquo;"
-					];
-
-					$indexItems = [];
-					foreach ($indexes as $indexName => $info) {
-						$subItems = [];
-
-						$subItems[] = [
-							"name" => "类型 &raquo;"
-						];
-
-						if ($index == $indexName) {
-							$typeItems = [];
-							foreach ($info->mappings as $typeName => $mapping) {
-								$typeItems[] = [
-									"name" => $typeName,
-									"url" => u("@.type", [
-										"serverId" => $serverId,
-										"index" => $indexName,
-										"type" => $typeName
-									]),
-									"active" => $serverId == $server->id && $index == $indexName && $type == $typeName
-								];
-							}
-
-							$typeItems = Arrays::sort($typeItems, "name");
-							foreach ($typeItems as $item) {
-								$subItems[] = $item;
-							}
-						}
-
-						//@TODO 显示 aliases
-						$indexItems[] = [
-							"name" => $indexName,
-							"url" => u("@.indice", ["serverId" => $serverId, "index" => $indexName]),
-							"items" => $subItems,
-							"active" => $serverId == $server->id && $index == $indexName
-						];
-					}
-
-					$indexItems = Arrays::sort($indexItems, "name");
-					foreach ($indexItems as $item) {
-						$menu["items"][] = $item;
-					}
-				}
+				$this->_server = $server;
 			}
 
 			$subMenus[] = $menu;
@@ -120,6 +68,30 @@ class BaseAction extends AuthAction {
 				"items" => $subMenus
 			],
 		];
+	}
+
+	/**
+	 * 获取Redis对象
+	 *
+	 * @return \Redis
+	 * @throws
+	 */
+	public function _redis() {
+		if (!$this->_redis) {
+			$this->_redis = new \Redis();
+			if (!$this->_redis->connect($this->_server->host, $this->_server->port)) {
+				throw new Exception("无法连接到Redis：{$this->_server->host}:{$this->_server->port}");
+			}
+
+			$options = json_decode($this->_server->options);
+			if (is_object($options) && isset($options->password) && !is_empty($options->password)) {
+				if (!$this->_redis->auth($options->password)) {
+					throw new Exception("已连接到Redis：{$this->_server->host}:{$this->_server->port}，但密码校验失败");
+				}
+			}
+		}
+
+		return $this->_redis;
 	}
 }
 

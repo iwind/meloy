@@ -156,9 +156,10 @@ class Server extends Model {
 	 * @param string $name 名称
 	 * @param string $host 地址
 	 * @param int $port 端口
+	 * @param mixed $options 配置选项
 	 * @return int
 	 */
-	public static function createServer($userId, $typeId, $name, $host, $port) {
+	public static function createServer($userId, $typeId, $name, $host, $port, $options = null) {
 		$server = new self;
 		$server->userId = $userId;
 		$server->typeId = $typeId;
@@ -166,6 +167,11 @@ class Server extends Model {
 		$server->host = $host;
 		$server->port = $port;
 		$server->state = self::STATE_ENABLED;
+
+		if (!is_null($options)) {
+			$server->options = json_encode($options);
+		}
+
 		$server->save();
 
 		return $server->id;
@@ -178,13 +184,19 @@ class Server extends Model {
 	 * @param string $name 名称
 	 * @param string $host 地址
 	 * @param int $port 端口
+	 * @param mixed $options 配置选项
 	 */
-	public static function updateServer($serverId, $name, $host, $port) {
+	public static function updateServer($serverId, $name, $host, $port, $options = null) {
 		$server = new self;
 		$server->id = $serverId;
 		$server->name = $name;
 		$server->host = $host;
 		$server->port = $port;
+
+		if (!is_null($options)) {
+			$server->options = json_encode($options);
+		}
+
 		$server->save();
 	}
 

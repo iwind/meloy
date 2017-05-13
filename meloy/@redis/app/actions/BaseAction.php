@@ -1,12 +1,10 @@
 <?php
 
-namespace es\app\actions;
+namespace redis\app\actions;
 
 use app\classes\AuthAction;
 use app\models\server\Server;
 use app\models\server\ServerType;
-use es\api\GetIndexApi;
-use es\Exception;
 use tea\Arrays;
 use tea\Request;
 
@@ -17,9 +15,9 @@ class BaseAction extends AuthAction {
 		parent::before();
 
 		//加载ES操作库
-		import(TEA_ROOT . DS . "@es/app/libs");
+		import(TEA_ROOT . DS . "@redis/app/libs");
 
-		$this->data->menu = "@es";
+		$this->data->menu = "@redis";
 
 		//用户创建的主机
 		$request = Request::shared();
@@ -27,7 +25,8 @@ class BaseAction extends AuthAction {
 		$index = $request->param("index");
 		$type = $request->param("type");
 		$subMenus = [];
-		foreach (Server::findUserServersWithType($this->userId(), ServerType::findTypeIdWithCode("es")) as $server) {
+		$serverTypeId = ServerType::findTypeIdWithCode("redis");
+		foreach (Server::findUserServersWithType($this->userId(), $serverTypeId) as $server) {
 			$menu = [
 				"name" => $server->name . "(" . $server->host . ":" . $server->port . ")",
 				"url" => u("@.server", [ "serverId" => $server->id ]),

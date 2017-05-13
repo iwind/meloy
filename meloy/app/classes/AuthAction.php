@@ -2,6 +2,7 @@
 
 namespace app\classes;
 
+use app\models\server\ServerType;
 use app\models\user\User;
 use tea\Action;
 use tea\auth\Exception;
@@ -35,6 +36,16 @@ class AuthAction extends Action {
 		} catch (Exception $e) {
 			g("index", [ "g" => $_SERVER["REQUEST_URI"] ]);
 		}
+
+		//提供的模块
+		$serverTypes = ServerType::findAllEnabledTypes();
+		$this->data->serverTypes = array_map(function (ServerType $serverType) {
+			return (object)[
+				"id" => $serverType->id,
+				"name" => $serverType->name,
+				"code" => $serverType->code
+			];
+		}, $serverTypes);
 
 		//meloy
 		$meloy = new \stdClass();

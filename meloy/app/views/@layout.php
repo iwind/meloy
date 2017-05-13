@@ -32,9 +32,11 @@
 			<i class="dashboard icon"></i>
 			控制台
 		</a>
-		<a href="{tea:url @es}" class="item" ng-class="{active:menu == '@es'}">
+
+		<!-- 数据管理模块 -->
+		<a ng-repeat="serverType in serverTypes" href="{{Tea.url('@' + serverType.code)}}" class="item" ng-class="{active:menu == '@' + serverType.code}">
 			<i class="browser icon"></i>
-			ES管理
+			{{serverType.name}}
 		</a>
 
 		<!--<a href="{tea:url team}" class="item" ng-class="{active:menu == 'team'}">
@@ -102,7 +104,8 @@
 <!-- 底部 -->
 <div id="footer" class="ui menu inverted">
 	<div class="item">v{{meloy.version}}</div>
-	<a href="https://github.com/iwind/meloy" target="_blank" class="item">[GitHub]</a>
+	<a href="https://git.oschina.net/liuxiangchao/meloy" target="_blank" class="item">OSC码云</a>
+	<a href="https://github.com/iwind/meloy" target="_blank" class="item">GitHub</a>
 	<div class="item">免费加入QQ群讨论：199435611</div>
 </div>
 

@@ -17,6 +17,7 @@
 	left: 20em;
 	top: 4em;
 	padding-bottom: 4em;
+	padding-right: 1em;
 	right: 0;
 }
 
@@ -65,6 +66,11 @@
 
 .main .tab-menu .item {
 	padding: 1em!important;
+}
+
+.main .message .icon {
+	position: absolute;
+	right: 1em;
 }
 
 .sub-menu {

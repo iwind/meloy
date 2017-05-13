@@ -3,6 +3,7 @@
 namespace es\app\actions\server;
 
 use es\api\GetIndexApi;
+use es\Exception;
 use tea\Arrays;
 
 class IndexAction extends BaseAction {
@@ -11,7 +12,13 @@ class IndexAction extends BaseAction {
 		 * @var GetIndexApi $api
 		 */
 		$api = $this->_server->api(GetIndexApi::class);
-		$this->data->info = Arrays::flatten($api->get());
+
+		$this->data->error = null;
+		try {
+			$this->data->info = Arrays::flatten($api->get());
+		} catch (Exception $e) {
+			$this->data->error = $e->getMessage();
+		}
 	}
 }
 

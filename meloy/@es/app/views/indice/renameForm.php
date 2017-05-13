@@ -2,7 +2,7 @@
 
 <h3>改名</h3>
 
-<form class="ui form" data-tea-action=".rename" data-tea-before="before()" data-tea-fail="fail()">
+<form class="ui form" data-tea-action=".rename" data-tea-before="before()" data-tea-fail="fail()" data-tea-timeout="3600">
 	<input type="hidden" name="serverId" value="{{server.id}}"/>
 	<input type="hidden" name="index" value="{{index.name}}"/>
 

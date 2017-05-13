@@ -55,6 +55,7 @@ Tea.View.scope(function () {
 	this.chartData = {};
 	this.interval = 5000;
 	this.chartDataCount = 20;
+	this.error = null;
 
 	var that = this;
 
@@ -183,6 +184,8 @@ Tea.View.scope(function () {
 			})
 			.timeout(5)
 			.success(function (response) {
+				this.error = null;
+
 				//显示数据
 				this.chartTypes.$each(function (k, chartType) {
 					var type = chartType.code;
@@ -266,6 +269,12 @@ Tea.View.scope(function () {
 				that.chartTimer = setTimeout(function () {
 					that.loadData();
 				}, that.interval);
+			})
+			.fail(function () {
+				this.error = "数据读取过程中发生了错误，请刷新后重试";
+			})
+			.error(function () {
+				this.error = "数据读取过程中发生了错误，请刷新后重试";
 			});
 	};
 
@@ -288,5 +297,9 @@ Tea.View.scope(function () {
 		}
 
 		return hour + ":" + minute + ":" + second;
+	};
+
+	this.refresh = function () {
+		window.location.reload();
 	};
 });

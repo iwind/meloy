@@ -19,6 +19,7 @@ class Api {
 	private $_code = 0;
 	private $_data;
 	private $_method;
+	private $_timeout = 5;
 
 	protected $_endPoint;
 	protected $_docs = [];
@@ -47,6 +48,20 @@ class Api {
 
 	public function method() {
 		return $this->_method;
+	}
+
+	/**
+	 * 设置请求超时时间
+	 *
+	 * @param int|string $timeout 超时时间
+	 * @return self|int
+	 */
+	public function timeout($timeout = nil) {
+		if (is_nil($timeout)) {
+			return $this->_timeout;
+		}
+		$this->_timeout = $timeout;
+		return $this;
 	}
 
 	public function docs(array $docs = NilArray) {
@@ -87,7 +102,6 @@ class Api {
 		}
 		return $this->_prefix;
 	}
-
 
 	/**
 	 * 设置要操作的索引
@@ -181,16 +195,14 @@ class Api {
 		$this->_method = "GET";
 
 		$curl = curl_init($this->_buildUrl());
-
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-			"Connection: Keep-Alive",
-			"Keep-Alive: 300",
-			"Content-Type: application/json"
-		));
-
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_USERAGENT, $this->_userAgent);
 		curl_setopt($curl, CURLOPT_HTTPGET, 1);
+
+		//超时时间
+		if (is_numeric($this->_timeout) && $this->_timeout > 0) {
+			curl_setopt($curl, CURLOPT_TIMEOUT, $this->_timeout);
+		}
 
 		if (strlen($this->_payload) > 0) {
 			curl_setopt($curl, CURLOPT_POSTFIELDS, $this->_payload);
@@ -220,6 +232,12 @@ class Api {
 		}
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_USERAGENT, $this->_userAgent);
+
+		//超时时间
+		if (is_numeric($this->_timeout) && $this->_timeout > 0) {
+			curl_setopt($curl, CURLOPT_TIMEOUT, $this->_timeout);
+		}
+
 		$response = curl_exec($curl);
 		$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 		curl_close($curl);
@@ -235,6 +253,12 @@ class Api {
 
 		$curl = curl_init($this->_buildUrl());
 		curl_setopt($curl, CURLOPT_USERAGENT, $this->_userAgent);
+
+		//超时时间
+		if (is_numeric($this->_timeout) && $this->_timeout > 0) {
+			curl_setopt($curl, CURLOPT_TIMEOUT, $this->_timeout);
+		}
+
 		curl_setopt($curl, CURLOPT_NOBODY, 1);
 		$response = curl_exec($curl);
 		$code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -258,6 +282,11 @@ class Api {
 			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "PUT");
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 			curl_setopt($curl, CURLOPT_USERAGENT, $this->_userAgent);
+
+			//超时时间
+			if (is_numeric($this->_timeout) && $this->_timeout > 0) {
+				curl_setopt($curl, CURLOPT_TIMEOUT, $this->_timeout);
+			}
 
 			$this->_putCurls[$api] = $curl;
 		}

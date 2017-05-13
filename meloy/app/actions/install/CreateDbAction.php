@@ -2,6 +2,7 @@
 
 namespace app\actions\install;
 
+use app\models\server\ServerType;
 use app\models\user\User;
 use tea\Must;
 use tea\string\Helper;
@@ -79,6 +80,17 @@ class CreateDbAction extends BaseAction {
 		//创建用户
 		if (!User::exist(1)) {
 			User::createUser("root@meloy.cn", "123456", "管理员");
+		}
+
+		//创建主机类型
+		if (!ServerType::existServerType("es")) {
+			ServerType::createServerType("ES搜索", "es");
+		}
+		if (!ServerType::existServerType("mongo")) {
+			ServerType::createServerType("MongoDB", "mongo", ServerType::STATE_DISABLED);
+		}
+		if (!ServerType::existServerType("redis")) {
+			ServerType::createServerType("Redis", "redis");
 		}
 
 		//登录

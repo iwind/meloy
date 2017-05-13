@@ -1,0 +1,32 @@
+.grid {
+	padding: 0.4em!important;
+}
+
+.server .server-info {
+	border: 1px #ccc solid;
+	padding: 1em;
+	cursor: pointer;
+}
+
+.server span {
+	font-size: 0.8em;
+	padding-left: 0.5em;
+}
+
+.server a {
+	display: block;
+}
+
+.server .server-info .icon {
+	float: left;
+	margin-right: 0.5em;
+}
+
+.server .server-info .address {
+	float: left;
+}
+
+.server .type-name a {
+	font-size: 0.8em;
+	color: gray;
+}

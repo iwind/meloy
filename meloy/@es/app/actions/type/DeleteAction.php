@@ -11,6 +11,8 @@ use es\Exception;
 
 class DeleteAction extends BaseAction {
 	public function run() {
+		$timeout = 3600;
+
 		//执行删除
 		if (!is_empty($this->_type)) {
 			try {
@@ -39,6 +41,7 @@ class DeleteAction extends BaseAction {
 					$reindexApi->sourceIndex($this->_index);
 					$reindexApi->types($mappingNames);
 					$reindexApi->destIndex($tmpIndex);
+					$reindexApi->timeout($timeout);
 					$reindexApi->waitForCompletion(true);
 					$reindexApi->refresh();
 					$reindexApi->exec();
@@ -62,6 +65,7 @@ class DeleteAction extends BaseAction {
 					$reindexApi = $this->_server->api(ReindexApi::class);
 					$reindexApi->sourceIndex($tmpIndex);
 					$reindexApi->destIndex($this->_index);
+					$reindexApi->timeout($timeout);
 					$reindexApi->waitForCompletion(true);
 					$reindexApi->refresh();
 					$reindexApi->exec();

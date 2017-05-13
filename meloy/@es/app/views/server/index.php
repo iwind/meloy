@@ -1,6 +1,10 @@
 {tea:layout}
 
-<table class="ui table definition celled">
+<div class="ui message error" ng-if="error != null && error.length > 0">
+	{{error}}
+</div>
+
+<table class="ui table definition celled" ng-if="error == null">
 	<thead class="full-width">
 		<tr>
 			<th>选项</th>

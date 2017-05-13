@@ -148,7 +148,6 @@ class GenerateJob extends Job {
 
 	const STATE_DISABLED = 0; // 禁用
 	const STATE_ENABLED = 1; // 启用
-
 CONSTANTS;
 
 
@@ -156,6 +155,7 @@ CONSTANTS;
 
 	/**
 	 * 启用条目
+	 *
 	 * @param int \${$lowerModelLastName}Id 条目ID
 	 */
 	public static function enable{$modelLastName}(\${$lowerModelLastName}Id) {
@@ -168,6 +168,7 @@ CONSTANTS;
 
 	/**
 	 * 禁用条目
+	 *
 	 * @param int \${$lowerModelLastName}Id 条目ID
 	 */
 	public static function disable{$modelLastName}(\${$lowerModelLastName}Id) {

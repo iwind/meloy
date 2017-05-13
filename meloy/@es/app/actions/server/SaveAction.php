@@ -3,6 +3,7 @@
 namespace es\app\actions\server;
 
 use app\models\server\Server;
+use app\models\server\ServerType;
 use es\api\Api;
 use es\app\actions\BaseAction;
 use es\Exception;
@@ -35,7 +36,8 @@ class SaveAction extends BaseAction {
 		}
 
 		//保存
-		$serverId = Server::createServer($this->userId(), Server::TYPE_ES, $name, $host, $port);
+		$serverTypeId = ServerType::findTypeIdWithCode("es");
+		$serverId = Server::createServer($this->userId(), $serverTypeId, $name, $host, $port);
 
 		//跳转
 		$this->next(".index", [

@@ -15,10 +15,6 @@ class Server extends Model {
 	const STATE_DISABLED = 0; // 禁用
 	const STATE_ENABLED = 1; // 启用
 
-	const TYPE_ES = 1;
-	const TYPE_MONGO = 2;
-	const TYPE_REDIS = 3;
-
 	/**
 	 * ID
 	 */
@@ -82,6 +78,24 @@ class Server extends Model {
 		$obj->prefix($prefix);
 
 		return $obj;
+	}
+
+	/**
+	 * 获取模块名
+	 *
+	 * @return string
+	 */
+	public function module() {
+		return "@" . ServerType::findTypeCodeWithId($this->typeId);
+	}
+
+	/**
+	 * 获取类型名
+	 *
+	 * @return string
+	 */
+	public function typeName() {
+		return ServerType::findTypeName($this->typeId);
 	}
 
 	/**
@@ -185,6 +199,20 @@ class Server extends Model {
 		return self::query()
 			->attr("userId", $userId)
 			->attr("typeId", $typeId)
+			->state(self::STATE_ENABLED)
+			->asc()
+			->findAll();
+	}
+
+	/**
+	 * 获取用户添加的所有主机
+	 *
+	 * @param int $userId 用户ID
+	 * @return self[]
+	 */
+	public static function findAllUserServers($userId) {
+		return self::query()
+			->attr("userId", $userId)
 			->state(self::STATE_ENABLED)
 			->asc()
 			->findAll();

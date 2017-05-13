@@ -30,6 +30,15 @@ CREATE TABLE IF NOT EXISTS `pp_serverTableUsers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='表权限设置';
 
+CREATE TABLE IF NOT EXISTS `pp_serverTypes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(128) DEFAULT NULL COMMENT '类型名',
+  `code` varchar(128) DEFAULT NULL COMMENT '代号，如es,redis,mongo',
+  `order` int(11) unsigned DEFAULT '0' COMMENT '排序',
+  `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态：0禁用，1启用 ',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='主机类型';
+
 CREATE TABLE IF NOT EXISTS `pp_teams` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `userId` int(11) unsigned DEFAULT '0' COMMENT '创建者用户ID',

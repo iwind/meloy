@@ -4,7 +4,6 @@ namespace app\actions\index;
 
 use tea\Action;
 use tea\auth\ShouldAuth;
-use tea\Exception;
 
 class IndexAction extends Action {
 	public function run(ShouldAuth $userAuth) {

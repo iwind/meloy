@@ -12,8 +12,8 @@
 			<th>主机地址(Host)</th>
 			<th>版本</th>
 			<th>角色(Roles)</th>
-			<th>Http端口</th>
-			<th>Transport端口</th>
+			<th>Http地址</th>
+			<th>Transport地址</th>
 			<th>负载(1分钟)</th>
 		</tr>
 	</thead>
@@ -26,10 +26,10 @@
 			{{node.roles.join(", ")}}
 		</td>
 		<td>
-			{{node.settings.http.port}}
+			{{node.http.publish_address}}
 		</td>
 		<td>
-			{{node.settings.transport.tcp.port}}
+			{{node.transport.publish_address}}
 		</td>
 		<td><a href="{{Tea.url('.monitor', {'serverId':server.id, 'nodeId':key})}}">{{node.load_1m}}</a></td>
 	</tr>

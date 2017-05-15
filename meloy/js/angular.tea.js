@@ -477,3 +477,12 @@ window.Tea.formatBytes = function (bytes) {
 	}
 	return Math.round(bytes / 1024 / 1024 / 1024 * 100) / 100+ " gb";
 };
+
+window.Tea.Help = false;
+window.onresize = function () {
+	if (!window.Tea.Help) {
+		window.Tea.Help = true;
+
+		console.log("%c Meloy & TeaPHP Javascript API Helps: \n   Tea.View.$scope - get angular $scope variable\n   Tea.View.$scope.xxx - print variables or functions in angular $scope\n   TEA.ACTION.data - show all data from action", "color:green");
+	}
+};

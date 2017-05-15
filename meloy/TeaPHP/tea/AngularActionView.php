@@ -46,7 +46,7 @@ class AngularActionView extends ActionView {
 	}	
 }; \n</script>
 <script type=\"text/javascript\" src=\"" . $urlBase . "/js/angular.min.js?v=1.5.7\"></script>
-<script type=\"text/javascript\" src=\"" . $urlBase . "/js/angular.tea.js?v=1.0.0\"></script>{$js}{$css}"
+<script type=\"text/javascript\" src=\"" . $urlBase . "/js/angular.tea.js?v=1.0.1\"></script>{$js}{$css}"
 		];
 
 		parent::show();

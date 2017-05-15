@@ -32,7 +32,7 @@
 	<tr ng-repeat="item in items">
 		<td>{{item.key}}</td>
 		<td class="value-item">
-			<span ng-if="item.type != 'string'" class="type-label">[{{item.type}}]</span>
+			<span class="type-label">[{{item.type}}]</span>
 			<span ng-if="item.count > 0" class="type-label">[共{{item.count}}个子元素]</span>
 			<pre ng-if="item.type != 'string'" class="doc">{{item.value}}</pre>
 			<div ng-if="item.type == 'string'">{{item.value}}</div>

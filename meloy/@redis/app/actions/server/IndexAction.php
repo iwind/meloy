@@ -17,36 +17,52 @@ class IndexAction extends BaseAction {
 			$keys = $this->_redis()->keys($q);
 			$offset = 0;
 		}
-		$count = 0;
 		foreach ($keys as $key) {
 			$value = $this->_redis()->get($key);
-			$type = "string";
-			if ($value === false) {
-				//是否为list
-				$value = $this->_redis()->lGet($key, 0);
-				if ($value !== false) {
-					$type = "list";
-					$value = $this->_redis()->lGetRange($key, 0, 9);
-
-					$count = $this->_redis()->lLen($key);
-					if ($count > count($value)) {
-						$value[] = "...";
-					}
-				}
-
-				//是否为hash
-				if ($value === false) {
-					$value = $this->_redis()->hGetAll($key);
-					if (!empty($value)) {
-						$value = json_unicode_to_utf8(json_encode($value, JSON_PRETTY_PRINT));
-						$type = "hash";
-					}
-				}
+			$type = $this->_redis()->type($key);
+			$typeName = "string";
+			$count = 0;
+			if ($type == \Redis::REDIS_STRING) {
+				$typeName = "string";
 			}
+			else if ($type == \Redis::REDIS_HASH) {
+				$typeName = "hash";
+				$value = json_encode($this->_redis()->hGetAll($key), JSON_PRETTY_PRINT);
+			}
+			else if ($type == \Redis::REDIS_LIST) {
+				$typeName = "list";
+
+				$value = $this->_redis()->lGetRange($key, 0, 9);
+
+				$count = $this->_redis()->lLen($key);
+				if ($count > count($value)) {
+					$value[] = "...";
+				}
+
+				$value = json_encode($value, JSON_PRETTY_PRINT);
+			}
+			else if ($type == \Redis::REDIS_SET) {
+				$typeName = "set";
+				$value = json_encode($this->_redis()->sGetMembers($key), JSON_PRETTY_PRINT);
+			}
+			else if ($type == \Redis::REDIS_ZSET) {
+				$typeName = "zset";
+				$value = $this->_redis()->zRange($key, 0, 9);
+
+				$count = $this->_redis()->zSize($key);
+				if ($count > count($value)) {
+					$value[] = "...";
+				}
+				$value = json_encode($value, JSON_PRETTY_PRINT);
+			}
+			else if ($type == \Redis::REDIS_NOT_FOUND) {
+				$typeName = "string";
+			}
+
 			$items[] = (object)[
 				"key" => $key,
 				"value" => $value,
-				"type" => $type,
+				"type" => $typeName,
 				"count" => $count
 			];
 		}

@@ -9,7 +9,7 @@
 	<div class="ui two fields">
 		<div class="ui field">
 			<div class="ui icon input">
-				<input type="text" name="q" ng-model="q" ng-init="q = '{tea:$x.q}'" placeholder="输入搜索语句，类似于 *user*"/>
+				<input type="text" name="q" ng-model="q" ng-init="q = '{tea:$x.q}'" placeholder="输入搜索语句，区分大小写，类似于 *user*"/>
 				<i class="icon remove link" ng-if="q.length > 0" ng-click="clearQ()"></i>
 			</div>
 		</div>

@@ -30,7 +30,10 @@ http://localhost:3000
 ~~~
 
 ## nginx和apache
-直接将 *meloy/* 放到网站目录下即可访问。
+直接将 *meloy/* 放到网站目录下即可访问：
+~~~
+http://你的网站/meloy/
+~~~
 
 ## 默认登录账号
 默认登录邮箱为`root@meloy.cn`，你可以在安装过程中修改。
@@ -42,5 +45,17 @@ http://localhost:3000
 ## 查询数据
 ![查询数据](docs/images/screenshot.jpg "查询数据")
 
+## 查询构造器
+![查询构造器](docs/images/screenshot-query-builder.jpg)
+
 ## 监控
 ![监控](docs/images/screenshot-monitor.jpg "监控")
+
+# 使用的开源技术
+* [PHP](http://php.net/)
+* [MySQL](https://www.mysql.com/)
+* [Semantic UI](https://semantic-ui.com/)
+* [AngularJS](https://angularjs.org/)
+* [highlight.js](https://highlightjs.org/)
+* [echarts](http://echarts.baidu.com/)
+* [jQuery](http://jquery.com/)

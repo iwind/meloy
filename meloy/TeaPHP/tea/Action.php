@@ -524,7 +524,7 @@ FOOTER;
 		 */
 		$actionObject = $reflectionClass->newInstance();
 		if (!$actionObject instanceof Action) {
-			throw new Exception("'{$actionClass}' should extends from 'es\\Action'");
+			throw new Exception("'{$actionClass}' should extends from 'tea\\Action'");
 		}
 
 		$oldRequestMethod = $_SERVER["REQUEST_METHOD"];

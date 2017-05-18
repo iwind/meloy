@@ -4,7 +4,7 @@ namespace tea\db\drivers;
 
 use tea\db\Field;
 
-class MySQLDriver {
+class MySQLDriver extends Driver {
 	private $_typeMapping = [
 		"BIT" => [ Field::TYPE_INT, "l" ],
 		"TINYINT" => [ Field::TYPE_INT, "l" ],

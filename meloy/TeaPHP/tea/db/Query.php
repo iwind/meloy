@@ -1047,7 +1047,7 @@ class Query {
 				}
 			}
 			else if ($this->_action == self::ACTION_INSERT) {
-				$sql = "INSERT " . $this->_quoteTable($this->_table) . "\n ";
+				$sql = "INSERT INTO " . $this->_quoteTable($this->_table) . "\n ";
 				$sql .= $this->_partitionsSQL();
 
 				$fieldStrings = [];
@@ -1208,7 +1208,7 @@ class Query {
 		}
 
 		//limit & offset
-		if (!$this->_subAction) {
+		if (!$this->_subAction && ($this->_action != self::ACTION_SAVE || $this->_currentDb()->driver()->updateLimits())) {
 			if($this->_limit > -1) {
 				if($this->_offset > -1) {
 					$sql .= "\n LIMIT {$this->_offset},{$this->_limit}";
@@ -1603,6 +1603,9 @@ class Query {
 
 		$sql = $this->asSql();
 		$stmt = $this->_currentDb()->pdo()->prepare($sql);
+		if (!$stmt) {
+			throw new Exception($this->_db->pdo()->errorInfo()[2]);
+		}
 
 		//params
 		if (!empty($this->_params)) {
@@ -1700,6 +1703,9 @@ class Query {
 			$object->onBeforeCreateAndUpdate();
 		}
 
+		if ($stmt === false) {
+			throw new Exception($this->_currentDb()->pdo()->errorInfo()[2]);
+		}
 		$bool = $stmt->execute();
 		if (!$bool) {
 			$this->_parseError($stmt, $sql);

@@ -9,6 +9,11 @@ namespace tea\db;
  */
 class Db {
 	private static $_dbs = [];
+	private static $_drivers = [
+		"mysql" => 'tea\db\drivers\MySQLDriver',
+		"sqlite" => 'tea\db\drivers\SQLiteDriver'
+	];
+
 	private $_dbId;
 
 	/**
@@ -127,7 +132,9 @@ class Db {
 		list($driver, $options) = explode(":", $this->_config["dsn"], 2);
 		$dsn = [ $driver, [] ];
 		foreach (explode(";", $options) as $option) {
-			list($name, $value) = explode("=", $option, 2);
+			$pair = explode("=", $option, 2);
+			$name = $pair[0];
+			$value = $pair[1] ?? null;
 			$dsn[1][$name] = $value;
 		}
 		return $dsn;
@@ -216,9 +223,13 @@ class Db {
 	 *
 	 * @param string $sql 要执行的SQL
 	 * @return array
+	 * @throws
 	 */
 	public function findAll($sql) {
 		$stmt = $this->pdo()->query($sql);
+		if ($stmt === false) {
+			throw new Exception($this->pdo()->errorInfo()[2]);
+		}
 		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
 	}
 
@@ -331,11 +342,15 @@ class Db {
 	/**
 	 * 取得驱动
 	 *
-	 * @return drivers\MySQLDriver
-	 * @TODO 需要优化
+	 * @return drivers\Driver
 	 */
 	public function driver() {
-		return new drivers\MySQLDriver();
+		if ($this->_driver != null) {
+			return $this->_driver;
+		}
+		$driverName = $this->dsn()[0];
+		$this->_driver = new self::$_drivers[$driverName]();
+		return $this->_driver;
 	}
 
 	/**

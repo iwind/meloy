@@ -33,6 +33,10 @@
 	width: 14em;
 }
 
+.main table td.vertical-top {
+	vertical-align: top;
+}
+
 .main h3 {
 	font-weight: normal;
 }

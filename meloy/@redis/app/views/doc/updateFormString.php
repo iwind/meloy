@@ -1,5 +1,22 @@
 {tea:layout}
 
+<!-- 修改子元素 -->
+<h3>编辑"{{key}}"</h3>
+
+<form class="ui form" data-tea-action=".updateString">
+	<input type="hidden" name="key" value="{{key}}"/>
+	<input type="hidden" name="serverId" value="{{server.id}}"/>
+	<table class="ui table definition">
+		<tr>
+			<td class="title vertical-top">新值</td>
+			<td>
+				<textarea name="value">{{value}}</textarea>
+			</td>
+		</tr>
+	</table>
+	<button type="submit" class="ui button primary">保存</button>
+</form>
+
 <!-- 删除 -->
 <h3>删除</h3>
 <a href="" ng-click="deleteDoc(key)">删除此数据</a>

@@ -2,6 +2,8 @@
 
 namespace redis\app\actions\doc;
 
+use tea\page\SemanticPage;
+
 class UpdateFormAction extends BaseAction {
 	public function run(string $key, string $g) {
 		$this->data->key = $key;
@@ -33,6 +35,7 @@ class UpdateFormAction extends BaseAction {
 	}
 
 	private function _runString($key) {
+		$this->data->value = $this->_redis()->get($key);
 
 		$this->view("updateFormString");
 	}
@@ -53,6 +56,16 @@ class UpdateFormAction extends BaseAction {
 	}
 
 	private function _runList($key) {
+		$this->data->count = $this->_redis()->lSize($key);
+
+		$page = new SemanticPage();
+		$page->total($this->data->count);
+		$page->size(10);
+		$page->autoQuery();
+		$this->data->page = $page->asHtml();
+		$this->data->offset = $page->offset();
+		$this->data->items = $this->_redis()->lGetRange($key, $page->offset(), $page->offset() + $page->size() - 1);
+
 		$this->view("updateFormList");
 	}
 }

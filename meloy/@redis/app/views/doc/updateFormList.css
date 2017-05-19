@@ -1,3 +1,7 @@
 .updating-box textarea {
 	max-height: 0.5em!important;
 }
+
+.page {
+	margin-top: 0.5em;
+}

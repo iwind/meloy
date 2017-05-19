@@ -3,6 +3,9 @@ Tea.View.scope(function () {
 	this.updatingIndex = -1;
 	this.newItemValue = null;
 
+	this.newItemPosition = 1;
+	this.newItemIndex = -1;
+
 	this.deleteDoc = function (key) {
 		if (!window.confirm("确定要删除此数据吗？")) {
 			return;
@@ -68,5 +71,17 @@ Tea.View.scope(function () {
 
 	this.cancelItemUpdating = function () {
 		this.updatingIndex = -1;
+	};
+
+	this.changeNewItemPosition = function () {
+		if (this.newItemPosition == 1) {
+			this.newItemIndex = -1;
+		}
+		else if (this.newItemPosition == 2) {
+			this.newItemIndex = 0;
+		}
+		else if (this.newItemPosition == 3) {
+			this.newItemIndex = -1;
+		}
 	};
 });

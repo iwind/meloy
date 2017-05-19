@@ -22,7 +22,7 @@
 				<tr ng-if="query.queryFields.length > 0" ng-repeat="item in query.queryFields">
 					<td class="one wide">{{item.field}}</td>
 					<td class="five wide">
-						<select ng-model="item.type">
+						<select ng-model="item.type" class="ui dropdown">
 							<option ng-repeat="type in item.types" value="{{type[0]}}">{{type[1]}}</option>
 						</select>
 					</td>
@@ -34,7 +34,7 @@
 
 						<!-- boolean -->
 						<div ng-if="item.type == 'term' && item.dataType == 'boolean'">
-							<select ng-model="item.value">
+							<select ng-model="item.value" class="ui dropdown">
 								<option value="1">true</option>
 								<option value="0">false</option>
 							</select>

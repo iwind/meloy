@@ -1,0 +1,10 @@
+#set-table-box table {
+	width: 32%;
+	float: left;
+	margin-right: 1%;
+	margin-top: 0;
+}
+
+#add-form textarea {
+	max-height: 0.5em;
+}

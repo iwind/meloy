@@ -38,6 +38,7 @@ class IndexAction extends BaseAction {
 			else if ($type == \Redis::REDIS_HASH) {
 				$typeName = "hash";
 				$value = json_unicode_to_utf8(json_encode($this->_redis()->hGetAll($key), JSON_PRETTY_PRINT));
+				$count = $this->_redis()->hLen($key);
 			}
 			else if ($type == \Redis::REDIS_LIST) {
 				$typeName = "list";
@@ -54,6 +55,7 @@ class IndexAction extends BaseAction {
 			else if ($type == \Redis::REDIS_SET) {
 				$typeName = "set";
 				$value = json_unicode_to_utf8(json_encode($this->_redis()->sGetMembers($key), JSON_PRETTY_PRINT));
+				$count = $this->_redis()->sCard($key);
 			}
 			else if ($type == \Redis::REDIS_ZSET) {
 				$typeName = "zset";

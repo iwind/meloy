@@ -159,6 +159,35 @@ window.Tea.Action = function (action, params) {
 					if (typeof(_failFn) == "function") {
 						_failFn.call(Tea.View.$scope, response);
 					}
+					else {
+						//消息提示
+						var hasMessage = false;
+						if (response.message != null && response.message.length > 0) {
+							hasMessage = true;
+							alert(response.message);
+						}
+						if (typeof(response.errors) == "object" && response.errors.length > 0) {
+							var error = response.errors[0][0]; // [field, rule, message]
+							if (!hasMessage) {
+								alert(error[2]);
+							}
+							var fieldName = error[0];
+							var element = document.querySelector("*[name='" + fieldName + "']");
+							if (element) {
+								element.focus();
+							}
+							else {
+								var match = fieldName.match(/^(.+)\[(\d+)\]$/);
+								if (match != null) {
+									var index = parseInt(match[2], 10);
+									var fields = document.querySelectorAll("*[name='" + match[1].trim() + "[]']");
+									if (fields.length >0 && index < fields.length) {
+										fields[index].focus();
+									}
+								}
+							}
+						}
+					}
 				}
 				else {
 					if (typeof(_successFn) == "function") {

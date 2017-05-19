@@ -1,7 +1,7 @@
 {tea:layout}
 
 <!-- 修改子元素 -->
-<h3>"{{key}}"的子元素</h3>
+<h3>"{{key}}"的子元素 <span>(共{{count}}个)</span></h3>
 
 <p class="ui message warning" ng-if="countValidItems() == 0 && newElements.length == 0">还没有子元素，可以点击"添加子元素"按钮添加。</p>
 

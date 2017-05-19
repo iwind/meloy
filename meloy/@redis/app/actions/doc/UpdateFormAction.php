@@ -48,6 +48,9 @@ class UpdateFormAction extends BaseAction {
 	}
 
 	private function _runSet($key) {
+		$this->data->count = $this->_redis()->sCard($key);
+		$this->data->items = $this->_redis()->sGetMembers($key);
+
 		$this->view("updateFormSet");
 	}
 

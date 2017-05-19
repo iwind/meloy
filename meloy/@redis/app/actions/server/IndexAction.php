@@ -37,7 +37,7 @@ class IndexAction extends BaseAction {
 			}
 			else if ($type == \Redis::REDIS_HASH) {
 				$typeName = "hash";
-				$value = json_encode($this->_redis()->hGetAll($key), JSON_PRETTY_PRINT);
+				$value = json_unicode_to_utf8(json_encode($this->_redis()->hGetAll($key), JSON_PRETTY_PRINT));
 			}
 			else if ($type == \Redis::REDIS_LIST) {
 				$typeName = "list";
@@ -49,11 +49,11 @@ class IndexAction extends BaseAction {
 					$value[] = "...";
 				}
 
-				$value = json_encode($value, JSON_PRETTY_PRINT);
+				$value = json_unicode_to_utf8(json_encode($value, JSON_PRETTY_PRINT));
 			}
 			else if ($type == \Redis::REDIS_SET) {
 				$typeName = "set";
-				$value = json_encode($this->_redis()->sGetMembers($key), JSON_PRETTY_PRINT);
+				$value = json_unicode_to_utf8(json_encode($this->_redis()->sGetMembers($key), JSON_PRETTY_PRINT));
 			}
 			else if ($type == \Redis::REDIS_ZSET) {
 				$typeName = "zset";
@@ -63,7 +63,7 @@ class IndexAction extends BaseAction {
 				if ($count > count($value)) {
 					$value[] = "...";
 				}
-				$value = json_encode($value, JSON_PRETTY_PRINT);
+				$value = json_unicode_to_utf8(json_encode($value, JSON_PRETTY_PRINT));
 			}
 			else if ($type == \Redis::REDIS_NOT_FOUND) {
 				$typeName = "string";

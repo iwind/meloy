@@ -55,6 +55,24 @@ class UpdateFormAction extends BaseAction {
 	}
 
 	private function _runZset($key) {
+		$this->data->count = $this->_redis()->zSize($key);
+
+		$page = new SemanticPage();
+		$page->total($this->data->count);
+		$page->size(30);
+		$page->autoQuery();
+		$this->data->page = $page->asHtml();
+		$this->data->offset = $page->offset();
+
+		$items = $this->_redis()->zRange($key, $page->offset(), $page->offset() + $page->size() - 1);
+		$this->data->items = [];
+		foreach ($items as $item) {
+			$this->data->items[] = (object)[
+				"value" => $item,
+				"score" => $this->_redis()->zScore($key, $item)
+			];
+ 		}
+
 		$this->view("updateFormZset");
 	}
 

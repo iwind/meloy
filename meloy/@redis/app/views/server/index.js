@@ -13,14 +13,14 @@ Tea.View.scope(function () {
 
 	that.load();
 
-	this.deleteItem = function (item) {
+	this.deleteDoc = function (doc) {
 		if (!window.confirm("确定要删除此数据吗？")) {
 			return;
 		}
 
-		Tea.action(".deleteItem")
+		Tea.action("@.doc.delete")
 			.params({
-				"key": item.key,
+				"key": doc.key,
 				"serverId": this.server.id
 			})
 			.post()
@@ -38,5 +38,9 @@ Tea.View.scope(function () {
 			"serverId": this.server.id,
 			"q": this.q
 		});
+	};
+
+	this.g = function () {
+		return window.location.toString();
 	};
 });

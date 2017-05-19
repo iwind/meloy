@@ -2,7 +2,6 @@
 {tea:js js/highlight.pack.js}
 {tea:css css/highlights/idea-copy.css}
 {tea:js /__resource__/@/elastic.query.js}
-{tea:js js/Array.min.js}
 
 <h3></h3>
 

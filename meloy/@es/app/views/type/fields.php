@@ -1,5 +1,4 @@
 {tea:layout}
-{tea:js js/Array.min.js}
 
 <h3>添加类型字段</h3>
 

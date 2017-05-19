@@ -1,5 +1,4 @@
 {tea:layout}
-{tea:js js/Array.min.js}
 
 <h3>创建类型</h3>
 

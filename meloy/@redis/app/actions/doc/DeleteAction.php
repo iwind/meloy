@@ -1,8 +1,8 @@
 <?php
 
-namespace redis\app\actions\server;
+namespace redis\app\actions\doc;
 
-class DeleteItemAction extends BaseAction {
+class DeleteAction extends BaseAction {
 	public function run(string $key) {
 		if (is_empty($key)) {
 			$this->fail("请输入正确的键");

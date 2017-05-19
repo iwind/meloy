@@ -8,6 +8,7 @@
 	{tea:inject}
 	{tea:css css/semantic.min.css}
 	{tea:css /__resource__/layout.css}
+	{tea:js js/Array.min.js}
 </head>
 <body ng-app="app" ng-controller="controller">
 

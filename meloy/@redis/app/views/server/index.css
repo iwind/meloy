@@ -2,11 +2,11 @@
 	vertical-align: top;
 }
 
-.table .value-item div {
+.table .value-doc div {
 	color: gray;
 }
 
-.table .value-item span.type-label {
+.table .value-doc span.type-label {
 	font-size: 0.8em;
-	color: #4183C4;
+	color: #6435c9;
 }

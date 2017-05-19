@@ -2,6 +2,8 @@
 {tea:js js/highlight.pack.js}
 {tea:css css/highlights/idea-copy.css}
 
+<div class="ui message warning" ng-if="error.length > 0">发现了问题："{{error}}"</div>
+
 <h3>已存储的数据</h3>
 
 <!-- 查询表单 -->
@@ -19,9 +21,10 @@
 	</div>
 </form>
 
-<p class="ui message warning" ng-if="items.length == 0">暂时还没有数据。</p>
+<p class="ui message warning" ng-if="docs.length == 0">暂时还没有数据。</p>
 
-<table class="ui table" ng-if="items.length > 0" id="docs-box">
+<!-- 数据列表 -->
+<table class="ui table" ng-if="docs.length > 0" id="docs-box">
 	<thead>
 		<tr>
 			<th class="four wide">键（KEY）</th>
@@ -29,21 +32,22 @@
 			<th class="two wide">操作</th>
 		</tr>
 	</thead>
-	<tr ng-repeat="item in items">
-		<td>{{item.key}}</td>
-		<td class="value-item">
-			<span class="type-label">[{{item.type}}]</span>
-			<span ng-if="item.count > 0" class="type-label">[共{{item.count}}个子元素]</span>
-			<pre ng-if="item.type != 'string'" class="doc">{{item.value}}</pre>
-			<div ng-if="item.type == 'string'">{{item.value}}</div>
+	<tr ng-repeat="doc in docs">
+		<td>{{doc.key}}</td>
+		<td class="value-doc">
+			<span class="type-label">[{{doc.type}}]</span>
+			<span ng-if="doc.count > 0" class="type-label">[共{{doc.count}}个子元素]</span>
+			<pre ng-if="doc.type != 'string'" class="doc">{{doc.value}}</pre>
+			<div ng-if="doc.type == 'string'">{{doc.value}}</div>
 		</td>
 		<td>
-			<a href="" ng-click="deleteItem(item)">删除</a>
+			<a href="{{Tea.url('@.doc.updateForm', { 'serverId': server.id, 'key': doc.key, 'g':g() })}}">编辑</a> &nbsp;
+			<a href="" ng-click="deleteDoc(doc)">删除</a>
 		</td>
 	</tr>
 </table>
 
-<div ng-if="items.length >= 10 && offset > 0">
-	<a href="{{Tea.url('.index', { 'serverId': server.id, 'q':q })}}" ng-if="!isFirst">回首页</a> &nbsp;
-	<a href="{{Tea.url('.index', { 'serverId': server.id, 'offset': offset, 'q':q })}}">加载下一页</a>
+<div>
+	<a href="{{Tea.url('.index', { 'serverId': server.id, 'q':q })}}" ng-if="!isFirst">&laquo; 回首页</a> &nbsp;
+	<a href="{{Tea.url('.index', { 'serverId': server.id, 'offset': offset, 'q':q })}}" ng-if="hasNext">加载更多 &raquo;</a>
 </div>

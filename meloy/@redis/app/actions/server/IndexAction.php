@@ -34,6 +34,11 @@ class IndexAction extends BaseAction {
 			$count = 0;
 			if ($type == \Redis::REDIS_STRING) {
 				$typeName = "string";
+
+				$phpValue = unserialize($value);
+				if (is_array($phpValue) && !empty($phpValue)) {
+
+				}
 			}
 			else if ($type == \Redis::REDIS_HASH) {
 				$typeName = "hash";

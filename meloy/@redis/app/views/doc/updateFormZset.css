@@ -12,3 +12,7 @@
 #updating-box textarea {
 	height: 0.5em;
 }
+
+td.gray {
+	color: gray;
+}

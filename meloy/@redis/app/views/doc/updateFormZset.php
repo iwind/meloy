@@ -32,7 +32,7 @@
 					</div>
 				</div>
 			</td>
-			<td class="vertical-top">{{item.score}}</td>
+			<td class="vertical-top gray ">{{item.score}}</td>
 			<td class="vertical-top">
 				<a href="" ng-click="updateItemForm(item)">编辑</a> &nbsp;
 				<a href="" ng-click="deleteItem(item.value)">删除</a>

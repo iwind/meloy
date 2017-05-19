@@ -8,7 +8,7 @@
 * *O* 优化（Optimize）
 
 # 安装需求
-* PHP7及以上版本
+* **PHP7及以上版本**
 * pdo扩展
 * pdo_mysql扩展
 * curl扩展

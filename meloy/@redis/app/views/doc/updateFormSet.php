@@ -13,7 +13,9 @@
 		</thead>
 		<tr ng-repeat="itemValue in items track by itemValue" ng-if="$index >= count * (index - 1) / 3 &&  $index < count * index / 3">
 			<td>
-				{{itemValue}}
+				<div ng-if="updatingItem != itemValue">
+					{{itemValue}}
+				</div>
 				<div ng-if="updatingItem == itemValue" class="updating-box">
 					<div class="ui field">
 						<textarea name="value" ng-model="newItem.value"></textarea>

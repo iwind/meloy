@@ -32,13 +32,50 @@ class IndexAction extends BaseAction {
 			$type = $this->_redis()->type($key);
 			$typeName = "string";
 			$count = 0;
+
+			$realValue = null;
+			$realType = null;
+			$realTypeName = null;
+
 			if ($type == \Redis::REDIS_STRING) {
 				$typeName = "string";
 
-				$phpValue = unserialize($value);
-				if (is_array($phpValue) && !empty($phpValue)) {
-
+				//尝试解析为PHP
+				if (preg_match("/^a:/", $value)) {
+					$phpValue = unserialize($value);
+					if ((is_array($phpValue) && !empty($phpValue)) || is_object($phpValue)) {
+						$realValue = var_export($phpValue, true);
+						$realType = "php serializer";
+						$realTypeName = "PHP序列化";
+					}
 				}
+
+				//尝试解析为JSON
+				if (is_null($realValue) && preg_match("/(^\\[.*\\]$)|(^\\{.*\\}$)/s", $value)) {
+					$jsonValue = json_decode($value);
+					if (is_object($jsonValue) || is_array($jsonValue)) {
+						$realValue = json_encode($jsonValue, JSON_PRETTY_PRINT);
+						$realType = "json";
+						$realTypeName = "JSON";
+					}
+				}
+
+				//尝试解析为XML
+				if (is_null($realValue) && preg_match("/<(\\w+)([^>]*)>.+<\\/\\1>/", $value)) {
+					if (@simplexml_load_string($value)) {
+						$realValue = $value;
+						$realType = "xml";
+						$realTypeName = "XML";
+					}
+				}
+
+				//尝试解析为时间戳
+				if (is_null($realValue) && preg_match("/^1\\d{9}$/", $value)) {
+					$realValue = date("Y-m-d H:i:s", $value);
+					$realType = "timestamp";
+					$realTypeName = "时间戳";
+				}
+
 			}
 			else if ($type == \Redis::REDIS_HASH) {
 				$typeName = "hash";
@@ -80,7 +117,10 @@ class IndexAction extends BaseAction {
 				"key" => $key,
 				"value" => $value,
 				"type" => $typeName,
-				"count" => $count
+				"count" => $count,
+				"realType" => $realType,
+				"realTypeName" => $realTypeName,
+				"realValue" => $realValue
 			];
 		}
 

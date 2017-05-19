@@ -39,6 +39,13 @@
 			<span ng-if="doc.count > 0" class="type-label">[共{{doc.count}}个子元素]</span>
 			<pre ng-if="doc.type != 'string'" class="doc">{{doc.value}}</pre>
 			<div ng-if="doc.type == 'string'">{{doc.value}}</div>
+
+			<div ng-if="doc.realType != null" class="real-value-doc">
+				<span class="type-label">[自动识别为 {{doc.realType}} ({{doc.realTypeName}})]</span>
+				<pre class="doc php" ng-bind="doc.realValue" ng-if="doc.realType == 'php serializer'"></pre>
+				<pre class="doc xml" ng-bind="doc.realValue" ng-if="doc.realType == 'xml'"></pre>
+				<pre class="doc json" ng-bind="doc.realValue" ng-if="doc.realType != 'php serializer' && doc.realType != 'xml'"></pre>
+			</div>
 		</td>
 		<td>
 			<a href="{{Tea.url('@.doc.updateForm', { 'serverId': server.id, 'key': doc.key, 'g':g() })}}">编辑</a> &nbsp;

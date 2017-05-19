@@ -18,6 +18,11 @@ class Error {
 	}
 
 	public static function handleError($code, $message, $file, $line) {
+		//是否已使用 @ 屏蔽
+		if (error_reporting() == 0) {
+			return;
+		}
+
 		$cmdMessage = "\n~~~\n\033[1;31mCode:" . $code . "\nMessage:" . $message . "\nFile:" . $file . "\nLine: " . $line . "\nGet: " . var_export($_GET, true) . "\nPost: " . var_export($_POST, true)  . "\033[0m\n~~~\n";
 
 		if (!is_cmd()) {

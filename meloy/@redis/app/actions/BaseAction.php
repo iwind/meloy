@@ -79,7 +79,7 @@ class BaseAction extends AuthAction {
 	public function _redis() {
 		if (!$this->_redis) {
 			$this->_redis = new \Redis();
-			if (!$this->_redis->connect($this->_server->host, $this->_server->port)) {
+			if (!$this->_redis->connect($this->_server->host, $this->_server->port, 5)) {
 				throw new Exception("无法连接到Redis：{$this->_server->host}:{$this->_server->port}");
 			}
 

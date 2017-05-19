@@ -10,3 +10,25 @@
 	font-size: 0.8em;
 	color: #6435c9;
 }
+
+.table .real-value-doc {
+	background: #eee;
+	padding: 0.3em;
+	margin-top: 1em;
+}
+
+.table .real-value-doc pre {
+	font-size: 0.8em;
+	padding: 0.5em;
+	margin: 0;
+	background: transparent;
+}
+
+.table .real-value-doc pre code {
+	padding: 0;
+	margin: 0;
+}
+
+.table .real-value-doc span.type-label {
+	color: rgba(100, 53, 201, 0.6);
+}

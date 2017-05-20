@@ -1,5 +1,5 @@
 <div class="ui menu">
-	<a href="" class="item" ng-class="{active:view == 'update'}" ng-click="showView('update')">编辑</a>
+	<a href="" class="item" ng-class="{active:view == 'update'}" ng-click="showView('update')">编辑<span ng-if="count != null">({{count}}个元素)</span></a>
 
 	<a href="" class="item" ng-class="{active:view == 'addItem'}" ng-click="showView('addItem')" ng-if="doc.type != 'string' && doc.type != 'hash'">添加元素</a>
 

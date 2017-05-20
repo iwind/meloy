@@ -13,7 +13,17 @@
 		<tr>
 			<td>地址</td>
 			<td>
-				<input type="text" name="host" placeholder="比如127.0.0.1" value="127.0.0.1"/>
+				<div class="ui fields">
+					<div class="ui field">
+						<select name="scheme" class="ui dropdown">
+							<option value="http">http://</option>
+							<option value="https">https://</option>
+						</select>
+					</div>
+					<div class="ui field">
+						<input type="text" name="host" placeholder="比如127.0.0.1" value="127.0.0.1"/>
+					</div>
+				</div>
 			</td>
 		</tr>
 		<tr>

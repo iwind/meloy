@@ -8,7 +8,7 @@ use es\Exception;
 use tea\Must;
 
 class UpdateAction extends BaseAction {
-	public function run(string $name, string $host, int $port, bool $check, Must $must) {
+	public function run(string $name, string $scheme, string $host, int $port, bool $check, Must $must) {
 		//校验输入
 		$must->field("name", $name)
 			->require("请输入主机名")
@@ -23,7 +23,7 @@ class UpdateAction extends BaseAction {
 		//测试端口
 		if ($check) {
 			$api = new Api();
-			$api->prefix("http://" . $host . ":" . $port);
+			$api->prefix("{$scheme}://" . $host . ":" . $port);
 			$api->endPoint("/");
 
 			try {
@@ -34,7 +34,9 @@ class UpdateAction extends BaseAction {
 		}
 
 		//保存
-		$serverId = Server::updateServer($this->_server->id, $name, $host, $port);
+		Server::updateServer($this->_server->id, $name, $host, $port, [
+			"scheme" => $scheme
+		]);
 
 		//跳转
 		$this->refresh()->success("保存成功");

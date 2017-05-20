@@ -14,7 +14,17 @@
 		<tr>
 			<td>地址</td>
 			<td>
-				<input type="text" name="host" placeholder="比如127.0.0.1" value="{{server.host}}"/>
+				<div class="ui fields">
+					<div class="ui field">
+						<select name="scheme" class="ui dropdown">
+							<option value="http" ng-selected="scheme == 'http'">http://</option>
+							<option value="https" ng-selected="scheme == 'https'">https://</option>
+						</select>
+					</div>
+					<div class="ui field">
+						<input type="text" name="host" placeholder="比如127.0.0.1" value="{{server.host}}"/>
+					</div>
+				</div>
 			</td>
 		</tr>
 		<tr>

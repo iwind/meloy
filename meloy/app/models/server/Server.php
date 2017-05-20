@@ -69,7 +69,13 @@ class Server extends Model {
 	 * @return Api
 	 */
 	public function api($class) {
-		$prefix = "http://" . $this->host . ":" . $this->port;
+		$options = json_decode($this->options);
+		$scheme = "http";
+		if ($options != null && is_object($options) && isset($options->scheme)) {
+			$scheme = $options->scheme;
+		}
+
+		$prefix = "{$scheme}://" . $this->host . ":" . $this->port;
 
 		/**
 		 * @var Api $obj

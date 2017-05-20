@@ -10,7 +10,7 @@ use es\Exception;
 use tea\Must;
 
 class SaveAction extends BaseAction {
-	public function run(string $name, string $host, int $port, bool $check, Must $must) {
+	public function run(string $name, string $scheme, string $host, int $port, bool $check, Must $must) {
 		//校验输入
 		$must->field("name", $name)
 			->require("请输入主机名")
@@ -25,7 +25,7 @@ class SaveAction extends BaseAction {
 		//测试端口
 		if ($check) {
 			$api = new Api();
-			$api->prefix("http://" . $host . ":" . $port);
+			$api->prefix("{$scheme}://" . $host . ":" . $port);
 			$api->endPoint("/");
 
 			try {
@@ -37,7 +37,9 @@ class SaveAction extends BaseAction {
 
 		//保存
 		$serverTypeId = ServerType::findTypeIdWithCode("es");
-		$serverId = Server::createServer($this->userId(), $serverTypeId, $name, $host, $port);
+		$serverId = Server::createServer($this->userId(), $serverTypeId, $name, $host, $port, [
+			"scheme" => $scheme
+		]);
 
 		//跳转
 		$this->next(".index", [

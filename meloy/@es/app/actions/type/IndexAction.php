@@ -5,11 +5,13 @@ namespace es\app\actions\type;
 use es\api\CountApi;
 use es\api\SearchApi;
 use es\Query;
+use tea\Arrays;
 use tea\page\SemanticPage;
 
 class IndexAction extends BaseAction {
-	public function run(string $q, string $dsl) {
+	public function run(string $q, string $dsl, string $listStyle = "json") {
 		$this->data->dsl = $dsl;
+		$this->data->listStyle = $listStyle;
 
 		$query = new Query();
 
@@ -62,9 +64,17 @@ class IndexAction extends BaseAction {
 
 		$result = $api->search();
 		$docs = $result->hits->hits;
-		$this->data->docs = array_map(function ($doc) {
+		$this->data->fields = [];
+		$this->data->docs = array_map(function ($doc) use ($listStyle) {
 			$obj = new \stdClass();
-			$obj->json = json_unicode_to_utf8(json_encode($doc, JSON_PRETTY_PRINT));
+
+			if ($listStyle == "json") {
+				$obj->json = json_unicode_to_utf8(json_encode($doc, JSON_PRETTY_PRINT));
+			}
+			else if ($listStyle == "table") {
+				$obj->array = Arrays::flatten($doc);
+				$this->data->fields = array_keys($obj->array);
+			}
 			$obj->_id = $doc->_id;
 			return $obj;
 		}, $docs);

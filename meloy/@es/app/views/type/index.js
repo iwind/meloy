@@ -68,4 +68,15 @@ Tea.View.scope(function () {
 			})
 			.post();
 	};
+
+	this.setListStyle = function (listStyle) {
+		var search = window.location.search;
+		if (search.match(/&listStyle=\w+/)) {
+			search = search.replace(/&listStyle=\w+/, "&listStyle=" + listStyle);
+		}
+		else {
+			search = search + "&listStyle=" + listStyle;
+		}
+		window.location = window.location.pathname + search;
+	};
 });

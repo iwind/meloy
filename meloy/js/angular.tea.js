@@ -12,12 +12,13 @@ window.Tea.View = new function () {
 	this.init = function () {
 		//初始化app
 		var app = angular.module("app", []);
-		app.controller("controller", function ($scope, $http, $httpParamSerializer, $compile, $templateRequest) {
+		app.controller("controller", function ($scope, $http, $httpParamSerializer, $compile, $templateRequest, $location) {
 			that.$scope = $scope;
 			that.$http = $http;
 			that.$httpParamSerializer = $httpParamSerializer;
 			that.$compile = $compile;
 			that.$templateRequest = $templateRequest;
+			that.$location = $location;
 
 			$scope.Tea = window.Tea;
 

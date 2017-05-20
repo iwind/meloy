@@ -2,7 +2,14 @@
 {tea:js js/highlight.pack.js}
 {tea:css css/highlights/idea-copy.css}
 
-<h3>数据查询 <span>({{total}}个文档)</span> <span ng-if="dsl.length > 0">(在使用查询构造器查询)</span></h3>
+<h3>数据查询
+	<span>({{total}}个文档)</span>
+	<span ng-if="dsl.length > 0">(在使用查询构造器查询)</span>
+
+	<!-- 列表风格切换 -->
+	<span ng-if="total > 0"><a href="" ng-click="setListStyle('json')" ng-if="listStyle == 'table'" title="切换到JSON形式"><i class="icon code"></i></a></span>
+	<span ng-if="total > 0"><a href="" ng-click="setListStyle('table')" ng-if="listStyle == 'json'" title="切换到表格形式"><i class="icon table"></i></a></span>
+</h3>
 
 <!-- 查询表单 -->
 <form class="ui form" data-tea-action="" data-tea-before="searchKeyword()">
@@ -26,7 +33,20 @@
 <div ng-if="total > 0" ng-cloak="" id="docs-box">
 	<div ng-bind-html="page|allow"></div>
 
-	<table class="ui table">
+	<div class="table-box" ng-if="listStyle == 'table'">
+		<table class="ui table">
+			<thead>
+				<tr>
+					<th ng-repeat="field in fields">{{field}}</th>
+				</tr>
+			</thead>
+			<tr ng-repeat="doc in docs">
+				<td ng-repeat="field in fields">{{doc.array[field]}}&nbsp;</td>
+			</tr>
+		</table>
+	</div>
+
+	<table class="ui table" ng-if="listStyle == 'json'">
 		<tr ng-repeat="doc in docs">
 			<td class="doc-box">
 				<!-- 操作按钮 -->

@@ -45,9 +45,9 @@ class IndexAction extends BaseAction {
 				$typeName = "string";
 
 				//尝试解析为PHP
-				if (preg_match("/^a:/", $value)) {
-					$phpValue = unserialize($value);
-					if ((is_array($phpValue) && !empty($phpValue)) || is_object($phpValue)) {
+				if (preg_match("/^(a|s|O|i|d|b):\\d+/", $value)) {
+					$phpValue = @unserialize($value);
+					if ($phpValue !== false) {
 						$realValue = var_export($phpValue, true);
 						$realType = "php serializer";
 						$realTypeName = "PHP序列化";

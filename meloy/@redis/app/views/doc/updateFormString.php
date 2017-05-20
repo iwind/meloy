@@ -1,5 +1,7 @@
 {tea:layout}
 {tea:js js/tea.date.js}
+{tea:js js/jquery.min.js}
+{tea:js js/jquery.tab.js}
 
 {tea:view .menu}
 
@@ -19,7 +21,7 @@
 			<tr>
 				<td class="title vertical-top">新值</td>
 				<td>
-					<textarea name="value">{{value}}</textarea>
+					<textarea name="value" ng-allow-tab>{{value}}</textarea>
 				</td>
 			</tr>
 		</table>

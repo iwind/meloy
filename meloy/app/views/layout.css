@@ -4,6 +4,10 @@
 	clear: both;
 }
 
+.hidden {
+	display: none;
+}
+
 /** 扩展UI **/
 .field.text {
 	padding: .5em;
@@ -84,6 +88,15 @@
 .main .message .icon {
 	position: absolute;
 	right: 1em;
+}
+
+.main .go-top-btn {
+	position: fixed;
+	right: 1em;
+	bottom: 2em;
+	font-size: 2em;
+	z-index: 999999;
+	background: white;
 }
 
 .sub-menu {

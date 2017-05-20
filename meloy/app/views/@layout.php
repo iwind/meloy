@@ -8,6 +8,7 @@
 	{tea:inject}
 	{tea:css css/semantic.min.css}
 	{tea:css /__resource__/layout.css}
+	{tea:js /__resource__/layout.js}
 	{tea:js js/Array.min.js}
 </head>
 <body ng-app="app" ng-controller="controller">
@@ -99,7 +100,11 @@
 		<a class="item" ng-repeat="item in tabbar" ng-class="{active:item.active}" href="{{item.url}}">{{item.name}}</a>
 	</div>
 
+	<!-- 功能区 -->
 	{tea:placeholder}
+
+	<!-- 快速到顶部 -->
+	<a href="" class="go-top-btn hidden" title="回到顶部" ng-click="goTop()" ><i class="icon up arrow circle"></i></a>
 </div>
 
 <!-- 底部 -->

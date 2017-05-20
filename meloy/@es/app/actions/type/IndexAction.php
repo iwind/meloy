@@ -6,10 +6,21 @@ use es\api\CountApi;
 use es\api\SearchApi;
 use es\Query;
 use tea\Arrays;
+use tea\Cookie;
 use tea\page\SemanticPage;
 
 class IndexAction extends BaseAction {
-	public function run(string $q, string $dsl, string $listStyle = "json") {
+	public function run(string $q, string $dsl, string $listStyle = "", Cookie $esListStyle) {
+		if (is_empty($listStyle)) {
+			if (!is_empty($esListStyle->value())) {
+				$listStyle = $esListStyle->value();
+			}
+			else {
+				$listStyle = "json";
+			}
+		}
+		$esListStyle->life(7 * 86400)->set($listStyle);
+
 		$this->data->dsl = $dsl;
 		$this->data->listStyle = $listStyle;
 

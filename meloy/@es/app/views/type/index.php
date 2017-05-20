@@ -38,10 +38,12 @@
 			<thead>
 				<tr>
 					<th ng-repeat="field in fields">{{field}}</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tr ng-repeat="doc in docs">
 				<td ng-repeat="field in fields">{{doc.array[field]}}&nbsp;</td>
+				<td nowrap=""><a href="" ng-click="deleteDoc(doc)">删除</a></td>
 			</tr>
 		</table>
 	</div>

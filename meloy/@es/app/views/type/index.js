@@ -42,7 +42,8 @@ Tea.View.scope(function () {
 			"index": this.index.name,
 			"type": this.type.name,
 			"search": "q",
-			"q": this.q
+			"q": this.q,
+			"listStyle": this.listStyle
 		});
 		return false;
 	};

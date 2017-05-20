@@ -76,6 +76,18 @@ class IndexAction extends BaseAction {
 					$realTypeName = "时间戳";
 				}
 
+				//尝试解析为URL
+				if (is_null($realValue) && preg_match("/^(ftp|http|https):\\/\\//", $value)) {
+					$realValue = $value;
+					$realType = "url";
+					$realTypeName = "URL";
+				}
+
+				//尝试解析为E-MAIL
+
+				//尝试解析为地址
+
+				//尝试解析为经纬度
 			}
 			else if ($type == \Redis::REDIS_HASH) {
 				$typeName = "hash";

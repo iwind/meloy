@@ -17,6 +17,10 @@
 	margin-top: 1em;
 }
 
+.table .real-value-doc a {
+	font-size: 0.8em;
+}
+
 .table .real-value-doc pre {
 	font-size: 0.8em;
 	padding: 0.5em;

@@ -43,6 +43,11 @@ class BaseAction extends \redis\app\actions\BaseAction {
 				"active" => $this->name() == "index"
 			],
 			[
+				"name" => "添加数据",
+				"url" => u(".addDocForm", [ "serverId" => $serverId ]),
+				"active" => $this->name() == "addDocForm"
+			],
+			[
 				"name" => "修改",
 				"url" => u(".updateForm", [ "serverId" => $serverId ]),
 				"active" => $this->name() == "updateForm"

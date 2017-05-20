@@ -44,7 +44,10 @@
 				<span class="type-label">[自动识别为 {{doc.realType}} ({{doc.realTypeName}})]</span>
 				<pre class="doc php" ng-bind="doc.realValue" ng-if="doc.realType == 'php serializer'"></pre>
 				<pre class="doc xml" ng-bind="doc.realValue" ng-if="doc.realType == 'xml'"></pre>
-				<pre class="doc json" ng-bind="doc.realValue" ng-if="doc.realType != 'php serializer' && doc.realType != 'xml'"></pre>
+				<div class="url" ng-if="doc.realType == 'url'">
+					<a href="{{doc.realValue}}" target="_blank" ng-bind="doc.realValue"></a>
+				</div>
+				<pre class="doc json" ng-bind="doc.realValue" ng-if="doc.realType != 'php serializer' && doc.realType != 'xml' && doc.realType != 'url'"></pre>
 			</div>
 		</td>
 		<td>

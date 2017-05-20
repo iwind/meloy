@@ -13,7 +13,10 @@
 
 <div id="chart-container">
 	<div class="chart-box" ng-repeat="chartType in chartTypes">
-		<h3>{{chartType.name}}</h3>
+		<h3>
+			{{chartType.name}}
+			<span class="label" ng-if="chartType.currentValue != null && chartType.maxValue != null">({{chartType.currentValue}} / {{chartType.maxValue}})</span>
+		</h3>
 		<div id="{{chartType.code}}-chart">
 		</div>
 	</div>

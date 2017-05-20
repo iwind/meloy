@@ -27,6 +27,8 @@ Tea.View.scope(function () {
 			"code": "heap",
 			"y": "(%)",
 			"field": "heap.percent",
+			"field.current": "heap.current",
+			"field.max": "heap.max",
 			"yellow": 50,
 			"red": 80,
 			"max": 100
@@ -36,6 +38,8 @@ Tea.View.scope(function () {
 			"code": "ram",
 			"y": "(%)",
 			"field": "ram.percent",
+			"field.current": "ram.current",
+			"field.max": "ram.max",
 			"yellow": 80,
 			"red": 90,
 			"max": 100
@@ -190,8 +194,17 @@ Tea.View.scope(function () {
 				this.chartTypes.$each(function (k, chartType) {
 					var type = chartType.code;
 					var data = response.data[chartType.field];
-					var color = "green";
 
+					//当前值和最大值
+					if (typeof(chartType["field.current"]) != "undefined" && typeof(response.data[chartType["field.current"]]) != "undefined" && response.data[chartType["field.current"]] != null) {
+						chartType.currentValue = response.data[chartType["field.current"]];
+					}
+					if (typeof(chartType["field.max"]) != "undefined" && typeof(response.data[chartType["field.max"]]) != "undefined" && response.data[chartType["field.max"]] != null) {
+						chartType.maxValue = response.data[chartType["field.max"]];
+					}
+
+					//颜色
+					var color = "green";
 					if (chartType.red > -1 && data > chartType.red) {
 						color = "red";
 					}
@@ -199,6 +212,7 @@ Tea.View.scope(function () {
 						color = "yellow";
 					}
 
+					//放入数据
 					if (that.chartData[type].length >= that.chartDataCount) {
 						that.chartData[type].shift();
 						that.chartLabels[type].shift();

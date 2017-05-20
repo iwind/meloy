@@ -1,6 +1,16 @@
 Tea.View.scope(function () {
 	this.newElements = [];
 
+	this.load = function () {
+		var that = this;
+		setInterval(function () {
+			that.now = (new Tea.Date()).parse("Y-m-d H:i:s");
+			Tea.View.update();
+		}, 1000)
+	};
+
+	this.load();
+
 	this.removeItem = function (key) {
 		if (typeof(this.value) == "object") {
 			delete this.value[key];

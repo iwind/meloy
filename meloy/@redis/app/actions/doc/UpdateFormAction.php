@@ -2,32 +2,46 @@
 
 namespace redis\app\actions\doc;
 
+use app\classes\DateHelper;
 use tea\page\SemanticPage;
 
 class UpdateFormAction extends BaseAction {
-	public function run(string $key, string $g) {
+	public function run(string $key, string $g, DateHelper $dateHelper) {
 		$this->data->key = $key;
 		$this->data->g = $g;
 
 		$type = $this->_redis()->type($key);
+		$typeName = "";
 		if ($type == \Redis::REDIS_NOT_FOUND) {
 			$this->_runNotFound();
 		}
 		else if ($type == \Redis::REDIS_STRING) {
+			$typeName = "string";
 			$this->_runString($key);
 		}
 		else if ($type == \Redis::REDIS_SET) {
+			$typeName = "set";
 			$this->_runSet($key);
 		}
 		else if ($type == \Redis::REDIS_LIST) {
+			$typeName = "list";
 			$this->_runList($key);
 		}
 		else if ($type == \Redis::REDIS_ZSET) {
+			$typeName = "zset";
 			$this->_runZset($key);
 		}
 		else if ($type == \Redis::REDIS_HASH) {
+			$typeName = "hash";
 			$this->_runHash($key);
 		}
+
+		$ttl = $this->_redis()->ttl($key);
+		$this->data->doc = (object)[
+			"type" => $typeName,
+			"ttl" => $ttl,
+			"ttlFormat" => $dateHelper->format($ttl)
+		];
 	}
 
 	private function _runNotFound() {

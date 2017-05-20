@@ -2,10 +2,11 @@
 
 namespace redis\app\actions\server;
 
+use app\classes\DateHelper;
 use redis\Exception;
 
 class IndexAction extends BaseAction {
-	public function run(int $offset, string $q) {
+	public function run(int $offset, string $q, DateHelper $dateHelper) {
 		//是否能连接
 		try {
 			$this->_redis();
@@ -36,6 +37,9 @@ class IndexAction extends BaseAction {
 			$realValue = null;
 			$realType = null;
 			$realTypeName = null;
+
+			//超时时间
+			$ttl = $this->_redis()->ttl($key);
 
 			if ($type == \Redis::REDIS_STRING) {
 				$typeName = "string";
@@ -132,7 +136,9 @@ class IndexAction extends BaseAction {
 				"count" => $count,
 				"realType" => $realType,
 				"realTypeName" => $realTypeName,
-				"realValue" => $realValue
+				"realValue" => $realValue,
+				"ttl" => $ttl,
+				"ttlFormat" => $dateHelper->format($ttl),
 			];
 		}
 

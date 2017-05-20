@@ -2,10 +2,11 @@
 
 namespace redis\app\actions\server;
 
+use app\classes\DateHelper;
 use tea\Must;
 
 class AddDocAction extends BaseAction {
-	public function run(string $key, string $type, Must $must) {
+	public function run(string $key, string $type, int $ttl, int $timeCount, string $timeType, Must $must, DateHelper $dateHelper) {
 		$must->field("key", $key)
 			->require("请输入键(KEY)");
 
@@ -55,6 +56,15 @@ class AddDocAction extends BaseAction {
 			if ($oldType != \Redis::REDIS_ZSET) {
 				$this->_redis()->zAdd($key, 1, "默认VALUE请删除");
 			}
+		}
+
+		//设置超时时间
+		if ($ttl < 0) {
+			$this->_redis()->persist($key);
+		}
+		else {
+			$timestamp = $dateHelper->timeAfter($timeCount, $timeType);
+			$this->_redis()->expireAt($key, $timestamp);
 		}
 
 		$this->next("@.doc.updateForm", [

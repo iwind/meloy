@@ -4,6 +4,11 @@
 	clear: both;
 }
 
+/** 扩展UI **/
+.field.text {
+	padding: .5em;
+}
+
 /** 布局相关 */
 .top-nav {
 	border-radius: 0!important;

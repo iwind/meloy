@@ -1,7 +1,13 @@
 {tea:layout}
+{tea:js js/tea.date.js}
 
 <!-- 修改子元素 -->
-<h3>"{{key}}"的子元素 <span>(共{{count}}个)</span></h3>
+<h3>"{{key}}"的子元素 <span>(共{{count}}个)</span>
+
+	<span>[{{doc.type}}]</span>
+	<span ng-if="doc.ttl >= 0" title="剩余时间">[TTL:{{doc.ttl}}秒/{{doc.ttlFormat}}]</span>
+	<span ng-if="doc.ttl < 0" title="剩余时间">[TTL:不会超时]</span>
+</h3>
 
 <p class="ui message warning" ng-if="countValidItems() == 0 && newElements.length == 0">还没有子元素，可以点击"添加子元素"按钮添加。</p>
 
@@ -37,23 +43,11 @@
 	<button class="ui button primary" type="submit">保存</button>
 </form>
 
+<!-- 修改超时时间 -->
+{tea:view .updateTtl}
+
 <!-- 删除 -->
-<h3>删除</h3>
-<a href="" ng-click="deleteDoc(key)">删除此数据</a>
+{tea:view .updateDelete}
 
 <!-- 改名 -->
-<h3>改名</h3>
-
-<form class="ui form" data-tea-action=".rename">
-	<input type="hidden" name="serverId" value="{{server.id}}"/>
-	<input type="hidden" name="key" value="{{key}}"/>
-	<input type="hidden" name="g" value="{{g}}"/>
-	<div class="ui fields">
-		<div class="field">
-			<input type="text" name="newKey" placeholder="新键名" value="{{key}}"/>
-		</div>
-		<div class="field">
-			<button type="submit" class="ui button primary">保存</button>
-		</div>
-	</div>
-</form>
+{tea:view .updateRename}

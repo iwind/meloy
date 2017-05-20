@@ -35,7 +35,13 @@
 	<tr ng-repeat="doc in docs">
 		<td>{{doc.key}}</td>
 		<td class="value-doc">
-			<span class="type-label">[{{doc.type}}]</span>
+			<!-- Type -->
+			<span class="type-label" title="数据类型">[{{doc.type}}]</span>
+
+			<!-- ttl -->
+			<span class="type-label" ng-if="doc.ttl >= 0" title="剩余时间">[TTL:{{doc.ttl}}秒/{{doc.ttlFormat}}]</span>
+			<span class="type-label" ng-if="doc.ttl < 0" title="剩余时间">[TTL:不会超时]</span>
+
 			<span ng-if="doc.count > 0" class="type-label">[共{{doc.count}}个子元素]</span>
 			<pre ng-if="doc.type != 'string'" class="doc">{{doc.value}}</pre>
 			<div ng-if="doc.type == 'string'">{{doc.value}}</div>

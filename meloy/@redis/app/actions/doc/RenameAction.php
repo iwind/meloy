@@ -17,6 +17,7 @@ class RenameAction extends BaseAction {
 			"serverId" => $this->_server->id,
 			"g" => $g
 		]);
+		$this->success("修改成功");
 	}
 }
 

@@ -170,9 +170,10 @@ namespace {
 	 * @param array $params 参数
 	 * @param string $hash Hash
 	 * @param boolean $isResource 是否为资源
+	 * @param boolean $onlyAction 是否只含有Action部分
 	 * @return string
 	 */
-	function u($action, array $params = [], $hash = null, $isResource = false) {
+	function u($action, array $params = [], $hash = null, $isResource = false, $onlyAction = false) {
 		$module = Action::currentAction()->module();
 
 		if (substr($action, 0, 2) === "..") {
@@ -206,7 +207,10 @@ namespace {
 		$dirname = ltrim(str_replace(".", "/", $isResource ? dirname($action) : $action), "/");
 		$basename = $isResource ? "/" .  basename($action) : "";
 
-		if (TEA_ENABLE_ACTION_PARAM) {
+		if ($onlyAction) {
+			$url = "/" . $dirname . $basename;
+		}
+		else if (TEA_ENABLE_ACTION_PARAM) {
 			$url = Tea::shared()->dispatcher() . "?__ACTION__=/" . $dirname . $basename;
 		}
 		else {

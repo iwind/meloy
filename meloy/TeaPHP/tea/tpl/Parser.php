@@ -326,18 +326,7 @@ class Parser {
 				parse_str($query, $vars);
 			}
 
-			$count = 0;
-			$path = $this->_convertActionToPath($view);
-			$path = str_replace(".", "/", $path);
-			$path = preg_replace("/^@(\\w+)\\//", "\\1.mvc/views/", $path, -1, $count);
-			$path = preg_replace("/(\\w+)$/", "@\\1.php", $path);
-			if ($count > 0) {
-				$path = $path;
-			}
-			else {
-				$path = "mvc/views/" . $path;
-			}
-
+			$path = $this->_convertActionToPath($view, "php");
 			$randId = rand(100000, 999999);
 
 			return '<?php
@@ -346,7 +335,7 @@ class Parser {
 	unset($definedVars' . $randId . '["__data"]);
 	$vars' . $randId . ' = array_merge($definedVars' . $randId . ', ' . var_export($vars, true) . ');
 	$parser' . $randId . ' = new tea\tpl\Parser();
-	$parser' . $randId . '->parse(TEA_ROOT . "/' . $path . '", $vars' . $randId . ');
+	$parser' . $randId . '->parse("/' . $path . '", $vars' . $randId . ');
 ?>';
 		}, $contents);
 
@@ -500,7 +489,6 @@ PHP;
 		$contents = preg_replace_callback("/\\{[ \t]*tea\\s*:\\s*resource\\s+(\\S+)[ \t]*\\}/", function ($match) {
 			$path = $match[1];
 
-			//是否为资源
 			//是否为资源
 			$isResource = preg_match("{^/__resource__(/@\\w*)?(/.+)$}", $path, $match2);
 
@@ -661,9 +649,24 @@ PHP;
 		self::registerNS("video", "\\tea\\ui\\Video");
 	}
 
-	private function _convertActionToPath($action) {
-		//@TODO
-		exit("TBD");
+	private function _convertActionToPath($action, $ext = "php") {
+		$path = u($action, [], null, false, true);
+
+		//是否为资源
+		preg_match("{^(/@\\w*)?(/.+)$}", $path, $match2);
+		if (!is_empty($match2[1])) {
+			if ($match2[1] == "/@") {
+				$match2[1] = "/@" . Action::currentAction()->module();
+			}
+
+			$file = TEA_ROOT . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
+		}
+		else {
+			$file = TEA_APP . DS . "views" . $match2[2];
+		}
+
+		$file = dirname($file) .  DS . "@" . basename($file);
+		return $file . ".php";
 	}
 
 	/**

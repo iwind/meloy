@@ -1,7 +1,8 @@
 <!-- 超时时间 -->
 <h3>超时时间
-	<span ng-if="doc.ttl >= 0" title="剩余时间">[TTL:{{doc.ttl}}秒/{{doc.ttlFormat}}]</span>
-	<span ng-if="doc.ttl < 0" title="剩余时间">[TTL:不会超时]</span>
+	<br/>
+	<span class="label" ng-if="doc.ttl >= 0" title="剩余时间">[TTL:{{doc.ttl}}秒/{{doc.ttlFormat}}]</span>
+	<span class="label" ng-if="doc.ttl < 0" title="剩余时间">[TTL:不会超时]</span>
 </h3>
 
 <form class="ui form" data-tea-action=".updateTtl">

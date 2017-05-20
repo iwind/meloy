@@ -5,15 +5,30 @@ Tea.View.scope(function () {
 		"value": null
 	};
 
+	this.ttl = "-1";
+	this.view = "update";
+	var that = this;
+
 	this.load = function () {
-		var that = this;
+		//TTL显示当前时间
 		setInterval(function () {
-			that.now = (new Tea.Date()).parse("Y-m-d H:i:s");
+			if (that.ttl == 0 && that.view == "ttl") {
+				that.now = (new Tea.Date()).parse("Y-m-d H:i:s");
+				Tea.View.update();
+			}
+		}, 1000);
+
+		//选中标签
+		var hash = window.location.hash.substr(1);
+		if (hash.length > 0) {
+			that.showView(hash);
 			Tea.View.update();
-		}, 1000)
+		}
 	};
 
-	this.load();
+	setTimeout(function () {
+		that.load();
+	});
 
 	this.deleteDoc = function (key) {
 		if (!window.confirm("确定要删除此数据吗？")) {
@@ -82,5 +97,10 @@ Tea.View.scope(function () {
 
 	this.cancelItemUpdating = function () {
 		this.updatingItem = null;
+	};
+
+	this.showView = function (view) {
+		this.view = view;
+		window.location.hash = "#" + view;
 	};
 });

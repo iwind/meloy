@@ -7,7 +7,7 @@
 	<input type="hidden" name="g" value="{{g}}"/>
 	<div class="ui fields">
 		<div class="field">
-			<input type="text" name="newKey" placeholder="新键名" value="{{key}}"/>
+			<input type="text" name="newKey" placeholder="新键名" value="{{key}}" size="50"/>
 		</div>
 		<div class="field">
 			<button type="submit" class="ui button primary">保存</button>

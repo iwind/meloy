@@ -50,6 +50,10 @@
 	font-size: 0.8em;
 }
 
+.main h3 span.label {
+	color: #6435c9;
+}
+
 .main h4 {
 	font-weight: normal;
 }

@@ -193,11 +193,12 @@ Tea.Date = function (format, time) {
 		total += parseInt(this.parse("d"), 10);
 		var w2 = parseInt(this.parse("w"));
 		total = total - w2 + (w - 1);
+		var weeks = 0;
 		if (w2 != 0) {
-			var weeks = (total/7 + 1).toString();
+			weeks = (total/7 + 1).toString();
 		}
 		else {
-			var weeks = (total/7).toString();
+			weeks = (total/7).toString();
 		}
 		if (weeks.length == 1) {
 			weeks = "0" + weeks;
@@ -267,7 +268,7 @@ Tea.Date = function (format, time) {
 
 	//time
 	this._parse_U = function () {
-		return this.getTime().toString();
+		return this.time().toString();
 	};
 
 	//am/pm
@@ -283,10 +284,10 @@ Tea.Date = function (format, time) {
 	/**
 	 * 取得当前时间对应的时间戳,代表了从 1970 年 1 月 1 日开始计算到 Date 对象中的时间之间的秒数
 	 *
-	 * @method getTime
+	 * @method time
 	 * @return int
 	 */
-	this.getTime = function () {
+	this.time = function () {
 		return Math.round(date.getTime()/1000);
 	};
 
@@ -307,6 +308,11 @@ Tea.Date.toTime = function (dateStr) {
 		return Date.parse(dateStr);
 	} else if (arguments.length == 3) {
 		arguments[1] = parseInt(arguments[1], 10) - 1;
-		return (new Date(arguments[0], arguments[1], arguments[2])).getTime();
+		return (new Date(arguments[0], arguments[1], arguments[2])).time();
 	}
+};
+
+Number.prototype.dateFormat = function (format) {
+	var date = new Tea.Date(format, this * 1000);
+	return date.toString();
 };

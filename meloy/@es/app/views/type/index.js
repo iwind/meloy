@@ -1,16 +1,4 @@
 Tea.View.scope(function () {
-	this.load = function () {
-		var box = document.getElementById("docs-box");
-		if (box) {
-			var docElements = box.getElementsByClassName("doc");
-			for (var i = 0; i < docElements.length; i++) {
-				hljs.highlightBlock(docElements[i]);
-			}
-		}
-	};
-
-	this.load();
-
 	this.openViewPort = function (doc, index) {
 		if (doc.isOpen) {
 			return;

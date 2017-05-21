@@ -1,18 +1,4 @@
 Tea.View.scope(function () {
-	var that = this;
-
-	this.load = function () {
-		var box = document.getElementById("docs-box");
-		if (box) {
-			var docElements = box.getElementsByClassName("doc");
-			for (var i = 0; i < docElements.length; i++) {
-				hljs.highlightBlock(docElements[i]);
-			}
-		}
-	};
-
-	that.load();
-
 	this.deleteDoc = function (doc) {
 		if (!window.confirm("确定要删除此数据吗？")) {
 			return;

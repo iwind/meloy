@@ -58,6 +58,11 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "index"
 			],
 			[
+				"name" => "类型",
+				"url" => u(".types", [ "serverId" => $serverId, "index" => $index ]),
+				"active" => $this->name() == "types"
+			],
+			[
 				"name" => "创建类型",
 				"url" => u(".createTypeForm", [ "serverId" => $serverId, "index" => $index ]),
 				"active" => $this->name() == "createTypeForm"

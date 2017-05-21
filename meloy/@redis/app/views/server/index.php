@@ -1,6 +1,5 @@
 {tea:layout}
-{tea:js js/highlight.pack.js}
-{tea:css css/highlights/idea-copy.css}
+{tea:view highlight}
 
 <div class="ui message warning" ng-if="error.length > 0">发现了问题："{{error}}"</div>
 
@@ -43,17 +42,17 @@
 			<span class="type-label" ng-if="doc.ttl < 0" title="剩余时间">[TTL:不会超时]</span>
 
 			<span ng-if="doc.count > 0" class="type-label">[共{{doc.count}}个子元素]</span>
-			<pre ng-if="doc.type != 'string'" class="doc">{{doc.value}}</pre>
+			<pre ng-if="doc.type != 'string'" class="doc code json">{{doc.value}}</pre>
 			<div ng-if="doc.type == 'string'">{{doc.value}}</div>
 
 			<div ng-if="doc.realType != null" class="real-value-doc">
 				<span class="type-label">[自动识别为 {{doc.realType}} ({{doc.realTypeName}})]</span>
-				<pre class="doc php" ng-bind="doc.realValue" ng-if="doc.realType == 'php serializer'"></pre>
-				<pre class="doc xml" ng-bind="doc.realValue" ng-if="doc.realType == 'xml'"></pre>
+				<pre class="doc code php" ng-bind="doc.realValue" ng-if="doc.realType == 'php serializer'"></pre>
+				<pre class="doc code xml" ng-bind="doc.realValue" ng-if="doc.realType == 'xml'"></pre>
 				<div class="url" ng-if="doc.realType == 'url'">
 					<a href="{{doc.realValue}}" target="_blank" ng-bind="doc.realValue"></a>
 				</div>
-				<pre class="doc json" ng-bind="doc.realValue" ng-if="doc.realType != 'php serializer' && doc.realType != 'xml' && doc.realType != 'url'"></pre>
+				<pre class="doc code json" ng-bind="doc.realValue" ng-if="doc.realType != 'php serializer' && doc.realType != 'xml' && doc.realType != 'url'"></pre>
 			</div>
 		</td>
 		<td>

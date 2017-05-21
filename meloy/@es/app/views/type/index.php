@@ -1,6 +1,5 @@
 {tea:layout}
-{tea:js js/highlight.pack.js}
-{tea:css css/highlights/idea-copy.css}
+{tea:view highlight}
 
 <h3>数据查询
 	<span>({{total}}个文档)</span>
@@ -57,7 +56,7 @@
 				</div>
 
 				<!-- 文档JSON -->
-				<pre class="doc json" ng-bind="doc.json" ng-class="{'full':doc.isOpen}" ng-click="openViewPort(doc, $index)"></pre>
+				<pre class="doc code json" ng-bind="doc.json" ng-class="{'full':doc.isOpen}" ng-click="openViewPort(doc, $index)"></pre>
 
 				<!-- 合上按钮 -->
 				<div class="ui button icon basic tiny circular collapse-button" ng-if="doc.isOpen" ng-click="closeViewPort(doc)" title="合上文档">

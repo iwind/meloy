@@ -10,8 +10,8 @@ class AngularActionView extends ActionView {
 		$module = $this->action()->module();
 		$parent = $this->action()->parent();
 		$viewName = $this->action()->view();
-		$base = Tea::shared()->dispatcher();
-		$urlBase = rtrim(TEA_URL_BASE, "/");
+		$base = Tea::shared()->dispatcherUrl();
+		$urlBase = Tea::shared()->base();
 		$actionParam = Tea::shared()->actionParam() ? "true" : "false";
 
 		$realParent = $parent;

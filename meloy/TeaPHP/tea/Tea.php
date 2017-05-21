@@ -2,6 +2,9 @@
 
 namespace tea;
 
+/**
+ * Tea应用管理器
+ */
 class Tea {
 	const ENV_DEV = "dev";
 	const ENV_TEST = "test";
@@ -15,6 +18,12 @@ class Tea {
 	private $_actionView = ActionView::class;
 	private $_actionParam = false;
 	private $_env = null;
+	private $_host = null;
+	private $_public;
+	private $_base = "";
+	private $_dispatcher = "";
+	private $_lang = "zh_cn";
+	private $_scheme;
 
 	/**
 	 * 取得共享单例
@@ -30,6 +39,11 @@ class Tea {
 
 	private function __construct() {
 		$this->_request = new Request();
+
+		$this->_env = get_cfg_var("tea.env");
+		$this->_host = $_SERVER["HTTP_HOST"] ?? null;
+		$this->_public = TEA_APP . DS . "public";
+		$this->_scheme = $_SERVER["HTTP_TEA_SCHEME"] ?? "http";
 	}
 
 	public function request() {
@@ -37,12 +51,17 @@ class Tea {
 	}
 
 	/**
-	 * 当前应用的基础URL
+	 * 设置或取得当前应用的基础URL
 	 *
-	 * @return string
+	 * @param string $base 基础URL
+	 * @return self|string
 	 */
-	public function base() {
-		return rtrim(TEA_URL_BASE, "/");
+	public function base($base = nil) {
+		if (is_nil($base)) {
+			return rtrim($this->_base, "/");
+		}
+		$this->_base = $base;
+		return $this;
 	}
 
 	/**
@@ -67,13 +86,51 @@ class Tea {
 	 */
 	public function env($env = nil) {
 		if (is_nil($env)) {
-			if (is_null($this->_env)) {
-				$this->_env = get_cfg_var("tea.env");
-			}
-
 			return $this->_env;
 		}
 		$this->_env = $env;
+		return $this;
+	}
+
+	/**
+	 * 取得或设置主机名
+	 *
+	 * @param string $host 主机名
+	 * @return self|null
+	 */
+	public function host($host = nil) {
+		if (is_nil($host)) {
+			return $this->_host;
+		}
+		$this->_host = $host;
+		return $this;
+	}
+
+	/**
+	 * 取得或设置访问协议
+	 *
+	 * @param string $scheme 协议
+	 * @return self|null
+	 */
+	public function scheme($scheme = nil) {
+		if (is_nil($scheme)) {
+			return $this->_scheme;
+		}
+		$this->_scheme = $scheme;
+		return $this;
+	}
+
+	/**
+	 * 取得或设置PUBLIC目录
+	 *
+	 * @param string $dir 目录
+	 * @return self|string
+	 */
+	public function public($dir = nil) {
+		if (is_nil($dir)) {
+			return $this->_public;
+		}
+		$this->_public = $dir;
 		return $this;
 	}
 
@@ -82,8 +139,36 @@ class Tea {
 	 *
 	 * @return string
 	 */
-	public function dispatcher() {
-		return rtrim(TEA_URL_BASE, "/") . "/" . trim(TEA_URL_DISPATCHER, "/");
+	public function dispatcherUrl() {
+		return $this->base() . "/" . trim($this->_dispatcher, "/");
+	}
+
+	/**
+	 * 设置或取得分发脚本
+	 *
+	 * @param string $dispatcher 脚本路径
+	 * @return self|string
+	 */
+	public function dispatcher($dispatcher = nil) {
+		if (is_nil($dispatcher)) {
+			return $this->_dispatcher;
+		}
+		$this->_dispatcher = $dispatcher;
+		return $this;
+	}
+
+	/**
+	 * 设置或取得语言代号，默认为zh_cn
+	 *
+	 * @param string $lang 语言代号
+	 * @return self|string
+	 */
+	public function lang($lang = nil) {
+		if (is_nil($lang)) {
+			return $this->_lang;
+		}
+		$this->_lang = $lang;
+		return $this;
 	}
 
 	public function addDirective($directive, $filter) {
@@ -117,6 +202,9 @@ class Tea {
 		return $this;
 	}
 
+	/**
+	 * 启动应用
+	 */
 	public function start() {
 		//命令行下处理
 		if (is_cmd()) {
@@ -131,12 +219,12 @@ class Tea {
 		$query = parse_url($uri);
 		$originPath = $query["path"];
 
-		$prefix = rtrim(TEA_URL_BASE, "/") . "/" . ltrim(TEA_URL_DISPATCHER, "/");
+		$prefix = $this->base() . "/" . ltrim($this->_dispatcher, "/");
 		if (!is_empty($prefix)) {
 			$originPath = preg_replace("/^" . preg_quote($prefix, "/") . "/", "", $originPath, 1, $count);
 
 			if ($count == 0) {
-				$originPath = preg_replace("/^" . preg_quote(TEA_URL_BASE, "/") . "/", "", $originPath, 1, $count);
+				$originPath = preg_replace("/^" . preg_quote($this->_base, "/") . "/", "", $originPath, 1, $count);
 			}
 		}
 		$originPath = "/" . $originPath;
@@ -154,8 +242,8 @@ class Tea {
 
 		//从URL中获取ACTION
 		$path = $originPath;
-		if (!is_empty(TEA_URL_DISPATCHER)) {
-			$path = preg_replace("/^" . preg_quote(TEA_URL_DISPATCHER, "/") . "/", "", $path);
+		if (!is_empty($this->_dispatcher)) {
+			$path = preg_replace("/^" . preg_quote($this->_dispatcher, "/") . "/", "", $path);
 		}
 		if (Tea::shared()->actionParam()) {
 			$actionValue = Request::shared()->param("__ACTION__");

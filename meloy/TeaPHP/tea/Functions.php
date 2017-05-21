@@ -211,10 +211,10 @@ namespace {
 			$url = "/" . $dirname . $basename;
 		}
 		else if (Tea::shared()->actionParam()) {
-			$url = Tea::shared()->dispatcher() . "?__ACTION__=/" . $dirname . $basename;
+			$url = Tea::shared()->dispatcherUrl() . "?__ACTION__=/" . $dirname . $basename;
 		}
 		else {
-			$url = Tea::shared()->dispatcher() . "/" . $dirname . $basename;
+			$url = Tea::shared()->dispatcherUrl() . "/" . $dirname . $basename;
 		}
 
 		if (!empty($params)) {
@@ -484,7 +484,7 @@ namespace {
 	 */
 	function lang($code) {
 		if (!isset($GLOBALS["TEA_LANGS"])) {
-			$file = TEA_APP . "/langs/" . TEA_LANG . "/messages.php";
+			$file = TEA_APP . "/langs/" . Tea::shared()->lang() . "/messages.php";
 			if (!is_file($file)) {
 				return null;
 			}

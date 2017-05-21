@@ -421,7 +421,7 @@ PHP;
 			}
 			else {
 				$pieces = explode("?", $path, 2);
-				$file = TEA_PUBLIC . DS . $pieces[0];
+				$file = Tea::shared()->public() . DS . $pieces[0];
 			}
 			$version = "";
 			if (is_file($file)) {
@@ -465,7 +465,7 @@ PHP;
 			}
 			else {
 				$pieces = explode("?", $path, 2);
-				$file = TEA_PUBLIC . DS . $pieces[0];
+				$file = Tea::shared()->public() . DS . $pieces[0];
 			}
 
 			$version = "";
@@ -510,7 +510,7 @@ PHP;
 			}
 			else {
 				$pieces = explode("?", $path, 2);
-				$file = TEA_PUBLIC . DS . $pieces[0];
+				$file = Tea::shared()->public() . DS . $pieces[0];
 			}
 			$version = "";
 			if (is_file($file)) {

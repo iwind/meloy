@@ -37,10 +37,6 @@ namespace tea {
 	 */
 	define("TEA_APP", TEA_ROOT . DS . "app");
 
-	if (!defined("TEA_PUBLIC")) {
-		define("TEA_PUBLIC", TEA_APP . DS . "public");
-	}
-
 	/**
 	 * Tea类库所在路径
 	 */
@@ -57,41 +53,6 @@ namespace tea {
 	 * 虚拟的空指针，用于定义未定义的数组参数
 	 */
 	define("NilArray", [ nil ]);
-
-	/**
-	 * 当前使用的域名
-	 */
-	if (!defined("TEA_DOMAIN")) {
-		define("TEA_DOMAIN", $_SERVER["HTTP_HOST"] ?? "");
-	}
-
-	/**
-	 * 使用的协议
-	 */
-	if (!defined("TEA_SCHEME")) {
-		define("TEA_SCHEME", isset($_SERVER["HTTP_TEA_SCHEME"]) ? $_SERVER["HTTP_TEA_SCHEME"] : "http");
-	}
-
-	/**
-	 * 当前使用的语言代号
-	 */
-	if (!defined("TEA_LANG")) {
-		define("TEA_LANG", "zh_cn");
-	}
-
-	/**
-	 * 基础URL路径
-	 */
-	if (!defined("TEA_URL_BASE")) {
-		define("TEA_URL_BASE", "");
-	}
-
-	/**
-	 * 分发脚本
-	 */
-	if (!defined("TEA_URL_DISPATCHER")) {
-		define("TEA_URL_DISPATCHER", "");
-	}
 
 	/**
 	 * 时区

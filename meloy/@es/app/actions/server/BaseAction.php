@@ -3,6 +3,7 @@
 namespace es\app\actions\server;
 
 use app\models\server\Server;
+use es\api\GetIndexApi;
 use tea\Request;
 
 class BaseAction extends \es\app\actions\BaseAction {
@@ -78,6 +79,20 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "deleteForm"
 			]
 		];
+	}
+
+	/**
+	 * 取得ES服务版本
+	 *
+	 * @return string
+	 */
+	public function serverVersion() {
+		/**
+		 * @var GetIndexApi $api
+		 */
+		$api = $this->_server->api(GetIndexApi::class);
+		$data = $api->get();
+		return $data->version->number;
 	}
 }
 

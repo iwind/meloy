@@ -30,6 +30,9 @@ class IndexesAction extends BaseAction {
 			$this->data->titles = $titles;
 			$this->data->indexes = $indexes;
 		}
+		else {
+			$this->data->indexes = [];
+		}
 	}
 }
 

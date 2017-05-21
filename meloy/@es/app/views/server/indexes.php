@@ -3,6 +3,7 @@
 <h3>索引</h3>
 
 <div class="ui message warning" ng-if="indexes.length == 0">暂时还没有索引。</div>
+
 <div ng-if="indexes.length > 0">
 	<table class="ui table">
 		<thead>

@@ -12,7 +12,7 @@
 <div class="ui message error" ng-if="error != null && error.length > 0">{{error}} <a href="" ng-click="refresh()"><i class="icon refresh"></i></a></div>
 
 <div id="chart-container">
-	<div class="chart-box" ng-repeat="chartType in chartTypes">
+	<div class="chart-box" ng-repeat="chartType in chartTypes" ng-if="chartType.enabled">
 		<h3>
 			{{chartType.name}}
 			<span class="label" ng-if="chartType.currentValue != null && chartType.maxValue != null">({{chartType.currentValue}} / {{chartType.maxValue}})</span>

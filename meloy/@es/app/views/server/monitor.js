@@ -11,7 +11,8 @@ Tea.View.scope(function () {
 			"field": "load_1m",
 			"yellow": 3,
 			"red": 10,
-			"max": 20
+			"max": 20,
+			"enabled": true
 		},
 		{
 			"name": "CPU使用率",
@@ -20,7 +21,8 @@ Tea.View.scope(function () {
 			"field": "cpu",
 			"yellow": 50,
 			"red": 80,
-			"max": 100
+			"max": 100,
+			"enabled": Tea.versionCompare(this.serverVersion, "5.0.0") >0
 		},
 		{
 			"name": "Heap使用率",
@@ -31,7 +33,8 @@ Tea.View.scope(function () {
 			"field.max": "heap.max",
 			"yellow": 50,
 			"red": 80,
-			"max": 100
+			"max": 100,
+			"enabled": true
 		},
 		{
 			"name": "RAM使用率",
@@ -42,7 +45,8 @@ Tea.View.scope(function () {
 			"field.max": "ram.max",
 			"yellow": 80,
 			"red": 90,
-			"max": 100
+			"max": 100,
+			"enabled": true
 		},
 		{
 			"name": "查询文档数",
@@ -51,7 +55,8 @@ Tea.View.scope(function () {
 			"field": "search.query_total",
 			"yellow": -1,
 			"red": -1,
-			"max": -1
+			"max": -1,
+			"enabled": true
 		}
 	];
 	this.charts = {};
@@ -98,6 +103,10 @@ Tea.View.scope(function () {
 		}
 
 		this.chartTypes.$each(function (k, chartType) {
+			if (!chartType.enabled) {
+				return;
+			}
+
 			var type = chartType.code;
 			that.chartData[type] = [];
 			that.chartLabels[type] = [];
@@ -192,6 +201,10 @@ Tea.View.scope(function () {
 
 				//显示数据
 				this.chartTypes.$each(function (k, chartType) {
+					if (!chartType.enabled) {
+						return;
+					}
+
 					var type = chartType.code;
 					var data = response.data[chartType.field];
 

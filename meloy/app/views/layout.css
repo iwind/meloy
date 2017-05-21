@@ -92,7 +92,7 @@
 
 .main .go-top-btn {
 	position: fixed;
-	right: 1em;
+	right: 0.4em;
 	bottom: 2em;
 	font-size: 2em;
 	z-index: 999999;

@@ -508,11 +508,56 @@ window.Tea.formatBytes = function (bytes) {
 	return Math.round(bytes / 1024 / 1024 / 1024 * 100) / 100+ " gb";
 };
 
+/**
+ * 版本号对比
+ *
+ * 代码来自 http://stackoverflow.com/questions/6832596/how-to-compare-software-version-number-using-js-only-number
+ *
+ * @param a
+ * @param b
+ * @returns {number}
+ */
+window.Tea.versionCompare = function compare(a, b) {
+	if (a === b) {
+		return 0;
+	}
+
+	var a_components = a.split(".");
+	var b_components = b.split(".");
+
+	var len = Math.min(a_components.length, b_components.length);
+
+	// loop while the components are equal
+	for (var i = 0; i < len; i++) {
+		// A bigger than B
+		if (parseInt(a_components[i]) > parseInt(b_components[i])) {
+			return 1;
+		}
+
+		// B bigger than A
+		if (parseInt(a_components[i]) < parseInt(b_components[i])) {
+			return -1;
+		}
+	}
+
+	// If one's a prefix of the other, the longer one is greater.
+	if (a_components.length > b_components.length) {
+		return 1;
+	}
+
+	if (a_components.length < b_components.length) {
+		return -1;
+	}
+
+	// Otherwise they are the same.
+	return 0;
+};
+
 window.Tea.Help = false;
 window.onresize = function () {
 	if (!window.Tea.Help) {
 		window.Tea.Help = true;
 
-		console.log("%c Meloy & TeaPHP Javascript API Helps: \n   Tea.View.$scope - get angular $scope variable\n   Tea.View.$scope.xxx - print variables or functions in angular $scope\n   TEA.ACTION.data - show all data from action", "color:green");
+		console.log("%c Meloy & TeaPHP Javascript API Helps: \n   Tea.View.$scope - get angular $scope variable\n   Tea.View.$scope.xxx - print variables or functions in angular $scope\n   TEA.ACTION.data - show all data from action", "color:blue");
 	}
 };

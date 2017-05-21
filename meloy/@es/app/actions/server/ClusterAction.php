@@ -12,12 +12,23 @@ class ClusterAction extends BaseAction {
 		$this->data->nodes = $nodes;
 
 		//负载
+		$is2_x = false;
 		$catApi = $this->_server->api(\es\api\cat\NodesApi::class); /** @var \es\api\cat\NodesApi $catApi */
-		$catApi->headers("id", "load_1m", "load_5m", "load_15m");
+		if (version_compare($this->serverVersion(), "5.0.0") < 0) {
+			$is2_x = true;
+			$catApi->headers("id", "load");
+		}
+		else {
+			$catApi->headers("id", "load_1m", "load_5m", "load_15m");
+		}
 		$result = $catApi->getAll();
 
 		foreach ($this->data->nodes as $id => $node) {
 			foreach ($result as $data) {
+				if ($is2_x) {
+					$data->load_1m = $data->load;
+				}
+
 				if (preg_match("/^" . $data->id . "/", $id)) {
 					$node->load_1m = $data->load_1m;
 				}

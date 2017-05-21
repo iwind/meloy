@@ -6,6 +6,9 @@ use es\api\cat\NodesApi;
 
 class MonitorAction extends BaseAction {
 	public function run(string $nodeId) {
+		//ES版本号
+		$this->data->serverVersion = $this->serverVersion();
+
 		//所有节点
 		$api = $this->_server->api(NodesApi::class); /** @var NodesApi $api */
 		$api->headers("id,name,pid,ip,port,load_*,heap.*,ram.*,search.*");

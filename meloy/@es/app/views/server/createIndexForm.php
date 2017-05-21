@@ -3,6 +3,8 @@
 <h3>创建索引</h3>
 
 <form class="ui form" data-tea-action=".createIndex">
+	<input type="hidden" name="serverId" value="{{server.id}}"/>
+
 	<table class="ui table">
 		<tr>
 			<td class="title">名称</td>

@@ -12,7 +12,7 @@ class VueActionView extends ActionView {
 		$viewName = $this->action()->view();
 		$base = Tea::shared()->dispatcher();
 		$urlBase = rtrim(TEA_URL_BASE, "/");
-		$actionParam = TEA_ENABLE_ACTION_PARAM ? "true" : "false";
+		$actionParam = Tea::shared()->actionParam() ? "true" : "false";
 
 		$realParent = $parent;
 		if (!is_empty($module)) {

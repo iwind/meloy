@@ -2,6 +2,8 @@
 
 namespace tea\db;
 
+use tea\Tea;
+
 /**
  * 数据库类
  *
@@ -61,7 +63,7 @@ class Db {
 	public function __construct($db, $connect = true) {
 		if (is_scalar($db)) {
 			//支持环境变量
-			$db = str_replace('%{env}', TEA_ENV, $db);
+			$db = str_replace('%{env}', Tea::shared()->env(), $db);
 
 			$config = o(":db.dbs");
 			if(empty($config[$db])) {

@@ -3,12 +3,18 @@
 namespace tea;
 
 class Tea {
+	const ENV_DEV = "dev";
+	const ENV_TEST = "test";
+	const ENV_PROD = "prod";
+
 	private static $_instance;
 	private $_request;
 	private $_directives = [];
 	private $_filters = [];
 	private $_stop = false;
 	private $_actionView = ActionView::class;
+	private $_actionParam = false;
+	private $_env = null;
 
 	/**
 	 * 取得共享单例
@@ -37,6 +43,38 @@ class Tea {
 	 */
 	public function base() {
 		return rtrim(TEA_URL_BASE, "/");
+	}
+
+	/**
+	 * 设置或取得是否在参数加入__ACTION__参数
+	 *
+	 * @param boolean|string $actionParam 是否在参数加入__ACTION__参数
+	 * @return self|bool
+	 */
+	public function actionParam($actionParam = nil) {
+		if (is_nil($actionParam)) {
+			return $this->_actionParam;
+		}
+		$this->_actionParam = $actionParam;
+		return $this;
+	}
+
+	/**
+	 * 设置或取得当前的环境，可选值为Tea::ENV_*
+	 *
+	 * @param string $env 环境
+	 * @return self|string
+	 */
+	public function env($env = nil) {
+		if (is_nil($env)) {
+			if (is_null($this->_env)) {
+				$this->_env = get_cfg_var("tea.env");
+			}
+
+			return $this->_env;
+		}
+		$this->_env = $env;
+		return $this;
 	}
 
 	/**
@@ -119,7 +157,7 @@ class Tea {
 		if (!is_empty(TEA_URL_DISPATCHER)) {
 			$path = preg_replace("/^" . preg_quote(TEA_URL_DISPATCHER, "/") . "/", "", $path);
 		}
-		if (TEA_ENABLE_ACTION_PARAM) {
+		if (Tea::shared()->actionParam()) {
 			$actionValue = Request::shared()->param("__ACTION__");
 			if (!is_empty($actionValue)) {
 				$path = $actionValue;

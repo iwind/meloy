@@ -5,6 +5,7 @@ namespace tea\tpl;
 use tea\Action;
 use tea\Exception;
 use tea\string\Helper;
+use tea\Tea;
 
 /**
  * 模板分析器
@@ -424,7 +425,7 @@ PHP;
 			}
 			$version = "";
 			if (is_file($file)) {
-				if (TEA_ENV == "dev") {
+				if (Tea::shared()->env() == "dev") {
 					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . addslashes($file) . '")); ?>';
 				}
 				else {
@@ -469,7 +470,7 @@ PHP;
 
 			$version = "";
 			if (is_file($file)) {
-				if (TEA_ENV == "dev") {
+				if (Tea::shared()->env() == "dev") {
 					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . addslashes($file) . '")); ?>';
 				}
 				else {
@@ -513,7 +514,7 @@ PHP;
 			}
 			$version = "";
 			if (is_file($file)) {
-				if (TEA_ENV == "dev") {
+				if (Tea::shared()->env() == "dev") {
 					$version = '<?php echo tea\string\Helper::idToString(filemtime("' . addslashes($file) . '")); ?>';
 				}
 				else {
@@ -632,11 +633,11 @@ PHP;
 		$contents = str_replace("TEA-RIGHT-BRACH", "}", $contents);
 
 		if (!is_empty($layoutCode)) {
-			$contents = '<?php if (!defined("TEA_ENV")) exit(); ?>' . '<?php if(!defined("TEA_IN_LAYOUT")):?>' . $layoutCode . '<?php else:?>' . $contents . '<?php endif;?>';
+			$contents = '<?php if (!defined("TEA_VERSION")) exit(); ?>' . '<?php if(!defined("TEA_IN_LAYOUT")):?>' . $layoutCode . '<?php else:?>' . $contents . '<?php endif;?>';
 
 		}
 		else {
-			$contents = '<?php if (!defined("TEA_ENV")) exit(); ?>' . "\n" . $contents;
+			$contents = '<?php if (!defined("TEA_VERSION")) exit(); ?>' . "\n" . $contents;
 		}
 
 		return $contents;

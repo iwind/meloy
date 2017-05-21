@@ -7,7 +7,7 @@ class Error {
 		set_error_handler([ self::class, "handleError" ]);
 		set_exception_handler([ self::class, "handleException" ]);
 
-		if (TEA_ENV == "dev") {
+		if (Tea::shared()->env() == "dev") {
 			register_shutdown_function(function () {
 				$error = error_get_last();
 				if ($error != null) {
@@ -26,7 +26,7 @@ class Error {
 		$cmdMessage = "\n~~~\n\033[1;31mCode:" . $code . "\nMessage:" . $message . "\nFile:" . $file . "\nLine: " . $line . "\nGet: " . var_export($_GET, true) . "\nPost: " . var_export($_POST, true)  . "\033[0m\n~~~\n";
 
 		if (!is_cmd()) {
-			if (TEA_ENV == "dev") {
+			if (Tea::shared()->env() == "dev") {
 				if (in_array($_SERVER["REQUEST_METHOD"], [ "GET", "POST" ]) && !preg_match("{Content-Type\\s*:\\s*(application|text)/json}i", var_export(headers_list(), true))) {
 					self::_showError($code, $message, $file, $line, self::_errorCodeToType($code), null);
 				}
@@ -54,7 +54,7 @@ class Error {
 		$cmdMessage = "\n~~~\n\033[1;31mCode:" . $exception->getCode() . "\nMessage:" . $exception->getMessage() . "\nFile:" . $exception->getFile() . "\nLine: " . $exception->getLine() . " \n>>>\n" . $exception->getTraceAsString() . "\n>>>\n" . "Get: " . var_export($_GET, true) . "\nPost: " . var_export($_POST, true) . "\033[0m\n~~~\n";
 
 		if (!is_cmd()) {
-			if (TEA_ENV == "dev") {
+			if (Tea::shared()->env() == "dev") {
 				if (in_array($_SERVER["REQUEST_METHOD"], [ "GET", "POST" ]) && !isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && !preg_match("{Content-Type\\s*:\\s*(application|text)/json}i", var_export(headers_list(), true))) {
 					self::_showError($exception->getCode(), $exception->getMessage(), $exception->getFile(), $exception->getLine(), get_class($exception), $exception->getTraceAsString());
 				}

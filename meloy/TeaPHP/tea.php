@@ -8,7 +8,7 @@ namespace tea {
 	/**
 	 * 版本号
 	 */
-	define("TEA_VERSION", "0.0.1");
+	define("TEA_VERSION", "0.0.2");
 
 	/**
 	 * 路径分隔符
@@ -73,17 +73,6 @@ namespace tea {
 	}
 
 	/**
-	 * 环境代号，主要为dev、test、prod
-	 */
-	if (!defined("TEA_ENV")) {
-		$env = get_cfg_var("tea.env");
-		if (is_empty($env)) {
-			$env = "dev";
-		}
-		define("TEA_ENV", $env);
-	}
-
-	/**
 	 * 当前使用的语言代号
 	 */
 	if (!defined("TEA_LANG")) {
@@ -102,13 +91,6 @@ namespace tea {
 	 */
 	if (!defined("TEA_URL_DISPATCHER")) {
 		define("TEA_URL_DISPATCHER", "");
-	}
-
-	/**
-	 * 是否允许在参数中设置ACTION路径
-	 */
-	if (!defined("TEA_ENABLE_ACTION_PARAM")) {
-		define("TEA_ENABLE_ACTION_PARAM", false);
 	}
 
 	/**

@@ -75,7 +75,7 @@ namespace {
 				if (!is_dir($dir)) {
 					continue;
 				}
-				$files[] = $dir . "/" . $lib . "@" . TEA_ENV . ".php";
+				$files[] = $dir . "/" . $lib . "@" . Tea::shared()->env() . ".php";
 				$files[] = $dir . "/" . $lib . ".php";
 			}
 		}
@@ -90,7 +90,7 @@ namespace {
 				if (!is_dir($dir)) {
 					continue;
 				}
-				$files[] = $dir . "/" . $mvc . "@" . TEA_ENV . ".php";
+				$files[] = $dir . "/" . $mvc . "@" . Tea::shared()->env() . ".php";
 				$files[] = $dir . "/" . $mvc . ".php";
 			}
 		}
@@ -106,7 +106,7 @@ namespace {
 				if (!is_dir($dir)) {
 					continue;
 				}
-				$files[] = $dir . "/" . $plugin . "@" . TEA_ENV . ".php";
+				$files[] = $dir . "/" . $plugin . "@" . Tea::shared()->env() . ".php";
 				$files[] = $dir . "/" . $plugin . ".php";
 			}
 		}
@@ -120,12 +120,12 @@ namespace {
 				$dir = dirname($dir);
 			}
 			$filename = array_shift($pieces);
-			$files[] = $dir . "/" . $filename . "@" . TEA_ENV . ".php";
+			$files[] = $dir . "/" . $filename . "@" . Tea::shared()->env() . ".php";
 			$files[] = $dir . "/" . $filename . ".php";
 		}
 		else {
 			$filename = array_shift($pieces);
-			$files[] = TEA_APP . "/configs/" . $filename . "@" . TEA_ENV . ".php";
+			$files[] = TEA_APP . "/configs/" . $filename . "@" . Tea::shared()->env() . ".php";
 			$files[] = TEA_APP . "/configs/" . $filename . ".php";
 		}
 
@@ -210,7 +210,7 @@ namespace {
 		if ($onlyAction) {
 			$url = "/" . $dirname . $basename;
 		}
-		else if (TEA_ENABLE_ACTION_PARAM) {
+		else if (Tea::shared()->actionParam()) {
 			$url = Tea::shared()->dispatcher() . "?__ACTION__=/" . $dirname . $basename;
 		}
 		else {

@@ -32,7 +32,12 @@ window.Tea.View = new function () {
 			return function(text) {
 				return $sce.trustAsHtml(text);
 			};
-		}]);
+		}])
+		.filter("pretty", function(){
+			return function(text) {
+				return angular.toJson(text, true);
+			};
+		});
 
 		//支持data-tea-action
 		angular.element(window).bind("load", function () {

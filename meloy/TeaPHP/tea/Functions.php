@@ -37,6 +37,16 @@ namespace {
 	}
 
 	/**
+	 * 带你数据的内容并停止执行
+	 *
+	 * @param array ...$args 要被打印的数据
+	 */
+	function xp(... $args) {
+		call_user_func_array("p", $args);
+		exit();
+	}
+
+	/**
 	 * 查找配置
 	 *
 	 * 配置都有环境和平台限制

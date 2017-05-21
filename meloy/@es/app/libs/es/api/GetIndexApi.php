@@ -11,8 +11,19 @@ class GetIndexApi extends Api {
 	}
 
 	public function get() {
+		$index = $this->index();
+		if (!is_empty($index)) {
+			$this->_endPoint = "/" . $index;
+		}
+
 		parent::sendGet();
-		return $this->data();
+
+		$data = $this->data();
+
+		if (is_empty($index)) {
+			return $data;
+		}
+		return $data->$index;
 	}
 }
 

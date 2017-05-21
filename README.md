@@ -52,10 +52,17 @@ http://你的网站/meloy/
 ![监控](docs/images/screenshot-monitor.jpg "监控")
 
 # 使用的开源技术
-* [PHP](http://php.net/)
-* [MySQL](https://www.mysql.com/)
-* [Semantic UI](https://semantic-ui.com/)
-* [AngularJS](https://angularjs.org/)
-* [highlight.js](https://highlightjs.org/)
-* [echarts](http://echarts.baidu.com/)
-* [jQuery](http://jquery.com/)
+* [PHP](http://php.net/) - 可能是世界上最好的编程语言（^_^）
+* [MySQL](https://www.mysql.com/) - 可能是最流行的开源RDBS数据库
+* [Semantic UI](https://semantic-ui.com/) - 一套很好用的UI
+* [AngularJS](https://angularjs.org/) - 稳定的前端数据处理框架
+* [highlight.js](https://highlightjs.org/) - 代码高亮工具
+* [echarts](http://echarts.baidu.com/) - 百度出品的图表库
+* [jQuery](http://jquery.com/) - 强大的DOM操作工具
+
+# 开发路线图
+| Phase        | Work           | 
+| ------------- |:-------------:|
+| P1 | 简单的基础框架+ES、Redis模块 |
+| P2 | 提供框架规范，更完善的基础设施，接入更多的模块 |
+| P3 | 提供API支持微服务，简化数据服务开发 |

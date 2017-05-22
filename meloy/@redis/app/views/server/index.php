@@ -64,5 +64,5 @@
 
 <div>
 	<a href="{{Tea.url('.index', { 'serverId': server.id, 'q':q })}}" ng-if="!isFirst">&laquo; 回首页</a> &nbsp;
-	<a href="{{Tea.url('.index', { 'serverId': server.id, 'offset': offset, 'q':q })}}" ng-if="hasNext">加载更多 &raquo;</a>
+	<a href="{{Tea.url('.index', { 'serverId': server.id, 'offset': offset, 'q':q, 'scan':scan ? 1 : 0 })}}" ng-if="hasNext">加载更多 &raquo;</a>
 </div>

@@ -1,5 +1,5 @@
 # Meloy数据管理平台
-**Meloy** *[ˈmelə]* 提供ES(Elastic Search)、Redis等数据管理工具框架，可以方便地植入数据相关管理工具。
+**Meloy** *[ˈmelə]* 基于PHP7提供ES(Elastic Search)、Redis等数据管理工具框架，可以方便地植入数据相关管理工具。
 
 # Meloy命名由来
 * *M* 管理（Manage）

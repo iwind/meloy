@@ -6,7 +6,7 @@ use app\classes\DateHelper;
 use redis\Exception;
 
 class IndexAction extends BaseAction {
-	public function run(int $offset, string $q, DateHelper $dateHelper) {
+	public function run(int $offset, bool $scan = true, string $q, DateHelper $dateHelper) {
 		//是否能连接
 		try {
 			$this->_redis();
@@ -20,14 +20,27 @@ class IndexAction extends BaseAction {
 		$this->data->isFirst = ($offset == null || $offset <= 0);
 
 		$q = is_empty($q) ? null : $q;
-		$keys = $this->_redis()->scan($offset, $q, 10);
+		$keys = $scan ? $this->_redis()->scan($offset, $q, 10) : [];
 
 		$docs = [];
 
-		if (empty($keys) && $this->data->isFirst) {
+		if (empty($keys)) {
+			$scan = false;
+
+			if ($this->data->isFirst) {
+				$offset = 0;
+			}
+
 			$keys = $this->_redis()->keys($q);
-			$offset = 0;
+			$count = count($keys);
+			$keys = array_slice($keys, $offset ?? 0, 10);
+
+			if ($count > 10) {
+				$offset += 10;
+			}
 		}
+		$this->data->scan = $scan;
+
 		foreach ($keys as $key) {
 			$value = $this->_redis()->get($key);
 			$type = $this->_redis()->type($key);

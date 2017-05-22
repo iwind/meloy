@@ -345,7 +345,7 @@ class Api {
 		if (is_empty($response)) {
 			throw new Exception("Can not connect to server");
 		}
-		if ($code != 200) {
+		if ($code != 200 && $code != 201) {
 			if (substr($response, 0, 1) != "{") {
 				throw new Exception("API response error:\n" . $response . "\nEndPoint:{$this->_method} " . $this->_endPoint, $code);
 			}

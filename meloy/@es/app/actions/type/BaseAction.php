@@ -82,6 +82,15 @@ class BaseAction extends \es\app\actions\BaseAction {
 				"active" => $this->name() == "builder"
 			],
 			[
+				"name" => "添加数据",
+				"url" => u(".addDocForm",  [
+					"serverId" => $serverId,
+					"index" => $index,
+					"type" => $type
+				]),
+				"active" => $this->name() == "addDocForm"
+			],
+			[
 				"name" => "字段",
 				"url" => u(".fields", [
 					"serverId" => $serverId,

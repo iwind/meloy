@@ -164,6 +164,7 @@ window.Tea.Action = function (action, params) {
 				if (response.code != 200) {
 					if (typeof(_failFn) == "function") {
 						_failFn.call(Tea.View.$scope, response);
+						Tea.View.update();
 					}
 					else {
 						//消息提示
@@ -198,6 +199,7 @@ window.Tea.Action = function (action, params) {
 				else {
 					if (typeof(_successFn) == "function") {
 						_successFn.call(Tea.View.$scope, response);
+						Tea.View.update();
 					}
 					else {
 						if (response.message != null && response.message.length > 0) {
@@ -218,6 +220,7 @@ window.Tea.Action = function (action, params) {
 		.error(function (response) {
 			if (typeof(_errorFn) == "function") {
 				_errorFn.call(Tea.View.$scope, response);
+				Tea.View.update();
 			}
 		});
 

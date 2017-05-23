@@ -1,3 +1,19 @@
 textarea.small {
 	max-height: 0.5em!important;
 }
+
+.source-code-box {
+	position: fixed;
+}
+
+.source-code-box pre {
+	margin: 0;
+	padding: 0;
+}
+
+.source-code {
+	width: 100%;
+	top: 0;
+	height: 40em;
+	overflow: auto;
+}

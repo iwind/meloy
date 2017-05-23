@@ -43,13 +43,13 @@ http://你的网站/meloy/
 
 # 预览图
 ## 查询数据
-![查询数据](docs/images/screenshot.jpg "查询数据")
+![查询数据](../docs/images/screenshot.jpg "查询数据")
 
 ## 查询构造器
-![查询构造器](docs/images/screenshot-query-builder.jpg)
+![查询构造器](../docs/images/screenshot-query-builder.jpg)
 
 ## 监控
-![监控](docs/images/screenshot-monitor.jpg "监控")
+![监控](../docs/images/screenshot-monitor.jpg "监控")
 
 # 使用的开源技术
 * [PHP](http://php.net/) - 可能是世界上最好的编程语言（哈哈😆）

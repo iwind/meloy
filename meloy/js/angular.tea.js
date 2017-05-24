@@ -561,6 +561,23 @@ window.Tea.versionCompare = function compare(a, b) {
 	return 0;
 };
 
+
+/**
+ * 延时执行
+ *
+ * @param fn 要执行的函数
+ * @param ms 延时长度
+ */
+window.Tea.delay = function (fn, ms) {
+	if (typeof(ms) == "undefined") {
+		ms = 10;
+	}
+	setTimeout(function () {
+		fn.call(Tea.View.$scope);
+		Tea.View.update();
+	}, ms);
+};
+
 window.Tea.Help = false;
 window.onresize = function () {
 	if (!window.Tea.Help) {

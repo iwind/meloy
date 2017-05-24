@@ -97,6 +97,125 @@ class Value {
 					}
 				}
 				break;
+			case "geo_shape":
+				if (!isset($value["type"])) {
+					$value = null;
+				}
+				else {
+					switch ($value["type"]) {
+						case "point":
+							$coordinates = &$value["coordinates"] ?? [null, null];
+							foreach ($coordinates as &$coordinate) {
+								if (!is_null($coordinate)) {
+									$coordinate = doubleval($coordinate);
+								}
+								else {
+									$coordinate = null;
+								}
+							}
+							break;
+						case "linestring":
+							$coordinates = &$value["coordinates"] ?? [];
+							foreach ($coordinates as &$_coordinates) {
+								foreach ($_coordinates as &$coordinate) {
+									if (!is_empty($coordinate)) {
+										$coordinate = doubleval($coordinate);
+									}
+									else {
+										$coordinate = null;
+									}
+								}
+							}
+							break;
+						case "polygon":
+							$coordinates = &$value["coordinates"] ?? [];
+							foreach ($coordinates as &$_coordinates) {
+								foreach ($_coordinates as &$coordinate) {
+									if (!is_empty($coordinate)) {
+										$coordinate = doubleval($coordinate);
+									}
+									else {
+										$coordinate = null;
+									}
+								}
+							}
+							break;
+						case "multipoint":
+							$coordinates = &$value["coordinates"] ?? [];
+							foreach ($coordinates as &$_coordinates) {
+								foreach ($_coordinates as &$coordinate) {
+									if (!is_empty($coordinate)) {
+										$coordinate = doubleval($coordinate);
+									}
+									else {
+										$coordinate = null;
+									}
+								}
+							}
+							break;
+						case "multilinestring":
+							$coordinates = &$value["coordinates"] ?? [];
+							foreach ($coordinates as &$_coordinates) {
+								foreach ($_coordinates as &$_coordinates2) {
+									foreach ($_coordinates2 as &$coordinate) {
+										if (!is_empty($coordinate)) {
+											$coordinate = doubleval($coordinate);
+										}
+										else {
+											$coordinate = null;
+										}
+									}
+								}
+							}
+							break;
+						case "multipolygon":
+							$coordinates = &$value["coordinates"] ?? [];
+							foreach ($coordinates as &$_coordinates) {
+								foreach ($_coordinates as &$_coordinates2) {
+									foreach ($_coordinates2 as &$coordinate) {
+										if (!is_empty($coordinate)) {
+											$coordinate = doubleval($coordinate);
+										}
+										else {
+											$coordinate = null;
+										}
+									}
+								}
+							}
+							break;
+						case "envelope":
+							$coordinates = &$value["coordinates"] ?? [];
+							foreach ($coordinates as &$_coordinates) {
+								foreach ($_coordinates as &$coordinate) {
+									if (!is_empty($coordinate)) {
+										$coordinate = doubleval($coordinate);
+									}
+									else {
+										$coordinate = null;
+									}
+								}
+							}
+							break;
+						case "circle":
+							$coordinates = &$value["coordinates"] ?? [null, null];
+							foreach ($coordinates as &$coordinate) {
+								if (!is_null($coordinate)) {
+									$coordinate = doubleval($coordinate);
+								}
+								else {
+									$coordinate = null;
+								}
+							}
+
+							$radius = &$value["radius"] ?? "0m";
+
+
+							break;
+						case "geometrycollection":
+							break;
+					}
+				}
+				break;
 		}
 
 		return $value;

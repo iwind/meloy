@@ -8,18 +8,16 @@ window.Tea.View = new function () {
 	this.$httpParamSerializer = null;
 	this.$compile = null;
 	this.$templateRequest = null;
-	this.$location = null;
 
 	this.init = function () {
 		//初始化app
 		var app = angular.module("app", []);
-		app.controller("controller", function ($scope, $http, $httpParamSerializer, $compile, $templateRequest, $location) {
+		app.controller("controller", function ($scope, $http, $httpParamSerializer, $compile, $templateRequest) {
 			that.$scope = $scope;
 			that.$http = $http;
 			that.$httpParamSerializer = $httpParamSerializer;
 			that.$compile = $compile;
 			that.$templateRequest = $templateRequest;
-			that.$location = $location;
 
 			$scope.Tea = window.Tea;
 

@@ -97,7 +97,10 @@
 <div class="main" ng-class="{'without-menu': !subMenus || subMenus.length == 0}">
 	<!-- 操作菜单 -->
 	<div class="ui top attached menu tabular tab-menu" ng-if="tabbar">
-		<a class="item" ng-repeat="item in tabbar" ng-class="{active:item.active}" href="{{item.url}}">{{item.name}}</a>
+		<a class="item" ng-repeat="item in tabbar" ng-class="{active:item.active}" href="{{item.url}}">
+			<var>{{item.name}}</var>
+			<span ng-if="item.subName.length > 0">({{item.subName}})</span>
+		</a>
 	</div>
 
 	<!-- 功能区 -->

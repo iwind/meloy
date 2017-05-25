@@ -84,6 +84,14 @@
 .main .tab-menu .item {
 	padding: 1em!important;
 }
+.main .tab-menu .item var {
+	font-style: normal;
+}
+
+.main .tab-menu .item span {
+	font-size: 0.8em;
+	padding-left: 0.3em;
+}
 
 .main .message .icon {
 	position: absolute;

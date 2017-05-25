@@ -42,6 +42,24 @@ class Request {
 	public function isAjax() {
 		return (isset($_SERVER["HTTP_X_REQUESTED_WITH"]) && $_SERVER["HTTP_X_REQUESTED_WITH"] == "XMLHttpRequest");
 	}
+
+	/**
+	 * 判断当前请求是否为GET请求
+	 *
+	 * @return bool
+	 */
+	public function isGet() {
+		return strtolower($_SERVER["REQUEST_METHOD"] ?? "get") == "get";
+	}
+
+	/**
+	 * 判断当前请求是否为POST请求
+	 *
+	 * @return bool
+	 */
+	public function isPost() {
+		return strtolower($_SERVER["REQUEST_METHOD"] ?? "get") == "post";
+	}
 }
 
 ?>

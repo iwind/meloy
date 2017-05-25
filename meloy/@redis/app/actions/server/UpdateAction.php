@@ -22,7 +22,7 @@ class UpdateAction extends BaseAction {
 		if ($check) {
 			$redis = new \Redis();
 
-			$bool = $redis->connect($host, $port);
+			$bool = @$redis->connect($host, $port);
 
 			if (!$bool) {
 				$this->field("host", "连接测试失败，请重新检查")->fail();

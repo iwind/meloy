@@ -1,7 +1,7 @@
 {tea:layout}
 {tea:view highlight}
 
-<h3 xmlns="http://www.w3.org/1999/html">添加数据</h3>
+<h3>添加数据</h3>
 
 <div class="ui grid two column">
 	<div class="column">

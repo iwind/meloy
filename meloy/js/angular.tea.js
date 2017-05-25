@@ -8,6 +8,7 @@ window.Tea.View = new function () {
 	this.$httpParamSerializer = null;
 	this.$compile = null;
 	this.$templateRequest = null;
+	this.$location = null;
 
 	this.init = function () {
 		//初始化app

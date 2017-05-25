@@ -8,7 +8,7 @@ use tea\Must;
 use tea\string\Helper;
 
 class CreateDbAction extends BaseAction {
-	public function run(string $host, string $port, string $username, string $password, string $dbname, string $prefix, Must $must) {
+	public function run(string $host, string $port, string $username, string $password, string $dbname, bool $autoCreateDb, string $prefix, Must $must) {
 		$host = preg_replace("/\\s+/", "", $host);
 		$port = preg_replace("/\\s+/", "", $port);
 		$dbname = preg_replace("/\\s+/", "", $dbname);
@@ -28,7 +28,7 @@ class CreateDbAction extends BaseAction {
 			->require("请输入数据库名称");
 
 		//检查连接
-		$pdo = null;
+		$pdo = null; /** @var \PDO $pdo */
 		try {
 			$pdo = new \PDO("mysql:dbname={$dbname};host={$host};port={$port};charset=utf8", $username, $password);
 		} catch (\Exception $e) {
@@ -39,10 +39,23 @@ class CreateDbAction extends BaseAction {
 				$this->fail("用户'{$username}'（密码'{$password}'）没有权限访问数据库");
 			}
 			if (preg_match("/Unknown database/i", $e->getMessage())) {
-				$this->fail("数据库'{$dbname}'不存在");
+				if ($autoCreateDb) {//自动创建
+					$pdo = new \PDO("mysql:host={$host};port={$port};charset=utf8", $username, $password);
+					$result = $pdo->exec("CREATE DATABASE `{$dbname}` DEFAULT CHARSET 'UTF8'");
+					if ($result === false) {
+						$this->fail($pdo->errorInfo()[2]);
+					}
+					else {
+						$pdo = new \PDO("mysql:dbname={$dbname};host={$host};port={$port};charset=utf8", $username, $password);
+					}
+				}
+				else {
+					$this->fail("数据库'{$dbname}'不存在");
+				}
 			}
-
-			$this->fail($e->getMessage());
+			else {
+				$this->fail($e->getMessage());
+			}
 		}
 
 		//写入数据库配置

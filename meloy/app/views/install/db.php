@@ -39,7 +39,14 @@
 			<tr>
 				<td>数据库名称</td>
 				<td>
-					<input type="text" name="dbname" value="{{dbname}}"/>
+					<div class="ui fields inline">
+						<div class="ui field">
+							<input type="text" name="dbname" value="{{dbname}}"/>
+						</div>
+						<div class="ui field">
+							<label><input type="checkbox" name="autoCreateDb" value="1" checked="checked"/> 如不存在自动创建</label>
+						</div>
+					</div>
 				</td>
 			</tr>
 			<tr>

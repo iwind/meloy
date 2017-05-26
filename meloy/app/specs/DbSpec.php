@@ -3,8 +3,8 @@
 namespace app\specs;
 
 abstract class DbSpec {
-	private $_state;
-	private $_name;
+	protected $_state;
+	protected $_name;
 
 	public function state($state = nil) {
 		if (is_nil($state)) {

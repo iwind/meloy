@@ -5,8 +5,8 @@ namespace app\specs;
 use app\models\server\Server;
 
 abstract class ServerSpec {
-	private $_state;
-	private $_name;
+	protected $_state;
+	protected $_name;
 
 	public function __construct(Server $server) {
 

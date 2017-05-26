@@ -1,0 +1,33 @@
+body {
+	margin: 0;
+	padding: 0;
+	background: transparent;
+}
+
+#helper-box {
+	margin: 1em;
+}
+
+#helper-box .close {
+	font-style: normal;
+	font-size: 0.8em;
+	position: absolute;
+	right: 0.4em;
+	top: 0.4em;
+}
+
+#helper-box .card {
+	width: 100%;
+}
+
+#helper-box {
+	width: 22em;
+}
+
+#helper-box.middle {
+	width: 30em;
+}
+
+#helper-box.large {
+	width: 60em;
+}

@@ -3,8 +3,8 @@
 namespace app\specs;
 
 class TableSpec {
-	private $_state;
-	private $_name;
+	protected $_state;
+	protected $_name;
 
 	public function state($state = nil) {
 		if (is_nil($state)) {

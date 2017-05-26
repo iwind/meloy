@@ -107,8 +107,17 @@
 	{tea:placeholder}
 
 	<!-- 快速到顶部 -->
-	<a href="" class="go-top-btn hidden" title="回到顶部" ng-click="goTop()" ><i class="icon up arrow circle"></i></a>
+	<a href="" class="go-top-btn hidden" title="点击回到顶部" ng-click="goTop()" ><i class="icon up arrow circle"></i></a>
 </div>
+
+<!-- 右侧小助手 -->
+<div id="helpers-box" class="ui menu"></div>
+
+<!-- 开发中，暂时不开放
+<div id="helper-view">
+	<iframe src="/index.php?__ACTION__=/helper" scrolling="no" allowtransparency="yes"></iframe>
+</div>
+-->
 
 <!-- 底部 -->
 <div id="footer" class="ui menu inverted">

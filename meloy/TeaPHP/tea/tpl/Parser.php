@@ -532,8 +532,12 @@ PHP;
 
 		//布局 {tea:layout}
 		$layoutCode = "";
-		$contents = preg_replace_callback("/\\{[ \t]*tea\\s*:\\s*layout[ \t]*\\}/", function () use (&$layoutCode, $tplFile) {
-			$layout = TEA_APP . DS . "views" . DS . "@layout.php";
+		$contents = preg_replace_callback("/\\{[ \t]*tea\\s*:\\s*layout[ \t]*(\\s+\\S+)?\\}/", function ($match) use (&$layoutCode, $tplFile) {
+			$layoutFile = trim($match[1] ?? "");
+			if (is_empty($layoutFile)) {
+				$layoutFile = "layout";
+			}
+			$layout = TEA_APP . DS . "views" . DS . "@{$layoutFile}.php";
 			if (is_file($layout)) {
 				$randId = rand(100000, 999999);
 				$layoutCode = '<?php

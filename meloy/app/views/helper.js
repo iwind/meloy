@@ -15,7 +15,12 @@ Tea.View.scope(function () {
 		this.reloadHelperView();
 	});
 
+	/**
+	 * 关闭小助手窗口
+	 */
 	this.closeHelperWindow = function () {
+		window.parent.Tea.View.$scope.moduleHelperIndex = -1;
+		window.parent.Tea.View.update();
 		var helperView = window.parent.document.getElementById("helper-view");
 		if (helperView != null) {
 			helperView.innerHTML = "";

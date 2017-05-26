@@ -1,4 +1,6 @@
 Tea.View.scope(function () {
+	this.moduleHelperIndex = -1;
+
 	this.loadLayout = function () {
 		//快速回到顶部
 		var btn = angular.element(document.querySelector(".go-top-btn"));
@@ -28,12 +30,19 @@ Tea.View.scope(function () {
 		window.scrollTo(0, 0);
 	};
 
-	this.showModuleHelper = function (moduleHelper) {
+
+	this.showModuleHelper = function (moduleHelper, index) {
 		var viewBox = document.getElementById("helper-view");
 		if (viewBox.getElementsByTagName("iframe").length > 0) {
 			viewBox.innerHTML = "";
-			return;
+
+			if (this.moduleHelperIndex == index) {
+				this.moduleHelperIndex = -1;
+				return;
+			}
 		}
+
+		this.moduleHelperIndex = index;
 		var url = moduleHelper.url;
 		if (url.indexOf("?") > -1) {
 			url += "&_size=" + moduleHelper.size;

@@ -113,7 +113,7 @@
 <!-- 右侧小助手 -->
 <div id="helpers-box" class="ui menu vertical">
 	<a class="item"></a>
-	<div class="item" ng-repeat="moduleHelper in moduleHelpers" ng-click="showModuleHelper(moduleHelper)" title="{{moduleHelper.name}}">
+	<div class="item" ng-repeat="moduleHelper in moduleHelpers" ng-click="showModuleHelper(moduleHelper, $index)" ng-class="{active:moduleHelperIndex == $index}" title="{{moduleHelper.name}}">
 		<a href="">{{moduleHelper.name.substr(0, 1)}}</a>
 	</div>
 	<a class="item"></a>

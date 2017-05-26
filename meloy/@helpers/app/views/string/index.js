@@ -2,11 +2,9 @@ Tea.View.scope(function () {
 	this.origin = "";
 	this.result = "";
 
-	this.load = function () {
+	this._init = function () {
 		document.querySelector("textarea").focus();
 	};
-
-	this.load();
 
 	this.changeOrigin = function () {
 		this.changeFn();

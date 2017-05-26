@@ -15,9 +15,7 @@
 
 <!-- 顶部导航 -->
 <div class="ui menu inverted top-nav">
-	<div class="item">
-		{Meloy - 数据管理平台} &nbsp; <sup>beta</sup>
-	</div>
+	<a href="{tea:url /}" class="item">{Meloy - 数据管理平台} &nbsp; <sup>beta</sup></a>
 	<div class="right menu">
 		<div class="item">
 			欢迎您，{{loginUserName}}

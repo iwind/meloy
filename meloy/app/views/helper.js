@@ -1,6 +1,5 @@
 Tea.View.scope(function () {
 	this.reloadHelperView = function () {
-		console.log("reloadHelperView");
 		var helperBox = document.getElementById("helper-box");
 		var width = helperBox.offsetWidth + 20;
 		var height = helperBox.offsetHeight + 20;

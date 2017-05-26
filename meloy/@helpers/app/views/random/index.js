@@ -4,6 +4,7 @@ Tea.View.scope(function () {
 	this.containsLowercase = true;
 	this.containsUppercase = true;
 	this.containsPunctuation = false;
+	this.result = "";
 
 	this.load = function () {
 		this.rand();

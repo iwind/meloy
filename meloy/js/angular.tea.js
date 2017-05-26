@@ -1,4 +1,8 @@
 window.Tea = {};
+
+/**
+ * 定义Tea.View对象
+ */
 window.Tea.View = new function () {
 	var that = this;
 
@@ -73,6 +77,16 @@ window.Tea.View = new function () {
 					continue;
 				}
 
+				//执行初始化
+				if (key.match(/^_init/)) {
+					(function (prop) {
+						setTimeout(function () {
+							prop.apply(that.$scope);
+						}, 0);
+					})(this.$scope[key]);
+					continue;
+				}
+
 				(function (prop) {
 					that.$scope[key] = function () {
 						return prop.apply(that.$scope, arguments);
@@ -87,6 +101,13 @@ window.Tea.View = new function () {
 	this.init();
 };
 
+/**
+ * 定义Action对象
+ *
+ * @param action Action
+ * @param params 参数集
+ * @constructor
+ */
 window.Tea.Action = function (action, params) {
 	var _action = action;
 	var _params = params;
@@ -227,6 +248,12 @@ window.Tea.Action = function (action, params) {
 	};
 };
 
+/**
+ * 取得Action对象
+ *
+ * @param action Action
+ * @returns {Window.Tea.Action}
+ */
 window.Tea.action = function (action) {
 	return new this.Action(action);
 };
@@ -272,6 +299,11 @@ window.Tea.activate = function (element) {
 	}
 };
 
+/**
+ * 执行绑定data-tea-*的元素
+ *
+ * @param element 元素
+ */
 window.Tea.runActionOn = function (element) {
 	var form = angular.element(element);
 	var action = form.attr("data-tea-action");
@@ -411,10 +443,24 @@ window.Tea.runActionOn = function (element) {
 	}
 };
 
+/**
+ * 序列化参数为可传递的字符串
+ *
+ * @param params 要序列化的参数集
+ * @returns {*}
+ */
 window.Tea.serialize = function (params) {
 	return Tea.View.$httpParamSerializer(params);
 };
 
+/**
+ * 取得Action对应的URL
+ *
+ * @param action Action
+ * @param params 参数
+ * @param hashParams 锚点参数
+ * @returns {*}
+ */
 window.Tea.url = function (action, params, hashParams) {
 	var config = window.TEA.ACTION;
 	var controller = config.parent;
@@ -494,6 +540,13 @@ window.Tea.url = function (action, params, hashParams) {
 	return url;
 };
 
+/**
+ * 跳转
+ *
+ * @param action 要跳转到的action
+ * @param params 附带的参数
+ * @param hash 附带的锚点参数
+ */
 window.Tea.go = function (action, params, hash) {
 	var url = Tea.url(action, params);
 	if (hash && hash.length > 0) {
@@ -502,6 +555,12 @@ window.Tea.go = function (action, params, hash) {
 	window.location.href = url;
 };
 
+/**
+ * 格式化字节数
+ *
+ * @param bytes 字节数
+ * @returns {*}
+ */
 window.Tea.formatBytes = function (bytes) {
 	if (bytes < 1024) {
 		return "< 1kb";
@@ -578,10 +637,16 @@ window.Tea.delay = function (fn, ms) {
 };
 
 window.Tea.Help = false;
-window.onresize = function () {
-	if (!window.Tea.Help) {
-		window.Tea.Help = true;
 
-		console.log("%c Meloy & TeaPHP Javascript API Helps: \n   Tea.View.$scope - get angular $scope variable\n   Tea.View.$scope.xxx - print variables or functions in angular $scope\n   TEA.ACTION.data - show all data from action", "color:blue");
-	}
-};
+/**
+ * 在控制台显示帮助信息
+ */
+if (window.top == window.self) {
+	window.onresize = function () {
+		if (!window.Tea.Help) {
+			window.Tea.Help = true;
+
+			console.log("%c Meloy & TeaPHP Javascript API Helps: \n   Tea.View.$scope - get angular $scope variable\n   Tea.View.$scope.xxx - print variables or functions in angular $scope\n   TEA.ACTION.data - show all data from action", "color:blue");
+		}
+	};
+}

@@ -10,6 +10,7 @@ abstract class ModuleSpec {
 	protected $_visible = true;
 	protected $_icon;
 	protected $_developer;
+	protected $_helpers = [];
 
 	public function name($name = nil) {
 		if (is_nil($name)) {
@@ -65,6 +66,15 @@ abstract class ModuleSpec {
 		}
 		$this->_developer = $developer;
 		return $this;
+	}
+
+	/**
+	 * 取得模块自带的小助手
+	 *
+	 * @return HelperSpec[]
+	 */
+	public function helpers() {
+		return $this->_helpers;
 	}
 
 	/**

@@ -2,6 +2,8 @@
 
 namespace helpers\app\specs;
 
+use app\specs\HelperSpec;
+
 class ModuleSpec extends \app\specs\ModuleSpec {
 	protected $_name = "小助手";
 	protected $_menuName;
@@ -10,6 +12,27 @@ class ModuleSpec extends \app\specs\ModuleSpec {
 	protected $_visible = false;
 	protected $_icon;
 	protected $_developer = "Meloy Team";
+
+	public function __construct() {
+		$stringHelper = new HelperSpec();
+		$stringHelper->name("字符串转换");
+		$stringHelper->code("string");
+		$stringHelper->size(HelperSpec::SIZE_SMALL);
+		$stringHelper->url(u("@helpers.string"));
+
+		$randomHelper = new HelperSpec();
+		$randomHelper->name("随机字符串");
+		$randomHelper->code("random");
+		$randomHelper->size(HelperSpec::SIZE_SMALL);
+		$randomHelper->url(u("@helpers.random"));
+
+		/**$regularHelper = new HelperSpec();
+		$regularHelper->name("正则");
+		$regularHelper->code("regular");
+		$regularHelper->size(HelperSpec::SIZE_SMALL);**/
+
+		$this->_helpers = [  $stringHelper, $randomHelper ];
+	}
 }
 
 ?>

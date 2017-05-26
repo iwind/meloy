@@ -7,11 +7,16 @@ class Helper {
 	 * 生成随机字符串
 	 *
 	 * @param int $length 长度
+	 * @param string $library 可选的字符库
 	 * @return string 结果字符串
 	 */
-	public static function randomString($length = 32) {
-		$microtime = str_replace(".", "", microtime(true));
-		$seed = str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" . $microtime);
+	public static function randomString($length = 32, $library = null) {
+		if (is_null($library)) {
+			$microtime = str_replace(".", "", microtime(true));
+			$library = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" . $microtime;
+		}
+
+		$seed = str_shuffle($library);
 		$seedLength = strlen($seed);
 
 		$result = "";

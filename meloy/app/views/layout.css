@@ -161,6 +161,30 @@ pre {
 	width: 4em;
 }
 
+#helpers-box .item {
+	text-transform: uppercase;
+	font-size: 1.3em;
+}
+
+#helpers-box .tooltip {
+	position: fixed;
+	bottom: 4em;
+}
+
+#helpers-box .item {
+	position: relative;
+}
+
+#helpers-box .item a {
+	display: block;
+	width: 100%;
+}
+
+
+#helpers-box .tooltip .icon {
+	width: 4em;
+}
+
 #helper-view {
 	position: fixed;
 	top: 4em;

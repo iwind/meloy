@@ -111,13 +111,19 @@
 </div>
 
 <!-- 右侧小助手 -->
-<div id="helpers-box" class="ui menu"></div>
-
-<!-- 开发中，暂时不开放
-<div id="helper-view">
-	<iframe src="/index.php?__ACTION__=/helper" scrolling="no" allowtransparency="yes"></iframe>
+<div id="helpers-box" class="ui menu vertical">
+	<a class="item"></a>
+	<div class="item" ng-repeat="moduleHelper in moduleHelpers" ng-click="showModuleHelper(moduleHelper)" title="{{moduleHelper.name}}">
+		<a href="">{{moduleHelper.name.substr(0, 1)}}</a>
+	</div>
+	<a class="item"></a>
+	<a class="ui basic icon circular tooltip" data-tooltip="此侧边栏列出随插件安装的小助手" data-position="top right"><i class="icon question circle"></i></a>
 </div>
--->
+
+<div id="helper-view">
+	<!-- 小助手视图 -->
+</div>
+
 
 <!-- 底部 -->
 <div id="footer" class="ui menu inverted">

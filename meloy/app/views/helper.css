@@ -31,3 +31,7 @@ body {
 #helper-box.large {
 	width: 60em;
 }
+
+#helper-box textarea.small {
+	max-height: 0.5em;
+}

@@ -2,9 +2,13 @@
 
 namespace app\actions\dashboard;
 
+use app\specs\HelperSpec;
 use app\specs\ModuleSpec;
 use tea\file\File;
 
+/**
+ * 已安装插件管理
+ */
 class ModulesAction extends BaseAction {
 	public function run() {
 		$modules = [];
@@ -21,7 +25,12 @@ class ModulesAction extends BaseAction {
 					"name" => $spec ? $spec->name() : null,
 					"version" => $spec ? $spec->version() : null,
 					"description" => $spec ? $spec->description() : null,
-					"developer" => $spec ? $spec->developer() : null
+					"developer" => $spec ? $spec->developer() : null,
+					"helpers" => $spec ? array_map(function (HelperSpec $spec) {
+						return (object)[
+							"name" => $spec->name(),
+						];
+					}, $spec->helpers()) : []
 				];
 			}
 		}, 0);

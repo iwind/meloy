@@ -51,6 +51,9 @@ http://你的网站/meloy/
 ## 监控
 ![监控](docs/images/screenshot-monitor.jpg "监控")
 
+## 编程小助手
+![编程小助手](docs/images/screenshot-helpers.jpg "编程小助手")
+
 # 使用的开源技术
 * [PHP](http://php.net/) - 可能是世界上最好的编程语言（哈哈😆）
 * [MySQL](https://www.mysql.com/) - 可能是最流行的开源RDBS数据库

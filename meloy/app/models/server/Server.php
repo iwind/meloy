@@ -87,15 +87,6 @@ class Server extends Model {
 	}
 
 	/**
-	 * 获取模块名
-	 *
-	 * @return string
-	 */
-	public function module() {
-		return "@" . ServerType::findTypeCodeWithId($this->typeId);
-	}
-
-	/**
 	 * 获取类型名
 	 *
 	 * @return string

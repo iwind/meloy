@@ -15,6 +15,7 @@ abstract class ModuleSpec {
 	protected $_icon;
 	protected $_developer;
 	protected $_helpers = [];
+	protected $_serverTypes = [];
 
 	public function code($code = nil) {
 		if (is_nil($code)) {
@@ -87,6 +88,20 @@ abstract class ModuleSpec {
 	 */
 	public function helpers() {
 		return $this->_helpers;
+	}
+
+	/**
+	 * 设置或取得支持的主机类型
+	 *
+	 * @param array $serverTypes
+	 * @return array|self
+	 */
+	public function serverTypes(array $serverTypes = NilArray) {
+		if (is_nil($serverTypes)) {
+			return $this->_serverTypes;
+		}
+		$this->_serverTypes = $serverTypes;
+		return $this;
 	}
 
 	/**

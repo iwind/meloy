@@ -10,6 +10,7 @@ class ModuleSpec extends \app\specs\ModuleSpec {
 	protected $_visible = true;
 	protected $_icon;
 	protected $_developer = "Meloy Team";
+	protected $_serverTypes = [ "redis" ];
 }
 
 ?>

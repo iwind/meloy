@@ -2,7 +2,9 @@
 
 <h3>可管理的主机</h3>
 
-<div class="ui grid three columns">
+<div class="ui warning message" ng-if="servers.length == 0">暂时还没有添加任何主机。</div>
+
+<div class="ui grid three columns" ng-if="servers.length > 0">
 	<div ng-repeat="server in servers" class="ui column server">
 		<div class="server-info" ng-click="selectServer(server)">
 			<i class="icon computer"></i>

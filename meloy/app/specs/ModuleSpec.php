@@ -2,7 +2,11 @@
 
 namespace app\specs;
 
+use app\models\user\UserSetting;
+use tea\file\File;
+
 abstract class ModuleSpec {
+	protected $_code;
 	protected $_name;
 	protected $_menuName;
 	protected $_description;
@@ -11,6 +15,14 @@ abstract class ModuleSpec {
 	protected $_icon;
 	protected $_developer;
 	protected $_helpers = [];
+
+	public function code($code = nil) {
+		if (is_nil($code)) {
+			return $this->_code;
+		}
+		$this->_code = $code;
+		return $this;
+	}
 
 	public function name($name = nil) {
 		if (is_nil($name)) {
@@ -78,17 +90,51 @@ abstract class ModuleSpec {
 	}
 
 	/**
-	 * 根据模块名称加载模块规约类
+	 * 根据模块代号加载模块规约类
 	 *
-	 * @param string $module 模块名称
+	 * @param string $module 模块代号
 	 * @return self|null
 	 */
 	public static function new($module) {
 		$className = $module . "\\app\\specs\\ModuleSpec";
 		if (class_exists($className)) {
-			return new $className;
+			$obj = new $className; /** @var self $obj */
+			$obj->code($module);
+			return $obj;
 		}
 		return null;
+	}
+
+	/**
+	 * 取得所有的模块Spec
+	 *
+	 * @param int $userId 用户ID
+	 * @return self[]
+	 */
+	public static function findAllVisibleModulesForUser($userId) {
+		$disabledModules = UserSetting::findDisabledModuleCodesForUser($userId);
+
+		$dir = new File(TEA_ROOT);
+		$results = [];
+		$dir->each(function (File $file) use (&$modules, &$results, $disabledModules) {
+			if (!$file->isDir()) {
+				return;
+			}
+			$basename = basename($file->path());
+			if (preg_match("/@(\\w+)$/", $basename, $match)) {
+				$code = $match[1];
+				if (in_array($code, $disabledModules)) {
+					return;
+				}
+				$spec = ModuleSpec::new($code);
+				if (!$spec->visible()) {
+					return;
+				}
+				$results[] = $spec;
+			}
+		}, 0);
+
+		return $results;
 	}
 }
 

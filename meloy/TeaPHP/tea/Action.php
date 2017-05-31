@@ -256,6 +256,10 @@ abstract class Action {
 		$this->after();
 	}
 
+	public function __toString() {
+		return "[Action " . $this->_name . "]";
+	}
+
 	private function _showDocs() {
 		$reflectionMethod = new \ReflectionMethod($this, "run");
 

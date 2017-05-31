@@ -34,9 +34,9 @@
 		</a>
 
 		<!-- 数据管理模块 -->
-		<a ng-repeat="serverType in serverTypes" href="{{Tea.url('@' + serverType.code)}}" class="item" ng-class="{active:menu == '@' + serverType.code}">
+		<a ng-repeat="module in meloyModules" href="{{Tea.url('@' + module.code)}}" class="item" ng-class="{active:menu == '@' + module.code}">
 			<i class="browser icon"></i>
-			{{serverType.name}}
+			{{module.menuName}}
 		</a>
 
 		<!--<a href="{tea:url team}" class="item" ng-class="{active:menu == 'team'}">

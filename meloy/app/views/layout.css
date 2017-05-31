@@ -22,6 +22,14 @@ pre {
 	z-index: 9999;
 }
 
+a.disabled {
+	color: #ccc;
+}
+
+a.enabled {
+	color: #2ecc40;
+}
+
 /** 扩展UI **/
 .field.text {
 	padding: .5em;

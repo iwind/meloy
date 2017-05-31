@@ -2,8 +2,9 @@
 
 namespace app\classes;
 
-use app\models\server\ServerType;
 use app\models\user\User;
+use app\models\user\UserSetting;
+use app\specs\ModuleSpec;
 use tea\Action;
 use tea\auth\Exception;
 use tea\auth\MustAuth;
@@ -16,6 +17,8 @@ class AuthAction extends Action {
 	 */
 	public function before() {
 		parent::before();
+
+		//@TODO 插件是否被团队管理员禁用
 
 		//是否已经登录
 		try {
@@ -37,15 +40,22 @@ class AuthAction extends Action {
 			g("index", [ "g" => $_SERVER["REQUEST_URI"] ]);
 		}
 
+		//插件是否被用户禁用
+		$disabledModules = UserSetting::findDisabledModuleCodesForUser($this->_userId);
+		if (in_array($this->module(), $disabledModules)) {
+			exit("The module '" . $this->module() . "' has been disabled by user");
+		}
+
 		//提供的模块
-		$serverTypes = ServerType::findAllEnabledTypes();
-		$this->data->serverTypes = array_map(function (ServerType $serverType) {
+		$meloyModules = ModuleSpec::findAllVisibleModulesForUser($this->_userId);
+		$this->data->meloyModules = array_map(function (ModuleSpec $module) {
 			return (object)[
-				"id" => $serverType->id,
-				"name" => $serverType->name,
-				"code" => $serverType->code
+				"name" => $module->name(),
+				"menuName" => $module->menuName(),
+				"code" => $module->code(),
+				"icon" => $module->icon()
 			];
-		}, $serverTypes);
+		}, $meloyModules);
 
 		//meloy
 		$meloy = new \stdClass();

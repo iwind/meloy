@@ -126,7 +126,7 @@
 <!-- 底部 -->
 <div id="footer" class="ui menu inverted light-blue">
 	<div class="item">v{{meloy.version}}</div>
-	<a href="http://meloy.cn" target="_blank" class="item">官网</a>
+	<a href="https://meloy.cn" target="_blank" class="item">官网</a>
 	<a href="https://git.oschina.net/liuxiangchao/meloy" target="_blank" class="item">OSC码云</a>
 	<a href="https://github.com/iwind/meloy" target="_blank" class="item">GitHub</a>
 	<div class="item">免费加入QQ群讨论：199435611</div>

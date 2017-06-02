@@ -61,6 +61,9 @@ class AuthAction extends Action {
 		$meloy = new \stdClass();
 		$meloy->version = o("meloy.version");
 		$this->data->meloy = $meloy;
+
+		//菜单
+		$this->data->menu = "@" . $this->module();
 	}
 
 	/**

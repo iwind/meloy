@@ -6,7 +6,7 @@ use app\models\user\UserSetting;
 use tea\file\File;
 use tea\Tea;
 
-abstract class ModuleSpec {
+class ModuleSpec {
 	protected $_code;
 	protected $_name;
 	protected $_menuName;
@@ -143,6 +143,12 @@ abstract class ModuleSpec {
 					return;
 				}
 				$spec = ModuleSpec::new($code);
+				if ($spec == null) {
+					$spec = new self;
+					$spec->code($code)
+						->name($code)
+						->menuName($code);
+				}
 				if (!$spec->visible()) {
 					return;
 				}

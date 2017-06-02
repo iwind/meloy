@@ -3,9 +3,6 @@
 use tea\AngularActionView;
 use tea\Tea;
 
-//设置常量
-define("TEA_ROOT", __DIR__);
-
 //包含框架
 require "TeaPHP/tea.php";
 require "functions.php";
@@ -17,6 +14,7 @@ Tea::shared()
 	->env(Tea::ENV_DEV)
 	->base(preg_replace("{/([^/]+\\.php|\\?).*$}", "", $_SERVER["REQUEST_URI"] ?? ""))
 	->dispatcher("index.php")
+	->root(__DIR__)
 	->public(__DIR__)
 	->start();
 

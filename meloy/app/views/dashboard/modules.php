@@ -7,7 +7,7 @@
 		<tr>
 			<th class="two wide">名称</th>
 			<th class="two wide">代号</th>
-			<th class="one wide">版本</th>
+			<th class="two wide">版本</th>
 			<th class="two wide">开发者</th>
 			<th>描述</th>
 			<th class="two wide">状态</th>

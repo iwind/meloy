@@ -2,6 +2,8 @@
 
 namespace tea\file;
 
+use tea\Tea;
+
 /**
  * 文件对象
  */
@@ -416,7 +418,7 @@ class File {
 	 */
 	 public static function tmp($dir = null, $prefix = "tea_") {
 		if (!$dir) {
-			$dir = TEA_ROOT . "/tmp/";
+			$dir = Tea::shared()->root() . "/tmp/";
 		}
 		if (!$prefix) {
 			$prefix = "";

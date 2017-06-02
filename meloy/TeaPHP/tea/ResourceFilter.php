@@ -120,10 +120,10 @@ class ResourceFilter extends Filter  {
 	public function before(&$object) {
 		//处理模块
 		if (preg_match("{^/?(@\\w+)/(.+)}", $object, $match)) {
-			$path = TEA_ROOT . DS . $match[1] . DS . "app" . DS . "views" . DS . $match[2];
+			$path = Tea::shared()->root() . DS . $match[1] . DS . "app" . DS . "views" . DS . $match[2];
 		}
 		else {
-			$path = TEA_APP . DS . "views" . DS . $object;
+			$path = Tea::shared()->app() . DS . "views" . DS . $object;
 		}
 
 		//检查扩展名和mime type

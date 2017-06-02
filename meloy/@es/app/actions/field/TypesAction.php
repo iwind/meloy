@@ -5,11 +5,12 @@ namespace es\app\actions\field;
 use es\fields\Field;
 use tea\Action;
 use tea\file\File;
+use tea\Tea;
 
 class TypesAction extends Action {
 	public function run(string $version) {
 		//查找符合当前版本的数据类型
-		$dir = new File(TEA_ROOT . DS . "@es/app/libs/es/meta/datatypes");
+		$dir = new File(Tea::shared()->root() . DS . "@es/app/libs/es/meta/datatypes");
 		$versions = [];
 		$dir->each(function (File $file) use (&$versions) {
 			$versions[] = basename($file->path());
@@ -32,8 +33,8 @@ class TypesAction extends Action {
 		}
 
 		//对数据类型处理
-		import(TEA_ROOT . DS . "@es/app/libs");
-		$groups =  require(TEA_ROOT . DS . "@es/app/libs/es/meta/datatypes/{$version}/types.php");
+		import(Tea::shared()->root() . DS . "@es/app/libs");
+		$groups =  require(Tea::shared()->root() . DS . "@es/app/libs/es/meta/datatypes/{$version}/types.php");
 		foreach ($groups as $groupIndex => $group) {
 			$types = $group["types"];
 			foreach ($types as $typeIndex => $type) {

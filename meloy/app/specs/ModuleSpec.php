@@ -4,6 +4,7 @@ namespace app\specs;
 
 use app\models\user\UserSetting;
 use tea\file\File;
+use tea\Tea;
 
 abstract class ModuleSpec {
 	protected $_code;
@@ -129,7 +130,7 @@ abstract class ModuleSpec {
 	public static function findAllVisibleModulesForUser($userId) {
 		$disabledModules = UserSetting::findDisabledModuleCodesForUser($userId);
 
-		$dir = new File(TEA_ROOT);
+		$dir = new File(Tea::shared()->root());
 		$results = [];
 		$dir->each(function (File $file) use (&$modules, &$results, $disabledModules) {
 			if (!$file->isDir()) {

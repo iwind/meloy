@@ -1,0 +1,3 @@
+Tea.View.scope(function () {
+
+});

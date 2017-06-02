@@ -4,6 +4,7 @@ namespace tea\db\jobs;
 
 use tea\file\File;
 use tea\Job;
+use tea\Tea;
 
 class ListJob extends Job {
 
@@ -49,7 +50,7 @@ class ListJob extends Job {
 	public function run() {
 		if ($this->subCode() == "list" || $this->subCode() == "latest") {
 			$dirs = [
-				TEA_APP
+				Tea::shared()->app()
 			];
 			$search = str_replace(".", DS, $this->arg(1));
 
@@ -104,7 +105,7 @@ class ListJob extends Job {
 			}
 
 			$dirs = [
-				TEA_APP
+				Tea::shared()->app()
 			];
 
 			$found = false;
@@ -145,7 +146,7 @@ class ListJob extends Job {
 			}
 
 			$dirs = [
-				TEA_APP
+				Tea::shared()->app()
 			];
 
 			$found = false;
@@ -196,7 +197,7 @@ class ListJob extends Job {
 
 			$found = false;
 			$dirs = [
-				TEA_APP
+				Tea::shared()->app()
 			];
 			foreach ($dirs as $dir) {
 				$modelsDir = new File($dir . DS . "models");

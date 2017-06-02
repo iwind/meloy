@@ -5,6 +5,7 @@ namespace tea\db\jobs;
 use tea\db\Db;
 use tea\db\Exception;
 use tea\Job;
+use tea\Tea;
 
 class GenerateJob extends Job {
 
@@ -96,7 +97,7 @@ class GenerateJob extends Job {
 
 		$shortFilename = "/models/" . str_replace(".", "/", preg_replace("/(^|\\.)(\\d\\w*)$/", "\\1T\\2", $originModelName)) . ".php";
 
-		$filename = TEA_APP . $shortFilename;
+		$filename = Tea::shared()->app() . $shortFilename;
 		if (is_file($filename)) {
 			$this->output("<error>[WARNING]</error>Model '{$originModelName}' already exists at '{$shortFilename}'\n");
 			return;

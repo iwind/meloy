@@ -6,6 +6,7 @@ use app\models\user\UserSetting;
 use app\specs\HelperSpec;
 use app\specs\ModuleSpec;
 use tea\file\File;
+use tea\Tea;
 
 /**
  * 已安装插件管理
@@ -16,7 +17,7 @@ class ModulesAction extends BaseAction {
 		$disabledModules = UserSetting::findDisabledModuleCodesForUser($this->userId());
 
 		$modules = [];
-		$dir = new File(TEA_ROOT);
+		$dir = new File(Tea::shared()->root());
 		$dir->each(function (File $file) use (&$modules, $disabledModules) {
 			if (!$file->isDir()) {
 				return;

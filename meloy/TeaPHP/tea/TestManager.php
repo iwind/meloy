@@ -97,7 +97,7 @@ class TestManager {
 	 * @param string|array $except 排除的测试
 	 */
 	public function run($only = null, $except = null) {
-		$testDir = TEA_APP . DS . "tests";
+		$testDir = Tea::shared()->app() . DS . "tests";
 		$handler = opendir($testDir);
 
 		$loadedObjs = [];
@@ -339,7 +339,7 @@ class TestManager {
 			$isAbsolute = true;
 		}
 		if (!$isAbsolute) {
-			$path = TEA_APP . "/" . $path;
+			$path = Tea::shared()->app() . "/" . $path;
 		}
 		return $path;
 	}

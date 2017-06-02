@@ -35,7 +35,7 @@ class Error {
 				}
 			}
 			else {
-				$errorFile = TEA_APP . DS . "errors" . DS . "505.php";
+				$errorFile = Tea::shared()->app() . DS . "errors" . DS . "505.php";
 				if (is_file($errorFile)) {
 					require $errorFile;
 				}

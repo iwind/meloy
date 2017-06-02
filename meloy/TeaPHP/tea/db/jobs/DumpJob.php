@@ -110,7 +110,7 @@ class DumpJob extends Job {
 
 		if (!preg_match("/\\s--result-file=/", $cmd)) {
 			$this->println("<code>dump to /data/dump.sql ...</code>");
-			$cmd .= " --result-file=" . TEA_ROOT . "/data/dump.sql";
+			$cmd .= " --result-file=" . Tea::shared()->root() . "/data/dump.sql";
 		}
 
 		$this->exec($cmd);

@@ -2,6 +2,8 @@
 
 namespace tea\upload;
 
+use tea\Tea;
+
 /**
  * 上传文件条目
  */
@@ -315,7 +317,7 @@ class File {
 		$path = str_replace('%{base}', $basename, $path);
 		$path = str_replace('%{name}', $this->_name, $path);
 		$path = str_replace('%{index}', $this->_index, $path);
-		$path = str_replace('%{public}', TEA_APP . "/public", $path);
+		$path = str_replace('%{public}', Tea::shared()->app() . "/public", $path);
 		$path = str_replace('%{random}', self::_randomString(), $path);
 		$path = str_replace('%{random.file}', self::_randomString() . "." . $ext, $path);
 		return $path;

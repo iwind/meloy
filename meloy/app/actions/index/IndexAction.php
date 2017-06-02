@@ -4,6 +4,7 @@ namespace app\actions\index;
 
 use tea\Action;
 use tea\auth\ShouldAuth;
+use tea\Tea;
 
 class IndexAction extends Action {
 	public function run(ShouldAuth $userAuth) {
@@ -20,6 +21,10 @@ class IndexAction extends Action {
 		//判断是否登录
 		if ($userAuth->validate()) {
 			g("dashboard");
+		}
+
+		if (Tea::shared()->host() == "demo.meloy.cn") {
+			$this->view("indexDemo");
 		}
 	}
 }

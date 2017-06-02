@@ -24,6 +24,7 @@ class Tea {
 	private $_dispatcher = "";
 	private $_lang = "zh_cn";
 	private $_scheme;
+	private $_root;
 
 	/**
 	 * 取得共享单例
@@ -40,9 +41,27 @@ class Tea {
 	private function __construct() {
 		$this->_request = new Request();
 
+		//环境
 		$this->_env = get_cfg_var("tea.env");
+		if (is_empty($this->_env)) {
+			$this->_env = "dev";
+		}
+
+		//应用主目录
+		if (isset($_SERVER["DOCUMENT_ROOT"]) && strlen($_SERVER["DOCUMENT_ROOT"]) > 0) {
+			$this->_root = $_SERVER["DOCUMENT_ROOT"];
+		}
+		else {
+			if (isset($_SERVER["_"]) && strlen($_SERVER["_"]) > 0 && $_SERVER["_"][0] == "/" && preg_match("/^(.+)" . preg_quote(DS, "/") . "app" . preg_quote(DS, "/") . "/", $_SERVER["_"], $match)) {
+				$this->_root = $match[1];
+			}
+			else {
+				$this->_root = $_SERVER["PWD"];
+			}
+		}
+
 		$this->_host = $_SERVER["HTTP_HOST"] ?? null;
-		$this->_public = TEA_APP . DS . "public";
+		$this->_public = $this->_root . DS . "app" . DS . "public";
 		$this->_scheme = $_SERVER["HTTP_TEA_SCHEME"] ?? "http";
 	}
 
@@ -140,7 +159,11 @@ class Tea {
 	 * @return string
 	 */
 	public function dispatcherUrl() {
-		return $this->base() . "/" . trim($this->_dispatcher, "/");
+		$dispatcher = trim($this->_dispatcher, "/");
+		if (is_empty($dispatcher)) {
+			return $this->base();
+		}
+		return $this->base() . "/" . $dispatcher;
 	}
 
 	/**
@@ -195,6 +218,34 @@ class Tea {
 		}
 		$this->_actionView = $actionView;
 		return $this;
+	}
+
+	/**
+	 * 设置或取得应用根目录
+	 *
+	 * 将会改变public的位置
+	 *
+	 * @param string $root 应用根目录
+	 * @return self|string
+	 */
+	public function root($root = nil) {
+		if (is_nil($root)) {
+			return $this->_root;
+		}
+		$this->_root = $root;
+
+		$this->_public = $this->_root . DS . "app" . DS . "public";
+
+		return $this;
+	}
+
+	/**
+	 * 取得应用程序目录
+	 *
+	 * @return string
+	 */
+	public function app() {
+		return $this->_root . DS . "app";
 	}
 
 	public function stop() {
@@ -310,12 +361,12 @@ class Tea {
 			$jobCode = $args["job"];
 
 			$jobDirs = [
-				[ TEA_APP . "/jobs", "app\\jobs", $jobCode ],
+				[ Tea::shared()->app() . "/jobs", "app\\jobs", $jobCode ],
 			];
 
 			if (preg_match("/^:(\\w+)\\.(.+)$/", $jobCode, $match)) {
 				$jobDirs = [
-					[ TEA_APP . "/libs/" . $match[1] . "/jobs", $match[1], $match[2] ],
+					[ Tea::shared()->app() . "/libs/" . $match[1] . "/jobs", $match[1], $match[2] ],
 					[ TEA_LIBS . "/tea/" . $match[1] . "/jobs", "tea\\" . $match[1] . "\\jobs", $match[2] ],
 				];
 			}

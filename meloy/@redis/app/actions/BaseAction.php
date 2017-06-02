@@ -7,6 +7,7 @@ use app\models\server\Server;
 use app\models\server\ServerType;
 use redis\Exception;
 use tea\Request;
+use tea\Tea;
 
 class BaseAction extends AuthAction {
 	protected $_subMenu;
@@ -24,7 +25,7 @@ class BaseAction extends AuthAction {
 		parent::before();
 
 		//加载Redis操作库
-		import(TEA_ROOT . DS . "@redis/app/libs");
+		import(Tea::shared()->root() . DS . "@redis/app/libs");
 
 		//检查Redis是否已安装扩展
 		if (!class_exists("\\Redis", false)) {

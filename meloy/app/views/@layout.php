@@ -14,7 +14,7 @@
 <body ng-app="app" ng-controller="controller">
 
 <!-- 顶部导航 -->
-<div class="ui menu inverted top-nav">
+<div class="ui menu inverted top-nav blue">
 	<a href="{tea:url /}" class="item">{Meloy - 数据管理平台} &nbsp; <sup>beta</sup></a>
 	<div class="right menu">
 		<div class="item">
@@ -124,7 +124,7 @@
 
 
 <!-- 底部 -->
-<div id="footer" class="ui menu inverted">
+<div id="footer" class="ui menu inverted light-blue">
 	<div class="item">v{{meloy.version}}</div>
 	<a href="https://git.oschina.net/liuxiangchao/meloy" target="_blank" class="item">OSC码云</a>
 	<a href="https://github.com/iwind/meloy" target="_blank" class="item">GitHub</a>

@@ -33,7 +33,7 @@ class IndexAction extends BaseAction {
 					"name" => $server->name,
 					"host" => $server->host,
 					"port" => $server->port,
-					"module" => "@" . $server->typeName(),
+					"module" => "@" . $serverType,
 					"typeName" => $server->typeName()
 				];
 			}

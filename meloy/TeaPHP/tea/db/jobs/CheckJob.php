@@ -3,12 +3,12 @@
 
 namespace tea\db\jobs;
 
-
 use tea\db\Db;
 use tea\db\Field;
 use tea\db\Model;
 use tea\file\File;
 use tea\Job;
+use tea\Tea;
 
 /**
  * Class CheckCommand
@@ -69,7 +69,7 @@ class CheckJob extends Job {
 
 		try {
 			//检查所有MVC
-			$dir = new File(TEA_APP);
+			$dir = new File(Tea::shared()->app());
 
 			$dir->each(function (File $file) use (&$errorCount, $model) {
 				if (!$file->isFile()) {

@@ -6,6 +6,7 @@ use app\classes\AuthAction;
 use app\models\user\UserSetting;
 use es\app\specs\ModuleSpec;
 use tea\file\File;
+use tea\Tea;
 
 /**
  * 取得小助手列表
@@ -15,7 +16,7 @@ class IndexAction extends AuthAction {
 		$disabledModules = UserSetting::findDisabledModuleCodesForUser($this->userId());
 
 		$helpers = [];
-		$dir = new File(TEA_ROOT);
+		$dir = new File(Tea::shared()->root());
 		$dir->each(function (File $file) use (&$helpers, $disabledModules) {
 			if (!$file->isDir()) {
 				return;

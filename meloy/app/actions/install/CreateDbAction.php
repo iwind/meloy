@@ -6,6 +6,7 @@ use app\models\server\ServerType;
 use app\models\user\User;
 use tea\Must;
 use tea\string\Helper;
+use tea\Tea;
 
 class CreateDbAction extends BaseAction {
 	public function run(string $host, string $port, string $username, string $password, string $dbname, bool $autoCreateDb, string $prefix, Must $must) {
@@ -59,8 +60,8 @@ class CreateDbAction extends BaseAction {
 		}
 
 		//写入数据库配置
-		$dbFile = TEA_APP . "/configs/db.php";
-		$dbTemplateFile = TEA_APP . "/configs/db.template.php";
+		$dbFile = Tea::shared()->app() . "/configs/db.php";
+		$dbTemplateFile = Tea::shared()->app() . "/configs/db.template.php";
 		$contents = file_get_contents($dbTemplateFile);
 		$contents = str_replace("%{prefix}", $prefix, $contents);
 		$contents = str_replace("%{host}", $host, $contents);
@@ -81,7 +82,7 @@ class CreateDbAction extends BaseAction {
 		}
 
 		//创建表
-		$sql = file_get_contents(TEA_ROOT . DS . "install/install.sql");
+		$sql = file_get_contents(Tea::shared()->root() . DS . "install/install.sql");
 		$sql = preg_replace("/`pp_/", "`" . $prefix, $sql);
 
 		try {

@@ -76,8 +76,8 @@ namespace {
 			$dirs = [];
 
 			$dirs = [
-				TEA_APP . "/configs",
-				TEA_APP . "/libs/" . $lib . "/configs",
+				Tea::shared()->app() . "/configs",
+				Tea::shared()->app() . "/libs/" . $lib . "/configs",
 				TEA_LIBS . "/tea/" . $lib . "/configs",
 			];
 
@@ -94,7 +94,7 @@ namespace {
 
 			$mvc = $match[1];
 			$dirs = [
-				TEA_APP . "/" . $mvc . ".mvc/configs"
+				Tea::shared()->app() . "/" . $mvc . ".mvc/configs"
 			];
 			foreach($dirs as $dir) {
 				if (!is_dir($dir)) {
@@ -109,8 +109,8 @@ namespace {
 
 			$plugin = $match[1];
 			$dirs = [
-				TEA_APP . "/configs",
-				TEA_APP . "/plugins/" . $plugin . "/configs",
+				Tea::shared()->app() . "/configs",
+				Tea::shared()->app() . "/plugins/" . $plugin . "/configs",
 			];
 			foreach($dirs as $dir) {
 				if (!is_dir($dir)) {
@@ -135,8 +135,8 @@ namespace {
 		}
 		else {
 			$filename = array_shift($pieces);
-			$files[] = TEA_APP . "/configs/" . $filename . "@" . Tea::shared()->env() . ".php";
-			$files[] = TEA_APP . "/configs/" . $filename . ".php";
+			$files[] = Tea::shared()->app() . "/configs/" . $filename . "@" . Tea::shared()->env() . ".php";
+			$files[] = Tea::shared()->app() . "/configs/" . $filename . ".php";
 		}
 
 		$options = $pieces;
@@ -409,14 +409,14 @@ namespace {
 			return;
 		}
 
-		$file = TEA_APP . DS . "errors" . DS . $code . ".php";
+		$file = Tea::shared()->app() . DS . "errors" . DS . $code . ".php";
 		if (is_file($file)) {
 			extract($params);
 			require $file;
 		}
 		else {//尝试50x、40x
 			$globalCode = preg_replace("/\\w$/", "x", $code);
-			$file = TEA_APP . DS . "errors" . DS . $globalCode . ".php";
+			$file = Tea::shared()->app() . DS . "errors" . DS . $globalCode . ".php";
 			if (is_file($file)) {
 				extract($params);
 				require $file;
@@ -494,7 +494,7 @@ namespace {
 	 */
 	function lang($code) {
 		if (!isset($GLOBALS["TEA_LANGS"])) {
-			$file = TEA_APP . "/langs/" . Tea::shared()->lang() . "/messages.php";
+			$file = Tea::shared()->app() . "/langs/" . Tea::shared()->lang() . "/messages.php";
 			if (!is_file($file)) {
 				return null;
 			}
@@ -589,7 +589,7 @@ namespace {
 
 		//应用类
 		if ($prefix == "app") {
-			$appFile = TEA_ROOT . DS . $classFile;
+			$appFile = Tea::shared()->root() . DS . $classFile;
 			if (file_exists($appFile)) {
 				require($appFile);
 				return;
@@ -598,7 +598,7 @@ namespace {
 
 		//模块
 		if (preg_match("/^\\w+\\/app/", $classFile)) {
-			$moduleFile = TEA_ROOT . DS . "@" . $classFile;
+			$moduleFile = Tea::shared()->root() . DS . "@" . $classFile;
 			if (file_exists($moduleFile)) {
 				require($moduleFile);
 				return;
@@ -606,7 +606,7 @@ namespace {
 		}
 
 		//应用Library
-		$appLibFile = TEA_APP . "/libs/" . $classFile;
+		$appLibFile = Tea::shared()->app() . "/libs/" . $classFile;
 		if(file_exists($appLibFile)) {
 			require($appLibFile);
 			return;

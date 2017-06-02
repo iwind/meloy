@@ -517,7 +517,7 @@ window.Tea.url = function (action, params, hashParams) {
 			url = base + "?__ACTION__=" + path;
 		}
 		else {
-			url = base + "/" + action.replace(/[.\/]+/g, "/");
+			url = base + "/" + action.replace(/[.\/]+/g, "/").replace(/^\//, "");
 		}
 		if (typeof(params) == "object") {
 			params = Tea.serialize(params);

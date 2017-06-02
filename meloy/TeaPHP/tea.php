@@ -1,6 +1,8 @@
 <?php
 
 namespace  {
+	require __DIR__ . "/tea/Tea.php";
+	require __DIR__ . "/tea/Request.php";
 	require __DIR__ . "/tea/Functions.php";
 }
 
@@ -14,28 +16,6 @@ namespace tea {
 	 * 路径分隔符
 	 */
 	define("DS", DIRECTORY_SEPARATOR);
-
-	/**
-	 * 应用主目录
-	 */
-	if (!defined("TEA_ROOT")) {
-		if (isset($_SERVER["DOCUMENT_ROOT"]) && strlen($_SERVER["DOCUMENT_ROOT"]) > 0) {
-			define("TEA_ROOT", $_SERVER["DOCUMENT_ROOT"]);
-		}
-		else {
-			if (isset($_SERVER["_"]) && strlen($_SERVER["_"]) > 0 && $_SERVER["_"][0] == "/" && preg_match("/^(.+)" . preg_quote(DS, "/") . "app" . preg_quote(DS, "/") . "/", $_SERVER["_"], $match)) {
-				define("TEA_ROOT", $match[1] . DS);
-			}
-			else {
-				define("TEA_ROOT", $_SERVER["PWD"]);
-			}
-		}
-	}
-
-	/**
-	 * 应用程序目录
-	 */
-	define("TEA_APP", TEA_ROOT . DS . "app");
 
 	/**
 	 * Tea类库所在路径

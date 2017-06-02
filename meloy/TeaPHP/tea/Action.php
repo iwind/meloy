@@ -512,7 +512,7 @@ FOOTER;
 		$parentActionName = implode("/", $pieces);
 
 		$actionClassName = ucfirst($actionName) . "Action";
-		$moduleDir = is_empty($module) ? TEA_APP : dirname(TEA_APP) . DS . "@" . $module . DS . "app";
+		$moduleDir = is_empty($module) ? Tea::shared()->app() : dirname(Tea::shared()->app()) . DS . "@" . $module . DS . "app";
 		$actionPath = $moduleDir . DS . "actions" . $parentActionName . DS . "{$actionClassName}.php";
 		if (!is_file($actionPath)) {
 			throw new Exception("can not find action class file '{$actionPath}'");

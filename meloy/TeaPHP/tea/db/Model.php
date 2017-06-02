@@ -182,6 +182,27 @@ class Model extends \stdClass implements \ArrayAccess {
 	}
 
 	/**
+	 * 将当前对象转化为普通stdClass对象
+	 *
+	 * @param array $onlyFields 仅限的字段
+	 * @return object
+	 */
+	public function asPlain(array $onlyFields = NilArray) {
+		$attrs = $this->attrs();
+
+		if (is_nil($onlyFields)) {
+			return (object)$attrs;
+		}
+
+		$obj = new \stdClass();
+		foreach ($onlyFields as $field) {
+			$obj->$field = $attrs[$field] ?? null;
+		}
+
+		return $obj;
+	}
+
+	/**
 	 * 获取当前对象对应的表格
 	 *
 	 * @return array|mixed
@@ -282,7 +303,7 @@ class Model extends \stdClass implements \ArrayAccess {
 	 * 查找单个对象
 	 *
 	 * @param mixed $pk
-	 * @param $result 结果集
+	 * @param mixed $result 结果集
 	 * @return static
 	 */
 	public static function find($pk = null, $result = null) {
@@ -327,7 +348,7 @@ class Model extends \stdClass implements \ArrayAccess {
 	/**
 	 * 查找一条数据
 	 *
-	 * @param scalar|null $pk 主键值
+	 * @param mixed $pk 主键值
 	 * @param string|array|null $result 返回的字段
 	 * @return array|null
 	 */

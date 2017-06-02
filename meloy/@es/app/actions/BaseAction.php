@@ -9,6 +9,7 @@ use es\api\GetIndexApi;
 use es\Exception;
 use tea\Arrays;
 use tea\Request;
+use tea\Tea;
 
 class BaseAction extends AuthAction {
 	protected $_subMenu;
@@ -17,7 +18,7 @@ class BaseAction extends AuthAction {
 		parent::before();
 
 		//加载ES操作库
-		import(TEA_ROOT . DS . "@es/app/libs");
+		import(Tea::shared()->root() . DS . "@es/app/libs");
 
 		$this->data->menu = "@es";
 

@@ -2,6 +2,8 @@
 
 namespace app\actions\install;
 
+use tea\Tea;
+
 class DbAction extends BaseAction {
 	public function run() {
 		$this->data->db = o("db");
@@ -10,7 +12,7 @@ class DbAction extends BaseAction {
 
 		//如果仍然是模板
 		if (preg_match("/%{dbname}/", $dsn)) {
-			$this->data->db = require(TEA_APP . DS . "configs" . DS . "db.default.php");
+			$this->data->db = require(Tea::shared()->app() . DS . "configs" . DS . "db.default.php");
 			$dsn = $this->data->db["dbs"]["default"]["dsn"];
 		}
 

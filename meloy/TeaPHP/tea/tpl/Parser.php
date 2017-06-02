@@ -27,7 +27,7 @@ class Parser {
 	 * 构造器
 	 */
 	public function __construct() {
-		$this->_dir = TEA_ROOT . "/tmp";
+		$this->_dir = Tea::shared()->root() . "/tmp";
 		if (!is_writable($this->_dir)) {
 			$this->_dir = sys_get_temp_dir() . "/TeaPHP";
 		}
@@ -411,10 +411,10 @@ PHP;
 						$path = str_replace("/@/", $match2[1] . "/", $path);
 					}
 
-					$file = TEA_ROOT . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
+					$file = Tea::shared()->root() . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
 				}
 				else {
-					$file = TEA_APP . DS . "views" . $match2[2];
+					$file = Tea::shared()->app() . DS . "views" . $match2[2];
 				}
 				$path = u($path, [], null, true);
 				$pieces = explode("?", $path, 2);
@@ -455,10 +455,10 @@ PHP;
 						$path = str_replace("/@/", $match2[1] . "/", $path);
 					}
 
-					$file = TEA_ROOT . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
+					$file = Tea::shared()->root() . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
 				}
 				else {
-					$file = TEA_APP . DS . "views" . $match2[2];
+					$file = Tea::shared()->app() . DS . "views" . $match2[2];
 				}
 				$path = u($path, [], null, true);
 				$pieces = explode("?", $path, 2);
@@ -500,10 +500,10 @@ PHP;
 						$path = str_replace("/@/", $match2[1] . "/", $path);
 					}
 
-					$file = TEA_ROOT . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
+					$file = Tea::shared()->root() . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
 				}
 				else {
-					$file = TEA_APP . DS . "views" . $match2[2];
+					$file = Tea::shared()->app() . DS . "views" . $match2[2];
 				}
 				$path = u($path, [], null, true);
 				$pieces = explode("?", $path, 2);
@@ -537,7 +537,7 @@ PHP;
 			if (is_empty($layoutFile)) {
 				$layoutFile = "layout";
 			}
-			$layout = TEA_APP . DS . "views" . DS . "@{$layoutFile}.php";
+			$layout = Tea::shared()->app() . DS . "views" . DS . "@{$layoutFile}.php";
 			if (is_file($layout)) {
 				$randId = rand(100000, 999999);
 				$layoutCode = '<?php
@@ -664,10 +664,10 @@ PHP;
 				$match2[1] = "/@" . Action::currentAction()->module();
 			}
 
-			$file = TEA_ROOT . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
+			$file = Tea::shared()->root() . DS . ltrim($match2[1], "/") . DS . "app" . DS . "views" . $match2[2];
 		}
 		else {
-			$file = TEA_APP . DS . "views" . $match2[2];
+			$file = Tea::shared()->app() . DS . "views" . $match2[2];
 		}
 
 		$file = dirname($file) .  DS . "@" . basename($file);

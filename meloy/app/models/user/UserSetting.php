@@ -2,6 +2,7 @@
 
 namespace app\models\user;
 
+use app\specs\ModuleSpec;
 use \tea\db\Model;
 
 /**
@@ -31,6 +32,15 @@ class UserSetting extends Model {
 	 * 选项值
 	 */
 	public $value;
+
+	/**
+	 * 取得bool形式的值
+	 *
+	 * @return bool
+	 */
+	public function boolValue() {
+		return !!json_decode($this->value);
+	}
 
 	/**
 	 * 取得数组形式的值
@@ -102,6 +112,42 @@ class UserSetting extends Model {
 	public static function findDisabledModuleCodesForUser($userId) {
 		$setting = UserSetting::findUserSetting($userId, "user.modules.disabled");
 		return $setting ? $setting->arrayValue() : [];
+	}
+
+	/**
+	 * 判断插件是否已经初始化
+	 *
+	 * @param string $module 插件代号
+	 * @return bool
+	 */
+	public static function moduleIsInitialized($module) {
+		$spec = ModuleSpec::new($module);
+		$version = $spec ? $spec->version() : null;
+		if (is_empty($version)) {
+			$version = "0.0.1";
+		}
+		$name = "modules.{$module}.{$version}.initialized";
+		$setting = self::findUserSetting(0, $name);
+		if (!$setting) {
+			return false;
+		}
+		return $setting->boolValue();
+	}
+
+	/**
+	 * 设置插件是否已经初始化
+	 *
+	 * @param string $module 插件代号
+	 * @param $bool
+	 */
+	public static function updateModuleIsInitialized($module, $bool = true) {
+		$spec = ModuleSpec::new($module);
+		$version = $spec ? $spec->version() : null;
+		if (is_empty($version)) {
+			$version = "0.0.1";
+		}
+		$name = "modules.{$module}.{$version}.initialized";
+		self::updateUserSetting(0, $name, json_encode($bool));
 	}
 }
 

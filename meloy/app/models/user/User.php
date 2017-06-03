@@ -53,7 +53,20 @@ class User extends Model {
 	public $state;
 
 	/**
-	 * 启用条目
+	 * 根据ID查找用户
+	 *
+	 * @param mixed $pk
+	 * @param mixed $result 结果集
+	 * @return static
+	 *
+	 */
+	public static function find($pk = null, $result = null) {
+		return parent::find($pk, $result);
+	}
+
+	/**
+	 * 启用用户
+	 *
 	 * @param int $userId 条目ID
 	 */
 	public static function enableUser($userId) {
@@ -65,7 +78,8 @@ class User extends Model {
 	}
 
 	/**
-	 * 禁用条目
+	 * 禁用用户
+	 *
 	 * @param int $userId 条目ID
 	 */
 	public static function disableUser($userId) {
@@ -77,7 +91,7 @@ class User extends Model {
 	}
 
 	/**
-	 * 查找启用的条目
+	 * 查找启用的用户
 	 *
 	 * @param int $userId 条目ID
 	 * @return self
@@ -200,6 +214,18 @@ class User extends Model {
 		$user->email = $email;
 		$user->password = self::genPassword($password);
 		$user->nickname = $nickname;
+		$user->state = self::STATE_ENABLED;
+		$user->save();
+	}
+
+	/**
+	 * 根据用户ID创建用户
+	 *
+	 * @param int $userId 用户ID
+	 */
+	public static function createUserWithId($userId) {
+		$user = new self;
+		$user->id = $userId;
 		$user->state = self::STATE_ENABLED;
 		$user->save();
 	}

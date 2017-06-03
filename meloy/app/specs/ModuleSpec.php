@@ -122,7 +122,7 @@ class ModuleSpec {
 	}
 
 	/**
-	 * 取得所有的模块Spec
+	 * 取得所有的插件Spec
 	 *
 	 * @param int $userId 用户ID
 	 * @return self[]

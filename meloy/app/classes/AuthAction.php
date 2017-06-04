@@ -2,6 +2,8 @@
 
 namespace app\classes;
 
+use app\models\team\Team;
+use app\models\team\TeamUser;
 use app\models\user\User;
 use app\models\user\UserSetting;
 use app\specs\ModuleSpec;
@@ -33,6 +35,15 @@ class AuthAction extends Action {
 				g("index");
 			}
 			$this->_userId = $user->id;
+
+			//是否有团队
+			$teamId = TeamUser::findUserTeamId($user->id);
+			if ($teamId > 0) {
+				$teamName = Team::findTeamName($teamId);
+				if (!is_empty($teamName)) {
+					$user->nickname .= "@" . $teamName;
+				}
+			}
 
 			//设置模板中可用的变量
 			$this->data->loginUserName = $user->nickname;

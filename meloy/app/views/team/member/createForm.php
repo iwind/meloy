@@ -1,6 +1,6 @@
 {tea:layout}
 
-<h3>添加成员</h3>
+<h3>添加成员 <span>添加后，成员可以使用邮箱账号登录</span></h3>
 
 <form class="ui form" data-tea-action=".create">
 	<table class="ui table">

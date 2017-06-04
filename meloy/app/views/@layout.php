@@ -15,13 +15,14 @@
 
 <!-- 顶部导航 -->
 <div class="ui menu inverted top-nav blue">
-	<a href="{tea:url /}" class="item">{Meloy - 数据管理平台} &nbsp; <sup>beta</sup></a>
+	<a href="{tea:url /}" class="item"><i class="icon home"></i>{Meloy - 数据管理平台} &nbsp; <sup>beta</sup></a>
 	<div class="right menu">
 		<div class="item">
-			欢迎您，{{loginUserName}}
+			<i class="icon user"></i>
+			{{loginUserName}}
 		</div>
-		<a href="{tea:url settings}" class="item" ng-class="{active: menu == 'settings'}">设置</a>
-		<a href="{tea:url logout}" class="item" title="安全退出登录">退出</a>
+		<a href="{tea:url settings}" class="item" ng-class="{active: menu == 'settings'}"><i class="icon setting"></i>设置</a>
+		<a href="{tea:url logout}" class="item" title="安全退出登录"><i class="icon sign out"></i>退出</a>
 	</div>
 </div>
 

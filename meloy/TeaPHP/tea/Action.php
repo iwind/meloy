@@ -96,6 +96,16 @@ abstract class Action {
 		return $this;
 	}
 
+	/**
+	 * 取得动作全名，包含父级目录，使用点（.）连接
+	 *
+	 * @return string
+	 */
+	public function fullName() {
+		$parent = trim(str_replace("/", ".", $this->parent()), ".");
+		return $parent . "." . $this->name();
+	}
+
 	public function view($view = nil) {
 		if (is_nil($view)) {
 			return $this->_view;

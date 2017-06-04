@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS `pp_teamUsers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `userId` int(11) unsigned DEFAULT '0' COMMENT '用户ID',
   `teamId` int(11) unsigned DEFAULT '0' COMMENT '团队ID',
+  `state` tinyint(1) unsigned DEFAULT '1' COMMENT '状态',
+  `isAdmin` tinyint(1) unsigned DEFAULT '0' COMMENT '是否为管理员',
   `createdAt` int(11) unsigned DEFAULT '0' COMMENT '加入时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户加入的团队';

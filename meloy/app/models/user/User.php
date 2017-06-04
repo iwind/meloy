@@ -208,6 +208,7 @@ class User extends Model {
 	 * @param string $email 邮箱
 	 * @param string $password
 	 * @param string $nickname 昵称
+	 * @return int
 	 */
 	public static function createUser($email, $password, $nickname) {
 		$user = new self;
@@ -216,6 +217,8 @@ class User extends Model {
 		$user->nickname = $nickname;
 		$user->state = self::STATE_ENABLED;
 		$user->save();
+
+		return $user->id;
 	}
 
 	/**

@@ -11,7 +11,7 @@
 	{tea:js /__resource__/layout.js}
 	{tea:js js/Array.min.js}
 </head>
-<body ng-app="app" ng-controller="controller">
+<body ng-app="app" ng-controller="controller" ng-cloak="">
 
 <!-- 顶部导航 -->
 <div class="ui menu inverted top-nav blue">
@@ -39,10 +39,10 @@
 			{{module.menuName}}
 		</a>
 
-		<!--<a href="{tea:url team}" class="item" ng-class="{active:menu == 'team'}">
-			<i class="group icon"></i>
+		<a href="{tea:url team}" class="item" ng-class="{active:menu == 'team'}">
+			<i class="puzzle icon"></i>
 			团队管理
-		</a>-->
+		</a>
 	</div>
 </div>
 

@@ -14,7 +14,6 @@ class Team extends Model {
 	const STATE_DISABLED = 0; // 禁用
 	const STATE_ENABLED = 1; // 启用
 
-
 	/**
 	 * ID
 	 */
@@ -46,6 +45,7 @@ class Team extends Model {
 	 * 根据ID查找名称
 	 *
 	 * @param int $teamId 条目ID
+	 *
 	 * @return string
 	 */
 	public static function findTeamName($teamId) {
@@ -57,6 +57,7 @@ class Team extends Model {
 
 	/**
 	 * 启用条目
+	 *
 	 * @param int $teamId 条目ID
 	 */
 	public static function enableTeam($teamId) {
@@ -90,6 +91,35 @@ class Team extends Model {
 			->pk($teamId)
 			->state(self::STATE_ENABLED)
 			->find();
+	}
+
+	/**
+	 * 取得用户创建的团队
+	 *
+	 * @param int $userId 用户ID
+	 * @return self
+	 */
+	public static function findUserCreatedTeam($userId) {
+		return self::query()
+			->attr("userId", $userId)
+			->find();
+	}
+
+	/**
+	 * 创建团队
+	 *
+	 * @param int $userId 用户ID
+	 * @param string $name 团队名称
+	 * @return int
+	 */
+	public static function createTeam($userId, $name) {
+		$team = new self;
+		$team->userId = $userId;
+		$team->name = $name;
+		$team->state = self::STATE_ENABLED;
+		$team->save();
+
+		return $team->id;
 	}
 }
 

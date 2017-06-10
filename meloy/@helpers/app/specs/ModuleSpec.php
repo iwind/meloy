@@ -2,6 +2,7 @@
 
 namespace helpers\app\specs;
 
+use app\classes\DateHelper;
 use app\specs\HelperSpec;
 
 class ModuleSpec extends \app\specs\ModuleSpec {
@@ -26,12 +27,18 @@ class ModuleSpec extends \app\specs\ModuleSpec {
 		$randomHelper->size(HelperSpec::SIZE_SMALL);
 		$randomHelper->url(u("@helpers.random"));
 
+		$dateHelper = new HelperSpec();
+		$dateHelper->name("时间");
+		$dateHelper->code("time");
+		$dateHelper->size(HelperSpec::SIZE_SMALL);
+		$dateHelper->url(u("@helpers.time"));
+
 		/**$regularHelper = new HelperSpec();
 		$regularHelper->name("正则");
 		$regularHelper->code("regular");
 		$regularHelper->size(HelperSpec::SIZE_SMALL);**/
 
-		$this->_helpers = [  $stringHelper, $randomHelper ];
+		$this->_helpers = [  $stringHelper, $randomHelper, $dateHelper ];
 	}
 }
 

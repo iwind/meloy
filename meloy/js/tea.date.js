@@ -316,3 +316,7 @@ Number.prototype.dateFormat = function (format) {
 	var date = new Tea.Date(format, this * 1000);
 	return date.toString();
 };
+
+Date.prototype.format = function (format) {
+	return new Tea.Date(format, this.getTime()).toString();
+};

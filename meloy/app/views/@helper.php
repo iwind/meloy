@@ -22,7 +22,7 @@
 			</div>
 		</div>
 		<div class="extra content">
-			 插件:{{_helper.module}} / 开发者:{{_helper.developer}}
+			 插件:{{_helper.module}} / 开发者:{{_helper.developer}} <a href="{tea:echo $_SERVER['REQUEST_URI'] ?? ''}" target="_blank" title="在新窗口中打开"><i class="icon external"></i></a>
 		</div>
 	</div>
 </div>

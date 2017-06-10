@@ -16,6 +16,11 @@ body {
 	top: 0.4em;
 }
 
+#helper-box .extra a {
+	position: absolute;
+	right: 0.4em;
+}
+
 #helper-box .card {
 	width: 100%;
 }
@@ -34,4 +39,8 @@ body {
 
 #helper-box textarea.small {
 	max-height: 0.5em;
+}
+
+#helper-box label a {
+	font-weight: normal;
 }

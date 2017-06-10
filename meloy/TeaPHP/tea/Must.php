@@ -30,7 +30,11 @@ class Must {
 		}
 		else {
 			$this->_field = $field;
-			$this->_value = $value;
+
+			if (!is_nil($value)) {
+				$this->_value = $value;
+			}
+
 			return $this;
 		}
 	}
@@ -180,6 +184,61 @@ class Must {
 	public function email($message) {
 		$regex = "/^[a-z0-9]+([\\._\\-\\+]*[a-z0-9]+)*@([a-z0-9]+[\\-a-z0-9]*[a-z0-9]+\\.)+[a-z0-9]+$/i";
 		if (!preg_match($regex, $this->_value)) {
+			$this->_throw($message);
+		}
+		return $this;
+	}
+
+	/**
+	 * 判断是否为手机号
+	 *
+	 * @param string $message 提示消息
+	 * @return $this
+	 */
+	public function mobile($message = null) {
+		$regex = "/^(13|14|15|16|17|18)\\d{9}$/";
+		if (!preg_match($regex, $this->_value)) {
+			$this->_throw($message);
+		}
+		return $this;
+	}
+
+	public function gt($value, $message = null) {
+		if ($this->_value <= $value) {
+			$this->_throw($message);
+		}
+		return $this;
+	}
+
+	public function gte($value, $message = null) {
+		if ($this->_value < $value) {
+			$this->_throw($message);
+		}
+		return $this;
+	}
+
+	public function lt($value, $message = null) {
+		if ($this->_value >= $value) {
+			$this->_throw($message);
+		}
+		return $this;
+	}
+
+	public function lte($value, $message = null) {
+		if ($this->_value > $value) {
+			$this->_throw($message);
+		}
+		return $this;
+	}
+
+	public function in($values, $message = null) {
+		if (is_string($values) && !is_empty($values)) {
+			$values = preg_split("/\\s*,\\s*/", $values);
+		}
+		else if (!is_array($values)) {
+			$values = [];
+		}
+		if (!in_array($this->_value, $values)) {
 			$this->_throw($message);
 		}
 		return $this;

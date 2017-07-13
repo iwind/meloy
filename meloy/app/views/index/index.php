@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Meloy - 数据管理平台</title>
+	<title>MeloyAdmin - 数据管理工具</title>
 
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
@@ -14,7 +14,7 @@
 <form class="ui large form" data-tea-action="login">
 	<h2 class="ui blue header">
 		<div class="content">
-			登录Meloy - 数据管理平台
+			登录MeloyAdmin - 数据管理工具
 		</div>
 	</h2>
 

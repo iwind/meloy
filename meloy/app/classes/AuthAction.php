@@ -75,6 +75,9 @@ class AuthAction extends Action {
 
 		//菜单
 		$this->data->menu = "@" . $this->module();
+
+		//页面配置
+		$this->data->viewExpanded = cookie("viewExpanded", 0);
 	}
 
 	/**

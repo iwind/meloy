@@ -1,4 +1,14 @@
+body {
+	height: auto!important;
+}
+
 form {
 	width: 20em;
 	margin: 10em auto;
+}
+
+form .content {
+	width: 100%;
+	font-size: 0.8em;
+	text-align: center;
 }

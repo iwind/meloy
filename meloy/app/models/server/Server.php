@@ -198,6 +198,20 @@ class Server extends Model {
 	}
 
 	/**
+	 * 查找所有用户添加的某种类型的主机
+	 *
+	 * @param int $typeId 类型ID
+	 * @return self[]
+	 */
+	public static function findAllServersWithType($typeId) {
+		return self::query()
+			->attr("typeId", $typeId)
+			->state(self::STATE_ENABLED)
+			->asc()
+			->findAll();
+	}
+
+	/**
 	 * 查找用户添加的某种类型的主机
 	 *
 	 * @param int $userId 用户ID

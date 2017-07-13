@@ -30,6 +30,17 @@ Tea.View.scope(function () {
 		window.scrollTo(0, 0);
 	};
 
+	this.viewExpand = function () {
+		var body = angular.element(document.body);
+		if (!body.hasClass("expanded")) {
+			document.cookie = "viewExpanded=1; expires=Thu, 18 Dec 2020 12:00:00; path=/"
+			this.viewExpanded = true;
+		}
+		else {
+			document.cookie = "viewExpanded=1; expires=Thu, 18 Dec 2000 12:00:00; path=/"
+			this.viewExpanded = false;
+		}
+	};
 
 	this.showModuleHelper = function (moduleHelper, index) {
 		var viewBox = document.getElementById("helper-view");

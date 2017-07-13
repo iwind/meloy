@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Meloy - 数据管理平台</title>
+	<title>MeloyAdmin - 数据管理工具</title>
 
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
@@ -11,12 +11,15 @@
 	{tea:js /__resource__/layout.js}
 	{tea:js js/Array.min.js}
 </head>
-<body ng-app="app" ng-controller="controller" ng-cloak="">
+<body ng-app="app" ng-controller="controller" ng-class="{expanded:viewExpanded}">
 
 <!-- 顶部导航 -->
 <div class="ui menu inverted top-nav blue">
-	<a href="{tea:url /}" class="item"><i class="icon home"></i>{Meloy - 数据管理平台} &nbsp; <sup>beta</sup></a>
+	<a href="{tea:url /}" class="item"><i class="icon home"></i>{MeloyAdmin - 数据管理工具} &nbsp; <sup>beta</sup></a>
 	<div class="right menu">
+		<div class="item link" ng-click="viewExpand()" title="放大或缩小工作区">
+			<i class="icon" ng-class="{expand:!viewExpanded, compress:viewExpanded}"></i>
+		</div>
 		<div class="item">
 			<i class="icon user"></i>
 			{{loginUserName}}
@@ -27,7 +30,7 @@
 </div>
 
 <!-- 左侧主菜单 -->
-<div class="main-menu">
+<div class="main-menu" ng-cloak="">
 	<div class="ui labeled icon menu vertical blue">
 		<a href="{tea:url dashboard}" class="item" ng-class="{active:menu == 'dashboard'}">
 			<i class="dashboard icon"></i>
@@ -47,8 +50,8 @@
 	</div>
 </div>
 
-<!-- 左侧子菜单 -->
-<div class="sub-menu" ng-if="subMenus.length > 0">
+<!-- 左侧子菜单（一般是服务器列表） -->
+<div class="sub-menu" ng-if="subMenus.length > 0" ng-cloak="">
 	<div class="ui menu vertical">
 		<div ng-repeat="subMenu in subMenus">
 			<div class="item blue" ng-class="{active:subMenu.active}" ng-if="subMenu.url.length > 0">
@@ -93,7 +96,7 @@
 </div>
 
 <!-- 右侧主操作栏 -->
-<div class="main" ng-class="{'without-menu': !subMenus || subMenus.length == 0}">
+<div class="main" ng-class="{'without-menu': !subMenus || subMenus.length == 0}" ng-cloak="">
 	<!-- 操作菜单 -->
 	<div class="ui top attached menu tabular tab-menu" ng-if="tabbar">
 		<a class="item" ng-repeat="item in tabbar" ng-class="{active:item.active}" href="{{item.url}}">
@@ -123,14 +126,13 @@
 	<!-- 小助手视图 -->
 </div>
 
-
 <!-- 底部 -->
 <div id="footer" class="ui menu inverted light-blue">
 	<div class="item">v{{meloy.version}}</div>
 	<a href="https://meloy.cn" target="_blank" class="item">官网</a>
 	<a href="https://git.oschina.net/liuxiangchao/meloy" target="_blank" class="item">OSC码云</a>
 	<a href="https://github.com/iwind/meloy" target="_blank" class="item">GitHub</a>
-	<div class="item">免费加入QQ群讨论：199435611</div>
+	<div class="item">QQ群：199435611</div>
 </div>
 
 </body>

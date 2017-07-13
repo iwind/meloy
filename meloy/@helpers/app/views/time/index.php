@@ -5,7 +5,7 @@
 <form class="ui form">
 	<div class="ui segment">
 		<div class="ui field">
-			<label>时间戳 -&gt; 日期 &nbsp; <a href="" ng-click="setNow()">[当前时间]</a> </label>
+			<label>时间戳 -&gt; 日期 &nbsp; <a href="" ng-click="setNow()">[当前时间]</a> &nbsp; <a href="" ng-click="randTime()">[随机]</a></label>
 			<div class="ui right labeled input">
 				<input type="number" ng-model="timestamp" ng-change="timeToDate()" placeholder="请输入时间戳"/>
 				<div class="ui basic label">{{timeUnit}}</div>

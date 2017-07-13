@@ -27,6 +27,11 @@ Tea.View.scope(function () {
 		}
 	};
 
+	this.randTime = function () {
+		this.timestamp = Math.ceil(Math.random() * (new Date()).getTime());
+		this.timeToDate();
+	};
+
 	this.dateToTime = function () {
 		Tea.action(".dateToTime")
 			.params({

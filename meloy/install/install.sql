@@ -1,3 +1,18 @@
+CREATE TABLE IF NOT EXISTS `meloy_moduleUsers` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `userId` int(11) unsigned DEFAULT '0' COMMENT '用户ID',
+  `module` varchar(64) DEFAULT NULL COMMENT '模块代号',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='模块权限设置'
+
+CREATE TABLE IF NOT EXISTS `pp_serverUsers` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `userId` int(11) unsigned DEFAULT '0' COMMENT '用户ID',
+  `serverId` int(11) unsigned DEFAULT '0' COMMENT '主机ID',
+  `allow` varchar(128) DEFAULT NULL COMMENT '允许的操作列表：insert,update,read,delete,drop,alter,create',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='服务器权限设置'
+
 CREATE TABLE IF NOT EXISTS `pp_serverDbUsers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `userId` int(11) unsigned DEFAULT '0' COMMENT '用户ID',
@@ -5,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `pp_serverDbUsers` (
   `db` varchar(128) DEFAULT NULL COMMENT '数据库名',
   `allow` varchar(128) DEFAULT NULL COMMENT '允许的操作列表：insert,update,read,delete,drop,alter,create',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='表权限设置';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='数据库权限设置';
 
 CREATE TABLE IF NOT EXISTS `pp_servers` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',

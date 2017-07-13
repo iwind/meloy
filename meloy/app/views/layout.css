@@ -30,12 +30,33 @@ a.enabled {
 	color: #2ecc40;
 }
 
+.main-menu .ui.labeled.icon.menu .item {
+	font-size: 0.9em;
+}
+
+.main-menu .ui.menu .item {
+	padding: 0.9em 0;
+}
+
 /** 扩展UI **/
 .field.text {
 	padding: .5em;
 }
 
-/** 布局相关 */
+/** body **/
+body.expanded .main-menu {
+	display: none;
+}
+
+body.expanded .sub-menu {
+	display: none;
+}
+
+body.expanded .main {
+	left: 1em;
+}
+
+	/** 布局相关 */
 .top-nav {
 	border-radius: 0!important;
 	position: fixed;
@@ -65,8 +86,16 @@ a.enabled {
 	width: 14em;
 }
 
+.main table td {
+	vertical-align: top;
+}
+
 .main table td.vertical-top {
 	vertical-align: top;
+}
+
+.main table td.vertical-middle {
+	vertical-align: middle;
 }
 
 .main h3 {

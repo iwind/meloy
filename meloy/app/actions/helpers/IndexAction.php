@@ -31,6 +31,9 @@ class IndexAction extends AuthAction {
 				}
 
 				$spec = ModuleSpec::new($code);
+				if (!$spec) {
+					return;
+				}
 				foreach ($spec->helpers() as $helper) {
 					$helpers[] = (object)[
 						"name" => $helper->name(),

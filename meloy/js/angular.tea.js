@@ -259,6 +259,24 @@ window.Tea.action = function (action) {
 };
 
 /**
+ *
+ * 发送POST请求
+ *
+ * @param action
+ * @param params
+ * @param successFn
+ * @param failFn
+ * @returns {Window.Tea.Action}
+ */
+window.Tea.post = function (action, params, successFn, failFn) {
+	return Tea.action(action)
+		.params(params)
+		.success(successFn)
+		.fail(failFn)
+		.post();
+};
+
+/**
  * 激活元素中的Action
  *
  * 支持

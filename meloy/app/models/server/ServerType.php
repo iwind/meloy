@@ -138,6 +138,7 @@ class ServerType extends Model {
 	 * @param string $name 类型名称
 	 * @param string $code 类型代号，如es、redis
 	 * @param int $state 状态
+	 * @return int
 	 */
 	public static function createServerType($name, $code, $state = self::STATE_ENABLED) {
 		$type = new self;
@@ -145,6 +146,8 @@ class ServerType extends Model {
 		$type->state = $state;
 		$type->code = $code;
 		$type->save();
+
+		return $type->id;
 	}
 
 	/**

@@ -34,7 +34,7 @@ class VueActionView extends ActionView {
 			$css = "\n<link type=\"text/css\" rel=\"stylesheet\" href=\"" . u("__resource__{$realParent}") . "/{$viewName}.css?v={$version}\"/>";
 		}
 
-		$json = json_encode($data);
+		$json = json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR);
 		$data->tea = (object)[
 			"inject" => "<script type=\"text/javascript\">\n window.TEA = { 
 	\"ACTION\": {

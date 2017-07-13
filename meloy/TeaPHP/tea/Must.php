@@ -34,6 +34,12 @@ class Must {
 			if (!is_nil($value)) {
 				$this->_value = $value;
 			}
+			else {
+				if (isset($GLOBALS["TEA_INVOKE_PARAMS"])) {
+					$params = $GLOBALS["TEA_INVOKE_PARAMS"];
+					$this->_value = $params[$field] ?? null;
+				}
+			}
 
 			return $this;
 		}

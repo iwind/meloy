@@ -522,7 +522,8 @@ namespace {
 		$method = $reflection->getMethod($method);
 		$methodArgs = [];
 		foreach ($method->getParameters() as $parameter) {
-			$value = $args[$parameter->getName()] ?? null;
+			$paramName = $parameter->getName();
+			$value = $args[$paramName] ?? null;
 
 			if (is_null($value) && $parameter->isDefaultValueAvailable()) {
 				$value = $parameter->getDefaultValue();
@@ -569,9 +570,16 @@ namespace {
 						}
 				}
 			}
-			$methodArgs[] = $value;
+			$methodArgs[$paramName] = $value;
 		}
-		return $method->invokeArgs(is_object($class) ? $class : $reflection->newInstance(), $methodArgs);
+
+		$GLOBALS["TEA_INVOKE_PARAMS"] = $methodArgs;
+
+		$result = $method->invokeArgs(is_object($class) ? $class : $reflection->newInstance(), $methodArgs);
+
+		unset($GLOBALS["INVOKED_PARAMS"]);
+
+		return $result;
 	}
 
 	function import_class($class) {

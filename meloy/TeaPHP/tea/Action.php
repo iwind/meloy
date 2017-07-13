@@ -43,7 +43,10 @@ abstract class Action {
 	public function after() {
 	}
 
-	public function param($param, $value) {
+	public function param($param, $value = nil) {
+		if (is_nil($value)) {
+			return $this->_params[$param] ?? null;
+		}
 		$this->_params[$param] = $value;
 		return $this;
 	}
@@ -94,6 +97,16 @@ abstract class Action {
 		}
 		$this->_name = $name;
 		return $this;
+	}
+
+	/**
+	 * 判断动作名是否在一组名称中
+	 *
+	 * @param array ...$names
+	 * @return bool
+	 */
+	public function hasName(... $names) {
+		return in_array($this->_name, $names);
 	}
 
 	/**
@@ -234,6 +247,12 @@ abstract class Action {
 		return $this;
 	}
 
+	/**
+	 * 执行动作
+	 *
+	 * @return $this
+	 * @throws Exception
+	 */
 	public function invoke() {
 		if ($this->_directive == "doc") {
 			$this->_showDocs();

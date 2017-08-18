@@ -1,0 +1,11 @@
+.chart-box {
+	margin-top: 5em;
+}
+
+.chart-box div {
+	width: 20%;
+	margin-right: 4%;
+	margin-bottom: 2em;
+	float: left;
+	height: 14em;
+}

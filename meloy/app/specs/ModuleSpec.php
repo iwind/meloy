@@ -6,6 +6,9 @@ use app\models\user\UserSetting;
 use tea\file\File;
 use tea\Tea;
 
+/**
+ * 插件规约
+ */
 class ModuleSpec {
 	protected $_code;
 	protected $_name;
@@ -92,6 +95,17 @@ class ModuleSpec {
 	}
 
 	/**
+	 * 添加新的小助手
+	 *
+	 * @param HelperSpec $helper 小助手对象
+	 * @return $this
+	 */
+	public function addHelper(HelperSpec $helper) {
+		$this->_helpers[] = $helper;
+		return $this;
+	}
+
+	/**
 	 * 设置或取得支持的主机类型
 	 *
 	 * @param array $serverTypes
@@ -122,7 +136,7 @@ class ModuleSpec {
 	}
 
 	/**
-	 * 取得所有的插件Spec
+	 * 取得用户所有可见的插件Spec
 	 *
 	 * @param int $userId 用户ID
 	 * @return self[]
@@ -151,6 +165,35 @@ class ModuleSpec {
 				}
 				if (!$spec->visible()) {
 					return;
+				}
+				$results[] = $spec;
+			}
+		}, 0);
+
+		return $results;
+	}
+
+	/**
+	 * 取得所有的插件Spec
+	 *
+	 * @return self[]
+	 */
+	public static function findAllModules() {
+		$dir = new File(Tea::shared()->root());
+		$results = [];
+		$dir->each(function (File $file) use (&$modules, &$results) {
+			if (!$file->isDir()) {
+				return;
+			}
+			$basename = basename($file->path());
+			if (preg_match("/@(\\w+)$/", $basename, $match)) {
+				$code = $match[1];
+				$spec = ModuleSpec::new($code);
+				if ($spec == null) {
+					$spec = new self;
+					$spec->code($code)
+						->name($code)
+						->menuName($code);
 				}
 				$results[] = $spec;
 			}

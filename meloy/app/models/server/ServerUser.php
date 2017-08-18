@@ -5,10 +5,10 @@ namespace app\models\server;
 use \tea\db\Model;
 
 /**
- * 数据库权限设置
+ * 服务器权限设置
  */
-class ServerDbUser extends Model {
-	public static $TABLE = "%{prefix}serverDbUsers";
+class ServerUser extends Model {
+	public static $TABLE = "%{prefix}serverUsers";
 	public static $VERSION = "1.0";
 
 
@@ -26,11 +26,6 @@ class ServerDbUser extends Model {
 	 * 主机ID
 	 */
 	public $serverId;
-
-	/**
-	 * 数据库名
-	 */
-	public $db;
 
 	/**
 	 * 允许的操作列表：insert,update,read,delete,drop,alter,create

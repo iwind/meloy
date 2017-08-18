@@ -1,0 +1,96 @@
+.menu.api-list {
+	width: 20em!important;
+	position: fixed;
+	top: 8em;
+	bottom: 3em;
+	padding-bottom: 4.7em;
+	overflow: auto;
+}
+
+.menu.api-list.top {
+	width: 20em!important;
+	position: fixed;
+	top: 4em;
+	bottom: 3em;
+	overflow: auto;
+}
+
+.menu.api-list .item {
+
+}
+
+.menu.api-list span {
+	font-size: 0.8em;
+	line-height: 2!important;
+}
+
+.menu.api-list span.red {
+	color: #800;
+}
+
+.menu.api-list span.green {
+	color: green;
+}
+
+.menu.api-list .item.search {
+	position: fixed;
+	bottom: 4em;
+	width: 19.8em!important;
+	background: white!important;
+}
+
+.menu.api-list .item.grey {
+	color: grey;
+}
+
+#right-box {
+	position: relative;
+}
+
+#right-box .api-box {
+	position: absolute;
+	right: 1em;
+	left: 21em;
+	top: 0;
+}
+
+#right-box .api-box table {
+	margin-bottom: 4em;
+	font-size: 0.9em;
+}
+
+#right-box .api-box sup {
+	font-weight: normal;
+}
+
+#right-box .api-box sup.red {
+	color: #800;
+}
+
+#right-box .api-box sup.green {
+	color: green;
+}
+
+tr.white td {
+	background: white!important;
+}
+
+#stat-chart {
+	height: 16em;
+}
+
+#right-box .logs-box {
+	max-height: 20em;
+	overflow: auto;
+	color: #999;
+}
+
+#right-box .table tr.header {
+	background: rgba(34,36,38,.1);
+}
+
+#right-box .table td a {
+	position: absolute;
+	right: 1em;
+}
+

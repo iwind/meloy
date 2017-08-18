@@ -10,7 +10,7 @@
 			<th>加入时间</th>
 			<th>是否为管理员</th>
 			<th>状态</th>
-			<th ng-if="isAdmin">操作</th>
+			<th ng-if="isAdmin" class="three wide">操作</th>
 		</tr>
 	</thead>
 	<tr ng-repeat="member in members">
@@ -29,6 +29,7 @@
 
 			<span ng-if="!member.isCreator">
 				<a href="{{Tea.url('team.member.updateForm', { 'userId':member.id })}}">修改</a> &nbsp;
+				<a href="{{Tea.url('team.member.permissions', { 'userId':member.id })}}">权限</a> &nbsp;
 				<a href="" ng-if="member.state == 1" data-tea-action="team.member.disable" data-user-id="{{member.id}}">禁用</a>
 				<a href="" ng-if="member.state == 0" data-tea-action="team.member.enable" data-user-id="{{member.id}}">启用</a>
 			</span>

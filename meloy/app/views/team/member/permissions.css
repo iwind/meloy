@@ -1,0 +1,57 @@
+.table td.title {
+	white-space: nowrap;
+}
+
+.table .servers-td {
+	width: 15em;
+}
+
+.table .servers-td .menu {
+	width: 100%!important;
+}
+
+.table .dbs-td {
+	width: 13em;
+}
+
+.table .dbs-td .menu {
+	width: 13em!important;
+}
+
+.table .tables-td {
+	width: 13em;
+}
+
+.table .tables-td .menu {
+	width: 13em!important;
+}
+
+.table .permissions-td {
+	width: 13em;
+}
+
+.table .permissions-td .menu {
+	width: 13em!important;
+}
+
+.table .menu span {
+	font-size: 0.8em;
+	color: grey;
+}
+
+.table .menu label {
+	width: 100%;
+	display: block;
+	height: 100%;
+}
+
+.menu .item .item-left {
+	width: 20%;
+	float: left;
+}
+
+.menu .item .item-right {
+	width: 80%;
+	float: left;
+}
+

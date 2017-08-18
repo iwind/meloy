@@ -51,17 +51,9 @@ class BaseAction extends AuthAction {
 					[
 						"name" => "成员({$countMembers})",
 						"url" => u("team.members"),
-						"active" => ($this->name() == "members" || $this->fullName() == "team.member.createForm" || $this->fullName() == "team.member.updateForm")
+						"active" => ($this->name() == "members" || in_array($this->fullName(), [ "team.member.createForm", "team.member.updateForm", "team.member.permissions"]))
 					]
 				];
-
-				if ($isAdmin) {
-					/**$this->data->tabbar[] = [
-						"name" => "权限",
-						"url" => u("team.perms"),
-						"active" => $this->name() == "perms",
-					];**/
-				}
 			}
 			else {
 				$this->data->tabbar = [

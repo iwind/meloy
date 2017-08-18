@@ -20,25 +20,33 @@ class ModuleSpec extends \app\specs\ModuleSpec {
 		$stringHelper->code("string");
 		$stringHelper->size(HelperSpec::SIZE_SMALL);
 		$stringHelper->url(u("@helpers.string"));
+		$this->addHelper($stringHelper);
 
 		$randomHelper = new HelperSpec();
 		$randomHelper->name("随机字符串");
 		$randomHelper->code("random");
 		$randomHelper->size(HelperSpec::SIZE_SMALL);
 		$randomHelper->url(u("@helpers.random"));
+		$this->addHelper($randomHelper);
 
 		$dateHelper = new HelperSpec();
 		$dateHelper->name("时间");
 		$dateHelper->code("time");
 		$dateHelper->size(HelperSpec::SIZE_SMALL);
 		$dateHelper->url(u("@helpers.time"));
+		$this->addHelper($dateHelper);
+
+		$jsonHelper = new HelperSpec();
+		$jsonHelper->name("JSON");
+		$jsonHelper->code("json");
+		$jsonHelper->size(HelperSpec::SIZE_LARGE);
+		$jsonHelper->url(u("@helpers.json"));
+		$this->addHelper($jsonHelper);
 
 		/**$regularHelper = new HelperSpec();
 		$regularHelper->name("正则");
 		$regularHelper->code("regular");
 		$regularHelper->size(HelperSpec::SIZE_SMALL);**/
-
-		$this->_helpers = [  $stringHelper, $randomHelper, $dateHelper ];
 	}
 }
 

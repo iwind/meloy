@@ -1,0 +1,23 @@
+.rank-header {
+	position: relative;
+	height: 1em;
+}
+
+.rank-header a {
+	position: absolute;
+	right: 0;
+	color: grey!important;
+}
+
+.rank-header a.active {
+	color: #4183C4!important;
+}
+
+.rank-header a.chart {
+	right: 1.5em;
+}
+
+.charts-box div {
+	height: 20em;
+	margin-bottom: 1em;
+}

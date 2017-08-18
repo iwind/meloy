@@ -2,6 +2,9 @@
 
 namespace app\specs;
 
+/**
+ * 小助手规约
+ */
 class HelperSpec {
 	const SIZE_SMALL = "small";
 	const SIZE_MIDDLE = "middle";

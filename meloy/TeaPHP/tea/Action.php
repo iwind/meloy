@@ -550,6 +550,9 @@ FOOTER;
 
 		$ns = is_empty($module) ? "" : $module . "\\";
 		$actionClass = $ns . "app\\actions" . str_replace("/", "\\", $parentActionName . "/" . $actionClassName);
+		if (!class_exists($actionClass, false)) {
+			throw new Exception("'{$actionClass}' does not exist in action file '{$actionPath}'");
+		}
 		$reflectionClass = new \ReflectionClass($actionClass);
 
 		/**

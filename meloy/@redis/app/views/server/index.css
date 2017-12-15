@@ -1,5 +1,7 @@
 .table td {
 	vertical-align: top;
+	-ms-word-break: break-all;
+	word-break: break-all;
 }
 
 .table .value-doc div {

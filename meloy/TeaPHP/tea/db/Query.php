@@ -1167,16 +1167,18 @@ class Query {
 			$sql .= "\n WHERE " . $whereString;
 		}
 
+		//group
+		if ($this->_action == self::ACTION_FIND && !empty($this->_groups)) {
+			$groupStrings = [];
+			foreach ($this->_groups as $group) {
+				$groupStrings[] = "{$group[0]} {$group[1]}";
+			}
+			$sql .= "\n GROUP BY " . implode(", ", $groupStrings);
+		}
+
 		//Having
 		if (!empty($this->_havings)) {
 			$sql .= "\n HAVING " . implode(" AND ", $this->_havings);
-		}
-
-		//group
-		if ($this->_action == self::ACTION_FIND && !empty($this->_groups)) {
-			foreach ($this->_groups as $group) {
-				$sql .= "\n GROUP BY {$group[0]} {$group[1]}";
-			}
 		}
 
 		//orders
@@ -1471,7 +1473,7 @@ class Query {
 	 * 执行SUM查询
 	 *
 	 * @param mixed $attr 字段名
-	 * @param float $default 默认值
+	 * @param mixed $default 默认值
 	 * @return float
 	 */
 	public function sum($attr, $default = 0) {
@@ -1486,6 +1488,7 @@ class Query {
 	 * 执行MIN查询
 	 *
 	 * @param mixed $attr 字段名
+	 * @param mixed $default 默认值
 	 * @return int
 	 */
 	public function min($attr, $default = null) {
@@ -1500,6 +1503,7 @@ class Query {
 	 * 执行MAX查询
 	 *
 	 * @param mixed $attr 字段名
+	 * @param mixed $default 默认值
 	 * @return int
 	 */
 	public function max($attr, $default = null) {
@@ -1514,9 +1518,10 @@ class Query {
 	 * 执行AVG查询
 	 *
 	 * @param mixed $attr 字段名
+	 * @param mixed $default 默认值
 	 * @return int
 	 */
-	public function avg($attr, $decimal = 0, $default = 0) {
+	public function avg($attr, $default = 0) {
 		$this->_action = self::ACTION_FIND;
 		$this->_subAction = self::SUB_ACTION_AVG;
 		$this->_results = [ "AVG(" . $attr . ")" ];
